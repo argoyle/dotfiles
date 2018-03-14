@@ -1,0 +1,5 @@
+function kc {
+	kubectl --context adfenix-$1-k8s.adfenix.com ${@:2}
+}
+
+

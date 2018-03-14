@@ -1,0 +1,79 @@
+[user]
+	email = joakim@unbound.se
+	name = Joakim Olsson
+
+[alias]
+	st = status --short --branch
+	oneline = log --oneline --decorate
+	graph = log --graph
+	ci = commit
+	ca = commit --amend
+	co = checkout
+
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[core]
+	autocrlf = input
+	editor = /usr/bin/vim
+	excludesfile = /Users/argoyle/.gitignore_global
+
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 579
+	main-window-view = HistoryView
+	file-view-vpane-position = 802
+	show-graph = true
+
+[rerere]
+	enabled = 1
+
+[merge]
+	tool = splice
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[mergetool "splice"]
+	cmd = "mvim $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+	trustExitCode = true
+[push]
+	default = matching
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[url "https://"]
+	insteadOf = git://
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[diff]
+	compactionHeuristic = true
+[help]
+	autocorrect = 15
