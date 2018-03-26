@@ -4,5 +4,5 @@ alias updrepo="gfind . -type d -name .git -printf 'Updating repository %h\n' -ex
 alias dirtyrepo="gfind . -type d -name .git -printf '%h: ' -execdir bash -c \"if [[ -z \\\"\\\$(git status --porcelain | tail -n1)\\\" ]]; then echo Clean | color green Clean; else echo Dirty | color red Dirty; fi\" \;"
 alias branches="gfind . -type d -name .git -printf 'Repository %h: ' -execdir sh -c \"git branch -l | paste -d, -s | color yellow '* [a-zA-Z0-9\-_]*'\" \;"
 alias deploy="/Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-build-tools/deploy"
-
+alias gup="git up"
 
