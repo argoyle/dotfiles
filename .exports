@@ -15,3 +15,4 @@ export LC_IDENTIFICATION=sv_SE.UTF-8
 export LC_ALL=en_US.UTF-8
 export PATH=$HOME/.jenv/bin:/usr/local/bin:/usr/local/opt/ruby/bin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:$HOME/go/bin:$PATH
 export EDITOR=vim
+export VISUAL=vim
