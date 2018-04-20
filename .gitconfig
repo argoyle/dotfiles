@@ -36,6 +36,7 @@
 	autocrlf = input
 	editor = /usr/bin/vim
 	excludesfile = /Users/argoyle/.gitignore_global
+	hooksPath = /Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-build-tools/git-hooks
 
 [giggle]
 	main-window-maximized = true
