@@ -12,6 +12,7 @@ curl
 docker-completion
 ffmpeg
 findutils
+flyway
 freetype
 gdbm
 geckodriver
@@ -29,9 +30,11 @@ gnupg
 gnutls
 go
 gource
+gron
 html2text
 htmlcleaner
 httpie
+hub
 icu4c
 imagemagick
 jbig2dec
@@ -44,6 +47,7 @@ kubernetes-helm
 lame
 lastpass-cli
 libassuan
+libevent
 libffi
 libgcrypt
 libgpg-error
@@ -92,6 +96,7 @@ rtmpdump
 ruby
 sbt
 scala
+scalariform
 sdl2
 sdl2_image
 socat
@@ -101,6 +106,7 @@ sshfs
 svtplay-dl
 telepresence
 tig
+tmux
 torsocks
 tree
 typesafe-activator
@@ -113,6 +119,7 @@ wget
 x264
 xvid
 xz
+yarn
 zsh
 zsh-completions
 zsh-history-substring-search
