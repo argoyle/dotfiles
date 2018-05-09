@@ -17,3 +17,4 @@ export PATH=$HOME/.jenv/bin:/usr/local/bin:/usr/local/opt/ruby/bin:/usr/local/op
 export EDITOR=vim
 export VISUAL=vim
 export ADFENIX_SOURCE_DIR=${HOME}/Source/CustomerProjects/Adfenix
+export BUILD_TOOLS_PATH=${ADFENIX_SOURCE_DIR}/adfenix-build-tools
