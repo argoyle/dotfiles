@@ -8,3 +8,4 @@ alias service-setup="/Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-buil
 alias format-scala="scalariform -r -p=.scalariform.conf src/main/scala src/test/scala"
 alias gup="git up"
 alias hpr="hub pull-request"
+alias pr="open 'https://github.com/pulls?user=adfenix'"
