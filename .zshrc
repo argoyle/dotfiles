@@ -17,6 +17,7 @@ if [ -f `which powerline-daemon` ]; then
 fi
 
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' ignored-patterns 'kubectl.docker'
 
 # Faster! (?)
 zstyle ':completion::complete:*' use-cache 1
