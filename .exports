@@ -18,3 +18,5 @@ export EDITOR=vim
 export VISUAL=vim
 export ADFENIX_SOURCE_DIR=${HOME}/Source/CustomerProjects/Adfenix
 export BUILD_TOOLS_PATH=${ADFENIX_SOURCE_DIR}/adfenix-build-tools
+export _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)'
+export _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)'
