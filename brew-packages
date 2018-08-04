@@ -1,5 +1,7 @@
 adns
 angband
+autoconf
+automake
 awscli
 bash
 bash-completion
@@ -73,6 +75,7 @@ mercurial
 mono
 msgpack
 neovim
+netcat
 nettle
 node
 npth
@@ -100,11 +103,13 @@ scalariform
 sdl2
 sdl2_image
 socat
+sphinx-doc
 sqlite
 ssh-copy-id
 sshfs
 svtplay-dl
 telepresence
+terraform
 tig
 tmux
 torsocks
