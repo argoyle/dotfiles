@@ -11,4 +11,4 @@ alias format-scala="scalariform -r -p=.scalariform.conf src/main/scala src/test/
 alias gup="git up"
 alias hpr="hub pull-request"
 alias pr="open 'https://github.com/pulls?user=adfenix'"
-alias ecr="eval $(aws ecr get-login | sed 's/-e none //')"
+function ecr  { eval $(aws ecr get-login | sed 's/-e none//g') }
