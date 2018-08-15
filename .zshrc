@@ -28,3 +28,4 @@ zstyle ':completion::complete:*' use-cache 1
 # color code completion!!!!  Wohoo!
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
+source <(kubectl completion zsh)
