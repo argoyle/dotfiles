@@ -3,7 +3,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
 
 for file in ~/.{paths,prompt,exports,aliases,functions,extra,auths,historyopts}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
@@ -29,3 +29,5 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
 source <(kubectl completion zsh)
+
+autoload -Uz compinit && compinit -i
