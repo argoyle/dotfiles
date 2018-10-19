@@ -6,6 +6,7 @@ alias branches="gfind . -type d -name .git -printf 'Repository %h: ' -execdir sh
 alias allbranches="gfind . -type d -name .git -printf 'Repository %h: ' -execdir sh -c \"git branch -a | grep -v origin\/master | awk '{\\\$1=\\\$1};1' | sort | paste -d, -s | color red '* [^, ]*' green '* master'\" \;"
 alias stashes="gfind . -type d -name .git -printf 'Repository %h: ' -execdir sh -c \"git stash list | paste -d, -s\" \;"
 alias master="gfind . -type d -name .git -printf 'Repository %h:\n' -execdir sh -c \"git checkout master > /dev/null 2>&1\" \;"
+alias prune="gfind . -type d -name .git | xargs -I {} zsh -ic \"echo 'Pruning repository {}' && cd {} && gbl | grep '\[gone\]' | sed 's/^\s\+\([^ ]*\).*$/\1/' | xargs -r git branch -d \" \;"
 alias deploy="/Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-build-tools/deploy"
 alias service-setup="/Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-build-tools/service-setup"
 alias format-scala="find src -type d -name scala | xargs scalariform -r -p=.scalariform.conf"
