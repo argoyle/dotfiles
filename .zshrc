@@ -30,4 +30,11 @@ zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
 source <(kubectl completion zsh)
 
+if [ -d "$HOME/.kube/config.d" ];then
+  for file in $HOME/.kube/config.d/*.yaml; do
+    KUBECFG="$KUBECFG$file:"
+  done
+  export KUBECONFIG="$HOME/.kube/config:$KUBECFG"
+fi
+
 autoload -Uz compinit && compinit -i
