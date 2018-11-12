@@ -14,3 +14,4 @@ alias gup="git up"
 alias hpr="hub pull-request"
 alias pr="open 'https://github.com/pulls?user=adfenix'"
 function ecr  { eval $(aws ecr get-login | sed 's/-e none//g') }
+function reload { exec zsh -l }
