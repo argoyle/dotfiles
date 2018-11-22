@@ -13,5 +13,6 @@ alias format-scala="find src -type d -name scala | xargs scalariform -r -p=.scal
 alias gup="git up"
 alias hpr="hub pull-request"
 alias pr="open 'https://github.com/pulls?user=adfenix'"
+alias ips='ifconfig -a | grep -o ''inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)'' | awk ''{ sub(/inet6? (addr:)? ?/, ""); print }'''
 function ecr  { eval $(aws ecr get-login | sed 's/-e none//g') }
 function reload { exec zsh -l }
