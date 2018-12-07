@@ -8,7 +8,7 @@ alias stashes="gfind . -type d -name .git -printf 'Repository %h: ' -execdir sh 
 alias master="gfind . -type d -name .git -printf 'Repository %h:\n' -execdir sh -c \"git checkout master > /dev/null 2>&1\" \;"
 alias prune="gfind . -type d -name .git | xargs -I {} zsh -ic \"echo 'Pruning repository {}' && cd {} && gbl | grep '\[gone\]' | sed 's/^\s\+\([^ ]*\).*$/\1/' | xargs -r git branch -d \" \;"
 alias deploy="/Users/argoyle/Source/build-tools/deploy"
-alias service-setup="/Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-build-tools/service-setup"
+alias service-setup="/Users/argoyle/Source/build-tools/service-setup"
 alias format-scala="find src -type d -name scala | xargs scalariform -r -p=.scalariform.conf"
 alias gup="git up"
 alias hpr="hub pull-request"
