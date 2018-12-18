@@ -2,6 +2,7 @@ datawire/blackbird
 homebrew/cask
 homebrew/cask-fonts
 homebrew/cask-versions
-homebrew/completions
 homebrew/core
-homebrew/versions
+homebrew/services
+johanhaleby/kubetail
+wagoodman/dive

@@ -4,6 +4,7 @@ chromedriver
 datagrip
 docker-edge
 dropbox
+firefox
 font-inconsolata-for-powerline
 gimp
 google-backup-and-sync
@@ -21,6 +22,8 @@ postman
 rider
 shiftit
 slack
+spotify
+tibco-jaspersoft-studio
 visual-studio-code
 vlc-nightly
 wercker-cli

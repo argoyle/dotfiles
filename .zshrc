@@ -37,4 +37,6 @@ if [ -d "$HOME/.kube/config.d" ];then
   export KUBECONFIG="$HOME/.kube/config:$KUBECFG"
 fi
 
+eval "$(direnv hook zsh)"
+
 autoload -Uz compinit && compinit -i
