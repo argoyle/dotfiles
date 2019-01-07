@@ -16,5 +16,6 @@ alias gup="git up"
 alias hpr="hub pull-request"
 alias pr="open 'https://github.com/pulls?user=adfenix'"
 alias ips='ifconfig -a | grep -o ''inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)'' | awk ''{ sub(/inet6? (addr:)? ?/, ""); print }'''
+alias bup='brew upgrade && for cask in $(brew cask list); do brew cask info $cask | head -3 | grep -v "^http" | sed -e "/^$cask: /s/$cask: \([^ ]*\).*$/\1/" -e "/^.*\/$cask/s/\/usr\/local\/Caskroom\/$cask\/\(.*\) (.*)$/\1/" | paste -d " " - - | read current installed && if [[ "$current" != "$installed" ]]; then echo "Upgrading $cask from $installed to $current"; brew cask upgrade --greedy $cask; else echo "$cask:$current is latest version"; fi; done'
 function ecr  { eval $(aws ecr get-login | sed 's/-e none//g') }
 function reload { exec zsh -l }
