@@ -3,6 +3,7 @@ angband
 asciidoc
 autoconf
 automake
+awk
 aws-iam-authenticator
 awscli
 bash
@@ -40,6 +41,7 @@ gnupg
 gnutls
 go
 gource
+grep
 gron
 html2text
 htmlcleaner
