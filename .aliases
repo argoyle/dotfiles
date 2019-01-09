@@ -1,4 +1,6 @@
 alias gvim="mvim"
+alias k="kubectl"
+alias kc="kubectl --context"
 alias kcs="kubectl --namespace kube-system"
 alias updrepo="gfind . -type d -name .git -printf 'Updating repository %h\n' -execdir git up \;"
 alias dirtyrepo="gfind . -type d -name .git -printf '%h: ' -execdir bash -c \"if [[ -z \\\"\\\$(git status --porcelain | tail -n1)\\\" ]]; then echo Clean | color green Clean; else echo Dirty | color red Dirty; fi\" \;"
