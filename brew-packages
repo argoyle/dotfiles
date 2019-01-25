@@ -10,6 +10,7 @@ bash
 bash-completion
 bash-git-prompt
 boost
+cairo
 cmake
 coreutils
 cscope
@@ -23,7 +24,10 @@ docker-completion
 ffmpeg
 findutils
 flyway
+fontconfig
 freetype
+frei0r
+fribidi
 gdbm
 geckodriver
 gettext
@@ -41,8 +45,10 @@ gnupg
 gnutls
 go
 gource
+graphite2
 grep
 gron
+harfbuzz
 html2text
 htmlcleaner
 httpie
@@ -59,6 +65,7 @@ kubernetes-helm
 kubetail
 lame
 lastpass-cli
+libass
 libassuan
 libevent
 libffi
@@ -67,6 +74,7 @@ libgpg-error
 libidn2
 libksba
 libogg
+libomp
 libpng
 libtasn1
 libtermkey
@@ -96,6 +104,7 @@ node
 npth
 oniguruma
 openconnect
+opencore-amr
 openjpeg
 openssl
 openssl@1.1
@@ -107,6 +116,7 @@ pcre2
 pdftohtml
 perl
 pinentry
+pixman
 pkg-config
 python
 python@2
@@ -121,12 +131,11 @@ sdl2_image
 snappy
 socat
 source-highlight
+speex
 sphinx-doc
 sqlite
 ssh-copy-id
-sshfs
 svtplay-dl
-telepresence
 terraform
 theora
 tig
