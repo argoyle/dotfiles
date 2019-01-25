@@ -3,10 +3,12 @@ backblaze
 chromedriver
 datagrip
 docker-edge
+dotnet-sdk
 dropbox
 firefox
 font-inconsolata-for-powerline
 gimp
+goland
 google-backup-and-sync
 google-chrome
 iina
@@ -14,9 +16,11 @@ intellij-idea
 iterm2
 java
 java8
+mono-mdk
 monodraw
 ngrok
 postman
+rider
 shiftit
 slack
 spotify
