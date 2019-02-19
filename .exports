@@ -20,6 +20,7 @@ export SOURCE_DIR=${HOME}/Source
 export ADFENIX_SOURCE_DIR=${HOME}/Source/CustomerProjects/Adfenix
 export BUILD_TOOLS_PATH=${SOURCE_DIR}/build-tools
 export POWERLINE_COMMAND_ARGS=""
+export GOPATH=${HOME}/go
 export MSBuildSDKsPath=/usr/local/share/dotnet/sdk/$(dotnet --version)/Sdks
 export _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)'
 export _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)'

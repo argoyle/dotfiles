@@ -9,12 +9,23 @@ for file in ~/.{paths,prompt,exports,aliases,functions,extra,auths,historyopts};
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done
 
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+function powerline_precmd() {
+    eval "$($GOPATH/bin/powerline-go -error $? -shell zsh -eval -cwd-max-depth 4 -modules nix-shell,venv,user,host,ssh,cwd,perms,jobs,exit,root,vgo -modules-right git,hg,kube)"
+}
 
-if [ -f `which powerline-daemon` ]; then
-  powerline-daemon -q
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd" ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+
+if [ "$TERM" != "linux" ]; then
+    install_powerline_precmd
 fi
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 zstyle ':completion:*' ignored-patterns 'kubectl.docker'
