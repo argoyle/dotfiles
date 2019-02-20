@@ -11,7 +11,7 @@ done
 
 function powerline_precmd() {
     #eval "$($GOPATH/bin/powerline-go -error $? -shell zsh -eval -cwd-max-depth 4 -modules nix-shell,venv,user,host,ssh,cwd,perms,jobs,exit,root,vgo -modules-right git,hg,kube)"
-    eval "$($GOPATH/src/github.com/argoyle/powerline-go/powerline-go -error $? -shell zsh -eval -cwd-max-depth 4 -modules nix-shell,venv,user,host,ssh,cwd,perms,dotenv,exit,vgo -modules-right git,hg,kube | sed 's/  / /')"
+    eval "$($GOPATH/src/github.com/argoyle/powerline-go/powerline-go -error $? -shell zsh -eval -cwd-max-depth 4 -modules nix-shell,venv,user,ssh,cwd,perms,dotenv,exit,vgo -modules-right git,hg,kube | sed 's/  / /')"
 }
 
 function install_powerline_precmd() {
