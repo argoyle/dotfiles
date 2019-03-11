@@ -13,9 +13,9 @@ do
   brew tap ${tap}
 done
 
-brew install $(< brew-packages)
-
 brew cask install $(< brew-cask-packages)
+
+brew install $(< brew-packages)
 
 # Remove outdated versions from the cellar.
 brew cleanup
