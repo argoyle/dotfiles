@@ -7,6 +7,7 @@ automake
 awk
 aws-iam-authenticator
 awscli
+azure-cli
 bash
 bash-completion
 bash-git-prompt
@@ -52,6 +53,7 @@ gource
 graphite2
 grep
 gron
+grpcurl
 harfbuzz
 hexyl
 html2text
@@ -152,6 +154,7 @@ sphinx-doc
 sqlite
 ssh-copy-id
 stern
+stoken
 svtplay-dl
 terraform
 tesseract
