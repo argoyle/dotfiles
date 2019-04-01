@@ -17,6 +17,8 @@ for file in .*; do
 done
 
 # Post installation
-echo "Load default color schema in iTerm2"
+# iTerm2
+ln -s "$(pwd {BASH_SOURCE[0]})/iterm2/profiles.json ~/Library/Application\ Support/iTerm2/DynamicProfiles/profiles.json
+
 
 echo "Reboot :)"
