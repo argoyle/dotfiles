@@ -1,5 +1,21 @@
-function kc {
-	kubectl --context adfenix-$1-k8s.adfenix.com ${@:2}
+function 1plogin() {
+  eval $(op signin volvo_cars_ccdp)
+}
+
+prepend_path() {
+    for arg in "$@"; do
+        if [[ ":${PATH}:" != *":${arg}:"* ]]; then
+            export PATH="${arg}${PATH:+":$PATH"}"
+        fi
+    done
+}
+
+append_path() {
+    for arg in "$@"; do
+        if [[ ":${PATH}:" != *":${arg}:"* ]]; then
+            export PATH="${PATH:+"$PATH:"}${arg}"
+        fi
+    done
 }
 
 

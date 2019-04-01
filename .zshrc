@@ -5,7 +5,7 @@ fi
 
 fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
 
-for file in ~/.{paths,prompt,exports,aliases,functions,extra,auths,historyopts}; do
+for file in ~/.{functions,exports,paths,prompt,aliases,extra,auths,historyopts}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done
 
