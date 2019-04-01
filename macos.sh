@@ -564,9 +564,6 @@ sudo mdutil -E / > /dev/null
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
-/usr/libexec/PlistBuddy -c "Set :New\ Bookmarks:0:Initial\ Text tmux attach -t init || tmux new -s init" ~/Library/Preferences/com.googlecode.iterm2.plist
-/usr/libexec/PlistBuddy -c "Set :New\ Bookmarks:0:Normal\ Font SourceCodePro-Regular 12" ~/Library/Preferences/com.googlecode.iterm2.plist
-
 ###############################################################################
 # Time Machine                                                                #
 ###############################################################################
