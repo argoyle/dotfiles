@@ -10,7 +10,7 @@ for file in ~/.{functions,exports,paths,prompt,aliases,extra,auths,historyopts};
 done
 
 function powerline_precmd() {
-    eval "$($GOPATH/bin/powerline-go -error $? -shell zsh -eval -cwd-max-depth 4 -modules ssh,cwd,dotenv,exit -modules-right git,hg,aws,kube | sed 's/  / /')"
+    eval "$($GOPATH/bin/powerline-go -error $? -shell zsh -eval -cwd-max-depth 4 -modules ssh,cwd,exit -modules-right git,hg,aws,kube | sed 's/  / /')"
 }
 
 function install_powerline_precmd() {
