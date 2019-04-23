@@ -22,3 +22,12 @@ export GOPATH=${HOME}/go
 export MSBuildSDKsPath=/usr/local/share/dotnet/sdk/$(dotnet --version)/Sdks
 export _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)'
 export _git_log_brief_format='%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)'
+
+export POSTGRES_HOST=postgres
+export POSTGRES_USERNAME=postgres
+export POSTGRES_PASSWORD=postgres
+export RABBITMQ_HOST=rabbitmq
+export RABBITMQ_VHOST=""
+export RABBITMQ_USERNAME=admin
+export RABBITMQ_PASSWORD=password
+
