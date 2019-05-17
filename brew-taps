@@ -1,9 +1,11 @@
 datawire/blackbird
 derailed/k9s
+derailed/popeye
 homebrew/cask
 homebrew/cask-fonts
 homebrew/cask-versions
 homebrew/core
 homebrew/services
 johanhaleby/kubetail
+knqyf263/trivy
 wagoodman/dive

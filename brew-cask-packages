@@ -1,5 +1,6 @@
 1password
 1password-cli
+android-studio
 authy
 backblaze
 chromedriver
@@ -13,6 +14,7 @@ gimp
 goland
 google-backup-and-sync
 google-chrome
+graphql-ide
 iina
 intellij-idea
 iterm2
@@ -22,6 +24,7 @@ mono-mdk
 monodraw
 ngrok
 postman
+pycharm
 rider
 shiftit
 slack
