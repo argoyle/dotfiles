@@ -8,4 +8,5 @@ homebrew/core
 homebrew/services
 johanhaleby/kubetail
 knqyf263/trivy
+reactiveops/tap
 wagoodman/dive
