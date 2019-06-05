@@ -18,4 +18,10 @@ append_path() {
     done
 }
 
+function ecr  {
+    eval $(aws ecr get-login --no-include-email)
+}
 
+function reload {
+    exec zsh -l
+}
