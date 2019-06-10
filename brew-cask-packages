@@ -6,7 +6,6 @@ backblaze
 chromedriver
 datagrip
 docker-edge
-dotnet-sdk
 dropbox
 firefox
 font-inconsolata-for-powerline
@@ -25,7 +24,6 @@ monodraw
 ngrok
 postman
 pycharm
-rider
 shiftit
 slack
 spotify
