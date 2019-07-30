@@ -1,6 +1,7 @@
 [user]
 	email = joakim@unbound.se
 	name = Joakim Olsson
+	signingkey = 01BF378611166535
 
 [alias]
 	st = status --short --branch
@@ -78,3 +79,5 @@
 	compactionHeuristic = true
 [help]
 	autocorrect = 15
+[gpg]
+	program = gpg
