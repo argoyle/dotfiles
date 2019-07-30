@@ -24,6 +24,7 @@ dive
 docbook
 docbook-xsl
 docker-completion
+drone
 ffmpeg
 findutils
 flac
@@ -110,6 +111,7 @@ little-cms2
 lua
 lua@5.1
 luajit
+lzo
 macvim
 maven
 maven-completion
@@ -138,6 +140,7 @@ pcre2
 pdftohtml
 perl
 pinentry
+pinentry-mac
 pixman
 pkg-config
 polaris
@@ -178,6 +181,7 @@ typesafe-activator
 unbound
 unibilium
 unrar
+vault
 watch
 webp
 wget
