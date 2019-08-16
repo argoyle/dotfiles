@@ -81,3 +81,5 @@
 	autocorrect = 15
 [gpg]
 	program = gpg
+[commit]
+	gpgsign = true
