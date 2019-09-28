@@ -1,4 +1,4 @@
-export JAVA_HOME=$(/usr/libexec/java_home -v 12.0)
+export JAVA_HOME=$(/usr/libexec/java_home -v 13.0)
 export LANG=en_US.UTF-8
 export LC_CTYPE=sv_SE.UTF-8
 export LC_NUMERIC=sv_SE.UTF-8
