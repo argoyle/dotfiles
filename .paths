@@ -7,4 +7,5 @@ prepend_path /usr/local/opt/curl/bin
 prepend_path $HOME/.jenv/bin
 prepend_path ~/bin
 prepend_path /usr/local/opt/ruby/bin
+prepend_path ${KREW_ROOT:-$HOME/.krew}/bin
 append_path ${GOPATH}/bin
