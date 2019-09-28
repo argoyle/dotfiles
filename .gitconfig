@@ -83,3 +83,6 @@
 	program = gpg
 [commit]
 	gpgsign = true
+
+[includeIf "gitdir:~/Source/CustomerProjects/Easypark/"]
+	path = ~/Source/CustomerProjects/Easypark/.gitconfig
