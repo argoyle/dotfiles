@@ -8,14 +8,7 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
-for tap in $(cat brew-taps)
-do
-  brew tap ${tap}
-done
-
-brew cask install $(< brew-cask-packages)
-
-brew install $(< brew-packages)
+brew bundle install
 
 # Remove outdated versions from the cellar.
 brew cleanup
