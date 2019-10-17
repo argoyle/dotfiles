@@ -13,5 +13,3 @@ brew bundle install
 # Remove outdated versions from the cellar.
 brew cleanup
 
-brew link --force gettext
-
