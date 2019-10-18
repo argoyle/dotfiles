@@ -109,7 +109,6 @@ brew "libuv"
 brew "libvterm"
 brew "libyaml"
 brew "luajit"
-brew "macvim", link: false
 brew "maven"
 brew "maven-completion"
 brew "python@2"
