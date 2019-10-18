@@ -40,8 +40,6 @@ zstyle ':completion::complete:*' use-cache 1
 # color code completion!!!!  Wohoo!
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
-source <(kubectl completion zsh)
-
 if [ -d "$HOME/.kube/config.d" ];then
   for file in $HOME/.kube/config.d/*.yaml; do
     KUBECFG="$KUBECFG$file:"
@@ -54,3 +52,6 @@ eval "$(direnv hook zsh)"
 autoload -Uz compinit && compinit -i
 
 direnv reload
+
+source <(kubectl completion zsh)
+source <(stern --completion zsh)
