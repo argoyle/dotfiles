@@ -1,4 +1,5 @@
 alias gvim="mvim"
+alias vi="vim"
 alias k="kubectl"
 alias kc="kubectl --context"
 alias kcs="kubectl --namespace kube-system"
