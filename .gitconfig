@@ -35,7 +35,7 @@
 
 [core]
 	autocrlf = input
-	editor = /usr/bin/vim
+	editor = /usr/local/bin/vim
 	excludesfile = /Users/argoyle/.gitignore_global
 	hooksPath = /Users/argoyle/Source/CustomerProjects/Adfenix/adfenix-build-tools/git-hooks
 
