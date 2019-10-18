@@ -1,7 +1,3 @@
-function 1plogin() {
-  eval $(op signin volvo_cars_ccdp)
-}
-
 prepend_path() {
     for arg in "$@"; do
         if [[ ":${PATH}:" != *":${arg}:"* ]]; then
