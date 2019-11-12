@@ -19,5 +19,6 @@ function ecr  {
 }
 
 function reload {
-    exec zsh -l
+    #exec zsh -l
+    source ~/.zshrc
 }
