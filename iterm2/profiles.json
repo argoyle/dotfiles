@@ -516,8 +516,8 @@
   "Smart Cursor Color" : true,
   "Semantic History" : {
     "editor" : "com.sublimetext.3",
-    "text" : "",
-    "action" : "best editor"
+    "action" : "best editor",
+    "text" : ""
   },
   "Ambiguous Double Width" : false,
   "Blur Radius" : 2,
@@ -530,7 +530,7 @@
   "Cursor Type" : 2,
   "Session Close Undo Timeout" : 60,
   "Blur" : false,
-  "Normal Font" : "InconsolataForPowerline 16",
+  "Normal Font" : "JetBrainsMonoForPowerline-Regular 14",
   "Vertical Spacing" : 1,
   "Disable Printing" : false,
   "Ansi 7 Color" : {
@@ -566,7 +566,7 @@
     "Green Component" : 0.17254901960784313
   },
   "Screen" : -1,
-  "Non Ascii Font" : "InconsolataForPowerline 16",
+  "Non Ascii Font" : "JetBrainsMonoForPowerline-Regular 14",
   "Ansi 13 Color" : {
     "Red Component" : 0.74509803921568629,
     "Color Space" : "sRGB",
