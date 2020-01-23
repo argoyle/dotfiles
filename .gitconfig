@@ -50,39 +50,32 @@
 [rerere]
 	enabled = 1
 
-[merge]
-	tool = splice
-
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
-[mergetool "splice"]
-	cmd = "mvim $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
-	trustExitCode = true
 [push]
 	default = matching
+
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+
 [url "https://"]
 	insteadOf = git://
+
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
 [diff]
 	compactionHeuristic = true
+
 [help]
 	autocorrect = 15
+
 [gpg]
 	program = gpg
+
 [commit]
 	gpgsign = true
 
-[includeIf "gitdir:~/Source/CustomerProjects/Easypark/"]
-	path = ~/Source/CustomerProjects/Easypark/.gitconfig
+[includeIf "gitdir:~/Source/CustomerProjects/Mat.se/"]
+	path = ~/Source/CustomerProjects/Mat.se/.gitconfig
