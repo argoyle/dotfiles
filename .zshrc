@@ -58,4 +58,5 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.
 source <(stern --completion zsh)
 source <(kubectl completion zsh)
 source <(kops completion zsh)
+source <(kind completion zsh)
 
