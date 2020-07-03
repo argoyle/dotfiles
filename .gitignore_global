@@ -4,4 +4,5 @@
 *.iml
 idea
 .graphqlconfig
+federationSchemaExtensions.js
 .envrc
