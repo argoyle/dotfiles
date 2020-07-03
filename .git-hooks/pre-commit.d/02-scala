@@ -1,0 +1,27 @@
+#!/bin/bash
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+if [ -f build.sbt ]; then
+  if [ ! $(type scalariform | grep -c "not found") ]; then
+    echo "Scalariform is not installed. Install using 'brew install scalariform' on OSX or following the following guide on Linux 'https://github.com/scala-ide/scalariform/wiki/Command-line-tool'"
+    exit 1
+  fi
+
+  echo "Running scalariform-checks"
+  if [ ! -f .scalariform.conf ]; then
+    printf "${RED}Missing .scalariform.conf${NC}\n"
+    exit 1
+  fi
+
+  scalariform -r -t -p=.scalariform.conf src/main/scala src/test/scala | grep "ERROR\|FAILED"
+  if [ $? == 1 ]; then
+		printf "${GREEN}Formatting ok, commiting${NC}\n"
+    exit 0
+  else
+		printf "${RED}Formatting errors found, not commiting${NC}\n"
+    exit 1
+  fi
+fi
+
