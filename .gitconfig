@@ -38,6 +38,10 @@
 	editor = /usr/local/bin/vim
 	excludesfile = /Users/argoyle/.gitignore_global
 	hooksPath = /Users/argoyle/.git-hooks
+	pager = delta --theme='Dracula' --dark
+
+[interactive]
+	diffFilter = delta --color-only --dark
 
 [giggle]
 	main-window-maximized = true
