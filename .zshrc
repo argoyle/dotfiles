@@ -64,3 +64,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/argoyle/.sdkman"
+[[ -s "/Users/argoyle/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/argoyle/.sdkman/bin/sdkman-init.sh"
