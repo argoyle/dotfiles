@@ -68,3 +68,6 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/argoyle/.sdkman"
 [[ -s "/Users/argoyle/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/argoyle/.sdkman/bin/sdkman-init.sh"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
