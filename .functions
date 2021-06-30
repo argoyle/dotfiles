@@ -14,11 +14,19 @@ append_path() {
     done
 }
 
-function ecr  {
+function ecr {
     eval $(aws ecr get-login --no-include-email)
 }
 
 function reload {
     #exec zsh -l
     source ~/.zshrc
+}
+
+sso() {
+  unset AWS_PROFILE
+  export AWS_PROFILE=$1
+  aws sts get-caller-identity &> /dev/null || aws sso login || (unset AWS_PROFILE && aws-configure-sso-profile --profile $1)
+  aws-export-credentials --credentials-file-profile $1
+  #eval $(aws-export-credentials --env-export)
 }
