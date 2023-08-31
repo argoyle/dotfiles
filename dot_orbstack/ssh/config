@@ -11,7 +11,9 @@ Host orb
   #   ubuntu@orb: container "ubuntu", user matching your macOS user
   #   root@fedora@orb: container "fedora", user "root"
   User default
-  IdentityFile ~/.orbstack/ssh/id_ed25519 # replace or symlink ~/.orbstack/ssh/id_ed25519 file to change the key
-  IdentitiesOnly yes # only use this key
+  # replace or symlink ~/.orbstack/ssh/id_ed25519 file to change the key
+  IdentityFile ~/.orbstack/ssh/id_ed25519
+  # only use this key
+  IdentitiesOnly yes
   ProxyCommand '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass /Users/argoyle
   ProxyUseFdpass yes
