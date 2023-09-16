@@ -11,4 +11,6 @@ prepend_path ~/.docker/bin
 prepend_path /opt/homebrew/opt/ruby/bin
 prepend_path ${KREW_ROOT:-$HOME/.krew}/bin
 prepend_path $HOME/.local/bin
+prepend_path $HOME/.gobrew/bin
+prepend_path $HOME/.gobrew/current/bin
 append_path $(gem env gemdir)/bin

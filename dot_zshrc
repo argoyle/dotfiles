@@ -116,6 +116,3 @@ compdef __aws_sso_profile_complete aws-sso-profile
 complete -C /opt/homebrew/bin/aws-sso aws-sso
 
 # END_AWS_SSO_CLI
-
-# Needs to be close to the end to not end up in a goenv-loop
-eval "$(goenv init -)"
