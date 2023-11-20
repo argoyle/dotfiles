@@ -16,9 +16,10 @@ export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; 
 
 export FIRESTORE_CREDENTIALS={{ .chezmoi.homeDir }}/Source/CustomerProjects/Paidit/paidit-stage-4bcbcd8faf22.json
 export GOOGLE_APPLICATION_CREDENTIALS={{ .chezmoi.homeDir }}/Source/CustomerProjects/Paidit/paidit-stage-4bcbcd8faf22.json
-export FIRESTORE_EMULATOR_HOST=0.0.0.0:8505
+export FIRESTORE_EMULATOR_HOST=paidit-control-plane.orb.local:8505
 
-export AMQP_URL=amqp://user:password@localhost:5672/
+export AMQP_URL=amqp://user:password@paidit-control-plane.orb.local:5672/
+export MONGODB_URL=mongodb://user:password@paidit-control-plane.orb.local:27017/harbour?authSource=admin
 export SENTRY_ENVIRONMENT=local
 
 export CLIENT_URL=http://192.168.1.27:3002
