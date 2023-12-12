@@ -4,3 +4,4 @@ export AUTH_URL=http://localhost:4080
 export SERVICE=$(basename "$PWD")
 export URL=http://localhost:${PORT}/query
 export SENTRY_DSN={{ (index (lastpass "envconfig\\prod/sentry") 0).note.employeeService -}}
+export POSTGRES_URL="postgres://postgres:postgres@unbound-control-plane.orb.local:5432/employee?sslmode=disable"

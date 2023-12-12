@@ -5,3 +5,4 @@ export SERVICE=$(basename "$PWD")
 export URL=http://localhost:${PORT}/query
 export WS_URL=ws://localhost:${PORT}/query
 export SENTRY_DSN={{ (index (lastpass "envconfig\\prod/sentry") 0).note.notificationService -}}
+export POSTGRES_URL="postgres://postgres:postgres@unbound-control-plane.orb.local:5432/notification?sslmode=disable"

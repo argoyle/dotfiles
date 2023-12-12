@@ -1,0 +1,8 @@
+source_up .envrc
+export PORT=4088
+export AUTH_URL=http://localhost:4080
+export SERVICE=$(basename "$PWD")
+export URL=http://localhost:${PORT}/query
+export WS_URL=ws://localhost:${PORT}/query
+export SENTRY_DSN=https://ffb12dac5f7c49089d49d9bcb30eba34@o365290.ingest.sentry.io/4504548202446848
+export POSTGRES_URL="postgres://postgres:postgres@unbound-control-plane.orb.local:5432/accounting?sslmode=disable"
