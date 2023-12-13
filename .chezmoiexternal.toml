@@ -37,3 +37,10 @@
   stripComponents = 1
   refreshPeriod = "168h"
   include = ["*/**"]
+[".hammerspoon/Spoons"]
+  type = "archive"
+  url = "https://github.com/peterklijn/hammerspoon-shiftit/releases/latest/download/ShiftIt.spoon.zip"
+  exact = true
+  stripComponents = 0
+  refreshPeriod = "168h"
+  include = ["*/**"]
