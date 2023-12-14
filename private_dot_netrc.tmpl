@@ -1,0 +1,4 @@
+machine gitlab.com
+login argoyle
+password {{ (index (lastpass "devenv/.auths") 0).note.gitlabDependabotToken -}}
+
