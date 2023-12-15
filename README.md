@@ -49,8 +49,8 @@ Also remove configuration for old version of JetBrains tools in `~/Library/Appli
 Enable SSH-access (System Settings - General - Sharing - Remote Login) on old machine and then do:
 
 ```bash
-for dir in Desktop Documents Downloads Movies Music Pictures Source "Library/Application Support/Arc" "Library/Application Support/JetBrains" .local/share/tmux bin ; do rsync -azPp argoyle@<old ip>:"$dir/" "$dir"; done;
-for file in "Library/Preferences/company.thebrowser.Browser.plist" .zsh_history ; do rsync -azPp argoyle@<old ip>:"$file" "$file"; done;
+for dir in Desktop Documents Downloads Movies Music Pictures Source "Library/Application Support/Arc" "Library/Application Support/Arc" "Library/Application Support/JetBrains" .local/share/tmux bin ; do rsync -azPp argoyle@<old ip>:"${dir/ /\\ }/" "${dir}"; done;
+for file in "Library/Preferences/company.thebrowser.Browser.plist" .zsh_history ; do rsync -azPp argoyle@<old ip>:"${file/ /\\ }" "${file}"; done;
 ```
 
 ## After syncing
