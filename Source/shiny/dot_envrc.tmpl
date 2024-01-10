@@ -6,4 +6,5 @@ export AMQP_URL="amqp://user:password@unbound-control-plane.orb.local:5672/"
 export API_KEY={{ (index (lastpass "devenv/schemas") 0).note.apiKey -}}
 export SCHEMA_REF=Shiny@dev
 export COSMO_API_KEY={{ (index (lastpass "devenv/Cosmo") 0).note.apiKey -}}
+export SENTRY_DISABLED=true
 PATH_add ./bin
