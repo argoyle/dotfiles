@@ -6,3 +6,6 @@ export AWS_CONFIGURE_SSO_DEFAULT_SSO_START_URL=https://lifeinside.awsapps.com/st
 export AWS_CONFIGURE_SSO_DEFAULT_SSO_REGION=eu-west-1
 export AWS_SSO_CONFIG=${PWD}/.aws-sso/config.yaml
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
+
+export AMQP_URL=amqp://user:password@lifeinside-control-plane.orb.local:5672/
+export POSTGRES_URL=postgres://postgres:postgres@lifeinside-control-plane.orb.local:5432/lifeinside?sslmode=disable
