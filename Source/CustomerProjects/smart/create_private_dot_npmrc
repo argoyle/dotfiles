@@ -1,0 +1,2 @@
+registry=https://ecoplatform.jfrog.io/artifactory/api/npm/npm-eco-platform/
+always-auth=true
