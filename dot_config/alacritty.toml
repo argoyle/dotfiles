@@ -1,0 +1,24 @@
+import = ["/Users/argoyle/.config/alacritty/themes/monokai_pro.toml"]
+live_config_reload = true
+
+[font]
+size = 15.0
+
+[font.bold]
+family = "commitmono"
+style = "Bold"
+
+[font.bold_italic]
+family = "commitmono"
+style = "Bold Italic"
+
+[font.italic]
+family = "commitmono"
+style = "Italic"
+
+[font.normal]
+family = "commitmono"
+
+[window]
+dynamic_title = true
+startup_mode = "Maximized"
