@@ -1,13 +1,21 @@
 cloudamqp_customer_api_key = "{{ (index (lastpassRaw "envconfig\\prod/cloudamqp_api_key") 0).note -}}"
-slack_ops_url              = "{{ (index (lastpassRaw "envconfig\\prod/slack_ops_url") 0).note -}}"
-docker_config              = <<EOT
+slack = {
+  ops          = {{ (index (lastpass "envconfig\\prod/slack") 0).note.ops | trim | quote }}
+  gitlab_ci    = {{ (index (lastpass "envconfig\\prod/slack") 0).note.gitlabCi | trim | quote }}
+  dancefinder  = {{ (index (lastpass "envconfig\\prod/slack") 0).note.dancefinder | trim | quote }}
+  shiny        = {{ (index (lastpass "envconfig\\prod/slack") 0).note.shiny | trim | quote }}
+  hifi         = {{ (index (lastpass "envconfig\\prod/slack") 0).note.hifi | trim | quote }}
+  eventsourced = {{ (index (lastpass "envconfig\\prod/slack") 0).note.eventsourced | trim | quote }}
+  angus        = {{ (index (lastpass "envconfig\\prod/slack") 0).note.angus | trim | quote }}
+}
+docker_config            = <<EOT
 {{ (index (lastpassRaw "envconfig\\prod/dockercfg") 0).note }}
 EOT
-mongodbatlas_private_key   = {{ (index (lastpass "envconfig\\prod/mongodb_atlas_api_key") 0).note.private | trim | quote }}
-mongodbatlas_public_key    = {{ (index (lastpass "envconfig\\prod/mongodb_atlas_api_key") 0).note.public | trim | quote }}
-gitlab_token               = {{ (index (lastpass "devenv/.auths") 0).note.gitlabDependabotToken | trim | quote }}
-github_token               = {{ (index (lastpass "devenv/.auths") 0).note.githubToken | trim | quote }}
-grafana_cloud_api_key      = {{ (index (lastpass "envconfig\\prod/grafana-cloud") 0).note.adminApiKey | trim | quote }}
-auth0_domain               = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.domain | trim | quote }}
-auth0_client_id            = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientId | trim | quote }}
-auth0_client_secret        = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientSecret | trim | quote }}
+mongodbatlas_private_key = {{ (index (lastpass "envconfig\\prod/mongodb_atlas_api_key") 0).note.private | trim | quote }}
+mongodbatlas_public_key  = {{ (index (lastpass "envconfig\\prod/mongodb_atlas_api_key") 0).note.public | trim | quote }}
+gitlab_token             = {{ (index (lastpass "devenv/.auths") 0).note.gitlabDependabotToken | trim | quote }}
+github_token             = {{ (index (lastpass "devenv/.auths") 0).note.githubToken | trim | quote }}
+grafana_cloud_api_key    = {{ (index (lastpass "envconfig\\prod/grafana-cloud") 0).note.terraform | trim | quote }}
+auth0_domain             = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.domain | trim | quote }}
+auth0_client_id          = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientId | trim | quote }}
+auth0_client_secret      = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientSecret | trim | quote }}
