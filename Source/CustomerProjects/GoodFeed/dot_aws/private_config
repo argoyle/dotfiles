@@ -1,4 +1,4 @@
-[profile goodfeed-prod]
+[profile goodfeed-production]
 sso_start_url = https://goodfeed.awsapps.com/start/
 sso_region = eu-west-1
 region = eu-west-1
