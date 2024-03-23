@@ -14,6 +14,16 @@ EOT
 gitlab_token          = {{ (index (lastpass "devenv/.auths") 0).note.gitlabDependabotToken | trim | quote }}
 github_token          = {{ (index (lastpass "devenv/.auths") 0).note.githubToken | trim | quote }}
 grafana_cloud_api_key = {{ (index (lastpass "envconfig\\prod/grafana-cloud") 0).note.terraform | trim | quote }}
-auth0_domain          = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.domain | trim | quote }}
-auth0_client_id       = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientId | trim | quote }}
-auth0_client_secret   = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientSecret | trim | quote }}
+auth0 = {
+  domain        = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.domain | trim | quote }}
+  client_id     = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientId | trim | quote }}
+  client_secret = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientSecret | trim | quote }}
+  google = {
+    client_id     = {{ (index (lastpass "envconfig\\prod/google") 0).note.clientId | trim | quote }}
+    client_secret = {{ (index (lastpass "envconfig\\prod/google") 0).note.clientSecret | trim | quote }}
+  }
+  facebook = {
+    client_id     = {{ (index (lastpass "envconfig\\prod/facebook") 0).note.clientId | trim | quote }}
+    client_secret = {{ (index (lastpass "envconfig\\prod/facebook") 0).note.clientSecret | trim | quote }}
+  }
+}
