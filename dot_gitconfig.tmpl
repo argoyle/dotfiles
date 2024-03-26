@@ -1,7 +1,7 @@
 [user]
 	email = joakim@unbound.se
 	name = Joakim Olsson
-	signingkey = 85C0B01197107FB062F1A4D201BF378611166535
+	signingKey = /Users/argoyle/.ssh/id_rsa.pub
 
 [alias]
 	st = status --short --branch
@@ -78,8 +78,10 @@
 [help]
 	autocorrect = 15
 
+[gpg "ssh"]
+  allowedSignersFile = /Users/argoyle/.git_allowed_signers
 [gpg]
-	program = gpg
+  format = ssh
 
 [commit]
 	gpgsign = true
