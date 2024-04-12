@@ -1,4 +1,6 @@
 [user]
 	email = e-joakim.olsson@smart.com
 	name = Joakim Olsson
-	signingkey = 85C0B01197107FB062F1A4D201BF378611166535
+[committer]
+	email = e-joakim.olsson@smart.com
+	name = Joakim Olsson
