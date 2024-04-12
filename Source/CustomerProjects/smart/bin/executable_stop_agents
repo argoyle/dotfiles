@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+agent_ids=$(curl -H "Authorization: Bearer $BUILDKITE_TOKEN" \
+  "https://api.buildkite.com/v2/organizations/smart-europe-gmbh/agents?per_page=100" | \
+  jq -r '.[] | .id')
+
+for id in ${agent_ids}; do
+  curl -H "Authorization: Bearer $BUILDKITE_TOKEN" \
+    --silent \
+    -X PUT "https://api.buildkite.com/v2/organizations/smart-europe-gmbh/agents/${id}/stop" \
+    -H "Content-Type: application/json" \
+    -d '{ "force": false }'
+done

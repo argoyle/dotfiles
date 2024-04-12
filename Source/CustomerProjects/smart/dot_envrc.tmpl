@@ -1,6 +1,7 @@
 source_up .envrc
 
 use_nvm
+PATH_add bin
 
 export AWS_SHARED_CREDENTIALS_FILE=${PWD}/.aws/credentials
 export AWS_CONFIG_FILE=${PWD}/.aws/config
@@ -14,3 +15,4 @@ export NPM_CONFIG_USERCONFIG=${PWD}/.npmrc
 export MAVEN_ARTIFACTORY_USERNAME={{ (index (lastpass "smart/smart_env") 0).note.mavenUsername -}}
 export MAVEN_ARTIFACTORY_AUTH_TOKEN={{ (index (lastpass "smart/smart_env") 0).note.mavenToken -}}
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
+export BUILDKITE_TOKEN={{ (index (lastpass "smart/smart_env") 0).note.buildkiteToken -}}
