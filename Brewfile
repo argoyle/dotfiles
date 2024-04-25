@@ -137,7 +137,7 @@ brew "perl"
 brew "pinentry-mac"
 brew "pipx"
 brew "png2ico"
-brew "postgresql@14"
+brew "postgresql@16", link: true
 brew "pre-commit"
 brew "psutils"
 brew "pulseaudio"
