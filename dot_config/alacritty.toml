@@ -1,4 +1,5 @@
-import = ["/Users/argoyle/.config/alacritty/themes/monokai_pro.toml"]
+#import = ["/Users/argoyle/.config/alacritty/themes/monokai_pro.toml"]
+import = ["/Users/argoyle/.config/alacritty/themes/dimidium.toml"]
 live_config_reload = true
 
 [font]
