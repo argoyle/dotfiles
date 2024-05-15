@@ -11,8 +11,8 @@ slack = {
 docker_config         = <<EOT
 {{ (index (lastpassRaw "envconfig\\prod/dockercfg") 0).note }}
 EOT
-gitlab_token          = {{ (index (lastpass "devenv/.auths") 0).note.gitlabDependabotToken | trim | quote }}
-github_token          = {{ (index (lastpass "devenv/.auths") 0).note.githubToken | trim | quote }}
+gitlab_provider_token = {{ (index (lastpass "devenv/.auths") 0).note.gitlabTerraformToken | trim | quote }}
+gitlab_cleanup_token  = {{ (index (lastpass "devenv/.auths") 0).note.gitlabCleanupHandlerToken | trim | quote }}
 grafana_cloud_api_key = {{ (index (lastpass "envconfig\\prod/grafana-cloud") 0).note.terraform | trim | quote }}
 auth0 = {
   domain        = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.domain | trim | quote }}
