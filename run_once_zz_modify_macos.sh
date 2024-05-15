@@ -726,4 +726,8 @@ for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
 	"iCal"; do
 	killall "${app}" &> /dev/null
 done
+
+# Add Homebrew to .app's path
+sudo launchctl config user path "$(brew --prefix)/bin:${PATH}"
+
 echo "Done. Note that some of these changes require a logout/restart to take effect."
