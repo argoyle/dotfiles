@@ -1,0 +1,10 @@
+source_up .envrc
+use nvm
+export PORT=3333
+export HOST=0.0.0.0
+export GRAPHQL_API=http://localhost:4444/query
+export CYPRESS_BASE_URL=http://localhost:3333
+export CYPRESS_USERNAME={{ (index (lastpass "Cypress Normal User") 0).username | quote }}
+export CYPRESS_PASSWORD={{ (index (lastpass "Cypress Normal User") 0).password | quote }}
+export CYPRESS_ADMIN_USERNAME={{ (index (lastpass "Paidit Stage") 0).username | quote }}
+export CYPRESS_ADMIN_PASSWORD={{ (index (lastpass "Paidit Stage") 0).password | quote }}
