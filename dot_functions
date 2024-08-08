@@ -83,15 +83,16 @@ bup() {
   echo "Checking Brewfile"
   result=$(brew bundle cleanup --file ~/.local/share/chezmoi/Brewfile)
   if [[ $? != 0 ]]; then
-    echo "Errors in Brewfile ${file}?"
-    echo "Fix them and try again"
-    return
-  fi
-  if [[ $(echo "${result}" | grep -c 'uninstall formulae') -gt 0 ]]; then
-    echo "Missing installed dependencies in Brewfile ${file}"
-    echo "Update before running again"
-    echo "${result}"
-    return
+    if [[ $(echo "${result}" | grep -c 'uninstall formulae') -gt 0 ]]; then
+      echo "Missing installed dependencies in Brewfile ${file}"
+      echo "Update before running again"
+      echo "${result}"
+      return
+    else
+      echo "Errors in Brewfile ${file}?"
+      echo "Fix them and try again"
+      return
+    fi
   fi
 
   echo "Brewfile matches installation, updating packages"
