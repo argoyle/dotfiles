@@ -12,6 +12,7 @@ export AWS_REGION=eu-central-1
 export AWS_SSO_CONFIG=${PWD}/.aws-sso/config.yaml
 export CONFLUENCE_API_KEY={{ (index (lastpass "smart/smart_env") 0).note.confluenceApiToken -}}
 export NPM_CONFIG_USERCONFIG=${PWD}/.npmrc
+export NPM_CONFIG_PROGRESS=false
 export MAVEN_ARTIFACTORY_USERNAME={{ (index (lastpass "smart/smart_env") 0).note.mavenUsername -}}
 export MAVEN_ARTIFACTORY_AUTH_TOKEN={{ (index (lastpass "smart/smart_env") 0).note.mavenToken -}}
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
