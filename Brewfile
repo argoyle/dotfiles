@@ -125,7 +125,6 @@ brew "maven"
 brew "maven-completion"
 brew "moreutils"
 brew "msgpack"
-brew "mysql", link: false
 brew "mysql-client@8.4", link: true
 brew "neovim"
 brew "netcat"
