@@ -145,6 +145,7 @@ brew "pulseaudio"
 brew "pulumi"
 brew "pyenv"
 brew "pyenv-virtualenv"
+brew "python@3.11"
 brew "rbenv"
 brew "robot-framework", link: false
 brew "ruby@2.7"
