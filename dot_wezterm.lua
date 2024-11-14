@@ -30,7 +30,8 @@ end
 --config.color_scheme = 'Monokai Remastered'
 --config.color_scheme = 'Monokai Vivid'
 --config.color_scheme = 'Smyck'
-config.color_scheme = 'Dimidum'
+-- config.color_scheme = 'Dimidum'
+config.color_scheme = 'nord'
 
 config.font = wezterm.font 'CommitMono'
 config.font_size = 15
