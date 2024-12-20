@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
-agent_ids=$(curl -H "Authorization: Bearer $BUILDKITE_TOKEN" \
+agent_ids=()
+if [ "$1" == "platform" ]; then
+  platform_cluster_id=de0a22af-4290-4a9b-bdd0-01d5e35adb8e
+  agent_ids=$(curl -H "Authorization: Bearer $BUILDKITE_TOKEN" \
+  -H "Content-Type: application/json" \
+  "https://api.buildkite.com/v2/organizations/smart-europe-gmbh/agents?per_page=100" |
+  jq -r ".[] | select(.web_url | contains(\"${platform_cluster_id}\")) | .id")
+else
+  agent_ids=$(curl -H "Authorization: Bearer $BUILDKITE_TOKEN" \
   "https://api.buildkite.com/v2/organizations/smart-europe-gmbh/agents?per_page=100" | \
   jq -r '.[] | .id')
+fi
+
+
 
 for id in ${agent_ids}; do
   curl -H "Authorization: Bearer $BUILDKITE_TOKEN" \
