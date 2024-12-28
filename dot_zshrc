@@ -117,7 +117,7 @@ complete -C /opt/homebrew/bin/aws-sso aws-sso
 
 # END_AWS_SSO_CLI
 
-[[ -z "$TMUX" && ("$TERM" == "rio" || "$TERM" == "alacritty" || "$TERM" == "xterm-256color") ]] && { tmux attach || exec tmux new-session && exit; }
+[[ -z "$TMUX" && ("$TERM" == "rio" || "$TERM" == "alacritty" || "$TERM" == "xterm-256color" || "$TERM" == "xterm-ghostty") ]] && { tmux attach || exec tmux new-session && exit; }
 
 typeset -U path
 typeset -U manpath
