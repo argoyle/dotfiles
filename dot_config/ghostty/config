@@ -4,5 +4,6 @@ font-size = 14.5
 window-height = 200
 window-width = 400
 copy-on-select = true
+macos-option-as-alt = true
 keybind = alt+left=unbind
 keybind = alt+right=unbind
