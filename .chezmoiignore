@@ -1,2 +1,5 @@
-Brewfile
 README.md
+{{- if eq .chezmoi.hostname "A6436902" }}
+Source
+!Source/Jeppesen
+{{- end }}

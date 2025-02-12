@@ -1,7 +1,7 @@
 [user]
 	email = joakim@unbound.se
 	name = Joakim Olsson
-	signingKey = /Users/argoyle/.ssh/id_rsa.pub
+	signingKey = {{ .chezmoi.homeDir }}/.ssh/id_rsa.pub
 
 [alias]
 	st = status --short --branch
@@ -40,7 +40,7 @@
 	{{ else -}}
 	editor = /opt/homebrew/bin/vim
 	{{ end -}}
-	excludesfile = /Users/argoyle/.gitignore_global
+	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
 	pager = delta --dark
 
 [interactive]
@@ -85,7 +85,7 @@
 	autocorrect = 15
 
 [gpg "ssh"]
-  allowedSignersFile = /Users/argoyle/.git_allowed_signers
+  allowedSignersFile = {{ .chezmoi.homeDir }}/.git_allowed_signers
 
 [gpg]
   format = ssh
@@ -108,3 +108,8 @@
 
 [url "ssh://git@gitlab.com/"]
 	insteadOf = https://gitlab.com/
+
+{{- if eq .chezmoi.hostname "A6436902" }}
+[includeIf "gitdir:~/Source/Jeppesen/"]
+  path = ~/Source/Jeppesen/.gitconfig
+{{- end }}

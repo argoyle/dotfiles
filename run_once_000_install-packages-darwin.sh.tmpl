@@ -1,0 +1,10 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+# Brewfile hash: {{ include "../Brewfile" | quote | sha256sum }}
+
+type brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+brew bundle cleanup --force --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
+brew bundle --no-lock --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
+{{ end -}}

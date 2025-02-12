@@ -78,10 +78,10 @@ ldeploy() {
 
 bup() {
   local result file
-  file="${HOME}/.local/share/chezmoi/Brewfile"
+  file="${HOME}/.local/share/Brewfile"
 
   echo "Checking Brewfile"
-  result=$(brew bundle cleanup --file ~/.local/share/chezmoi/Brewfile)
+  result=$(brew bundle cleanup --file ${file})
   if [[ $? != 0 ]]; then
     if [[ $(echo "${result}" | grep -c 'uninstall formulae') -gt 0 ]]; then
       echo "Missing installed dependencies in Brewfile ${file}"
