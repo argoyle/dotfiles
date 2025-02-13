@@ -46,12 +46,14 @@ eval "$(direnv hook zsh)"
 
 autoload -Uz compinit && compinit -i
 
+{{- if ne .chezmoi.hostname "A6436902" }}
 source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+source <(kops completion zsh)
+{{- end }}
 source <(stern --completion zsh)
 source <(docker completion zsh)
 source <(kubectl completion zsh)
-source <(kops completion zsh)
 source <(kind completion zsh)
 source <(chezmoi completion zsh)
 
