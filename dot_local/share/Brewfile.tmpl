@@ -141,7 +141,6 @@ brew "pyenv"
 brew "pyenv-virtualenv"
 brew "python@3.11"
 brew "rbenv"
-brew "ruby@2.7"
 brew "socat"
 brew "ssh-copy-id", link: true
 brew "stern"
@@ -177,6 +176,7 @@ cask "ngrok"
 cask "orbstack"
 cask "session-manager-plugin"
 cask "slack"
+cask "temurin"
 cask "wezterm"
 cask "zen-browser"
 
@@ -232,7 +232,6 @@ cask "rubymine"
 cask "sigmaos"
 cask "sonos"
 cask "spotify"
-cask "temurin"
 cask "temurin@11"
 cask "temurin@17"
 cask "tunnelblick"
@@ -242,4 +241,8 @@ cask "wireshark"
 cask "yed"
 cask "zed"
 cask "zoom"
+{{- end }}
+
+{{- if eq .chezmoi.hostname "A6436902" }}
+cask "git-credential-manager"
 {{- end }}

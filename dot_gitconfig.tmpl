@@ -70,9 +70,6 @@
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
 
-[url "https://"]
-	insteadOf = git://
-
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
@@ -103,13 +100,18 @@
 [init]
 	defaultBranch = main
 
+{{- if eq .chezmoi.hostname "A6436902" }}
+[includeIf "gitdir:~/Source/Jeppesen/"]
+  path = ~/Source/Jeppesen/.gitconfig
+
+[credential]
+        helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+        useHttpPath = true
+{{- else }}
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 
 [url "ssh://git@gitlab.com/"]
 	insteadOf = https://gitlab.com/
-
-{{- if eq .chezmoi.hostname "A6436902" }}
-[includeIf "gitdir:~/Source/Jeppesen/"]
-  path = ~/Source/Jeppesen/.gitconfig
 {{- end }}
