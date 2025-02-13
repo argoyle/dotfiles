@@ -242,3 +242,7 @@ cask "yed"
 cask "zed"
 cask "zoom"
 {{- end }}
+
+{{- if eq .chezmoi.hostname "A6436902" }}
+cask "git-credential-manager"
+{{- end }}
