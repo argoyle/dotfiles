@@ -1,0 +1,8 @@
+layout python3 3.13
+
+export AWS_SHARED_CREDENTIALS_FILE=${PWD}/.aws/credentials
+export AWS_CONFIG_FILE=${PWD}/.aws/config
+export AWS_CONFIGURE_SSO_DEFAULT_SSO_START_URL=https://boeingeec.awsapps.com/start/
+export AWS_CONFIGURE_SSO_DEFAULT_SSO_REGION=us-west-2
+export AWS_SSO_CONFIG=${PWD}/.aws-sso/config.yaml
+export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
