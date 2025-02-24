@@ -1,50 +1,56 @@
 [user]
-	email = joakim@unbound.se
-	name = Joakim Olsson
-	signingKey = {{ .chezmoi.homeDir }}/.ssh/id_rsa.pub
+  email = joakim@unbound.se
+  name = Joakim Olsson
+  signingKey = {{ .chezmoi.homeDir }}/.ssh/id_rsa.pub
 
 [alias]
-	st = status --short --branch
-	oneline = log --oneline --decorate
-	graph = log --graph
-	ci = commit
-	ca = commit --amend
-	co = checkout
+  st = status --short --branch
+  oneline = log --oneline --decorate
+  graph = log --graph
+  ci = commit
+  ca = commit --amend
+  co = checkout
+
+[branch]
+  sort = -committerdate
 
 [color]
-	branch = auto
-	diff = auto
-	status = auto
-	ui = auto
+  branch = auto
+  diff = auto
+  status = auto
+  ui = auto
 
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+  current = yellow reverse
+  local = yellow
+  remote = green
 
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
 
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[column]
+  ui = auto
+
+[commit]
+  gpgsign = true
 
 [core]
-	autocrlf = input
-	{{ if (eq .chezmoi.arch "amd64") -}}
-	editor = /usr/local/bin/vim
-	{{ else -}}
-	editor = /opt/homebrew/bin/vim
-	{{ end -}}
-	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
-	pager = delta --dark
-
-[interactive]
-	diffFilter = delta --color-only --dark
+  autocrlf = input
+  {{ if (eq .chezmoi.arch "amd64") -}}
+  editor = /usr/local/bin/vim
+  {{ else -}}
+  editor = /opt/homebrew/bin/vim
+  {{ end -}}
+  excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
+  pager = delta --dark
 
 [delta]
   paging=always
@@ -52,43 +58,40 @@
   plus-style = syntax "#0b4820"
   plus-emph-style = syntax "#175c2e"
 
-[giggle]
-	main-window-maximized = true
-	main-window-geometry = 0x0+0+0
-	history-view-vpane-position = 579
-	main-window-view = HistoryView
-	file-view-vpane-position = 802
-	show-graph = true
+[diff]
+  compactionHeuristic = true
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
 
-[rerere]
-	enabled = 1
-
-[push]
-	default = matching
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
 
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
 
-[diff]
-	compactionHeuristic = true
-
-[help]
-	autocorrect = 15
+[giggle]
+  main-window-maximized = true
+  main-window-geometry = 0x0+0+0
+  history-view-vpane-position = 579
+  main-window-view = HistoryView
+  file-view-vpane-position = 802
+  show-graph = true
 
 [gpg "ssh"]
   allowedSignersFile = {{ .chezmoi.homeDir }}/.git_allowed_signers
 
 [gpg]
   format = ssh
-
-[commit]
-	gpgsign = true
 
 [gitbutler]
   gitbutlerCommitter = 0
@@ -97,8 +100,31 @@
   aiOpenAIKeyOption = bringYourOwn
   aiOpenAIModelName = gpt-4o-mini
 
+[help]
+  autocorrect = 15
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only --dark
+
+[push]
+  default = matching
+  autoSetupRemote = true
+  followTags = true
+
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
+
+[rerere]
+  enabled = true
+  autoupdate = true
+
+[tag]
+  sort = version:refname
 
 {{- if eq .chezmoi.hostname "A6436902" }}
 [includeIf "gitdir:~/Source/Jeppesen/"]
@@ -110,8 +136,8 @@
         useHttpPath = true
 {{- else }}
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 
 [url "ssh://git@gitlab.com/"]
-	insteadOf = https://gitlab.com/
+  insteadOf = https://gitlab.com/
 {{- end }}
