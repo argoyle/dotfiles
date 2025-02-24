@@ -131,9 +131,11 @@
   path = ~/Source/Jeppesen/.gitconfig
 
 [credential]
-        helper = /usr/local/share/gcm-core/git-credential-manager
+  helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
-        useHttpPath = true
+  useHttpPath = true
+[credential "https://gitlab-ext.digitalaviationservices.com"]
+  provider = generic
 {{- else }}
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/
