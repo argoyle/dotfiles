@@ -6,5 +6,5 @@
 type brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew bundle cleanup --force --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
-brew bundle --no-lock --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
+brew bundle --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
 {{ end -}}
