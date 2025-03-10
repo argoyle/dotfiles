@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+apollo service:push --serviceName=$(basename ${PWD}) --serviceURL=http://localhost:${PORT}/query --endpoint=http://localhost:${PORT}/query --variant=dev

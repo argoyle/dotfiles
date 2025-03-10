@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+export PGPASSWORD=postgres
+
+psql -h goodfeed-control-plane.orb.local -U postgres -d postgres <<-EOSQL
+  SELECT pg_terminate_backend(pid)
+  FROM pg_stat_activity
+  WHERE datname = 'prod_dump3'
+    AND leader_pid IS NULL;
+  DROP DATABASE prod_dump3;
+  CREATE DATABASE prod_dump3 WITH OWNER postgres ENCODING utf8;
+EOSQL

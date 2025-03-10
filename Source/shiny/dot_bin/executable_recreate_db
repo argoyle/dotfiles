@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+export PGPASSWORD=postgres
+
+psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
+  SELECT pg_terminate_backend(pid)
+  FROM pg_stat_activity
+  WHERE datname IN (
+      'accounting',
+      'authz',
+      'company',
+      'consumer',
+      'employee',
+      'invoice',
+      'notification',
+      'salary',
+      'supplier',
+      'supplier_invoice',
+      'time'
+    )
+    AND leader_pid IS NULL;
+  DROP DATABASE accounting;
+  CREATE DATABASE accounting WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE authz;
+  CREATE DATABASE authz WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE company;
+  CREATE DATABASE company WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE consumer;
+  CREATE DATABASE consumer WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE employee;
+  CREATE DATABASE employee WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE invoice;
+  CREATE DATABASE invoice WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE notification;
+  CREATE DATABASE notification WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE salary;
+  CREATE DATABASE salary WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE supplier;
+  CREATE DATABASE supplier WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE supplier_invoice;
+  CREATE DATABASE supplier_invoice WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE time;
+  CREATE DATABASE time WITH OWNER postgres ENCODING utf8;
+EOSQL
