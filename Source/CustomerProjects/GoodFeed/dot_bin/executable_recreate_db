@@ -10,3 +10,5 @@ psql -h goodfeed-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   DROP DATABASE prod_dump3;
   CREATE DATABASE prod_dump3 WITH OWNER postgres ENCODING utf8;
 EOSQL
+
+cat "$(ls -1t ~/Source/CustomerProjects/Goodfeed/Postgres_RDS_Goodfeed_Prod-backend*.sql | head -1)" | psql -h goodfeed-control-plane.orb.local -U postgres -d postgres
