@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 export PGPASSWORD=postgres
+DB_NAME="${1:-prod_dump3}"
+DUMP_FILES="${2:-${HOME}/Source/CustomerProjects/Goodfeed/Postgres_RDS_Goodfeed_Prod-backend*.sql}"
 
 psql -h goodfeed-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   SELECT pg_terminate_backend(pid)
   FROM pg_stat_activity
-  WHERE datname = 'prod_dump3'
+  WHERE datname = '${DB_NAME}'
     AND leader_pid IS NULL;
-  DROP DATABASE prod_dump3;
-  CREATE DATABASE prod_dump3 WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE ${DB_NAME};
+  CREATE DATABASE ${DB_NAME} WITH OWNER postgres ENCODING utf8;
 EOSQL
 
-cat "$(ls -1t ~/Source/CustomerProjects/Goodfeed/Postgres_RDS_Goodfeed_Prod-backend*.sql | head -1)" | psql -h goodfeed-control-plane.orb.local -U postgres -d prod_dump3
+psql -h goodfeed-control-plane.orb.local -U postgres -d ${DB_NAME} < "$(ls -1t ${DUMP_FILES} | head -1)"
