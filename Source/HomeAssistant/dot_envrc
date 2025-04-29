@@ -1,0 +1,5 @@
+source_up .envrc
+layout python3 3.13
+
+ln -sf .direnv/$(basename $VIRTUAL_ENV) .env
+export PATH=${PWD}/.direnv/$(basename $VIRTUAL_ENV)/bin:${PATH}
