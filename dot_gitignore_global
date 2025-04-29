@@ -9,3 +9,5 @@ graphql.config.yml
 federationSchemaExtensions.js
 .envrc
 .buildtools.yaml
+.direnv
+.env
