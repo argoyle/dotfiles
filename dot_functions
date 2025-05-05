@@ -83,7 +83,7 @@ bup() {
   echo "Checking Brewfile"
   result=$(brew bundle cleanup --file ${file})
   if [[ $? != 0 ]]; then
-    if [[ $(echo "${result}" | grep -c 'uninstall formulae') -gt 0 ]]; then
+    if [[ $(echo "${result}" | grep -cE 'uninstall (formulae|cask)') -gt 0 ]]; then
       echo "Missing installed dependencies in Brewfile ${file}"
       echo "Update before running again"
       echo "${result}"
