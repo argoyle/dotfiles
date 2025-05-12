@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+export PGPASSWORD=$1
+
+psql -h localhost -p 15432 -U postgres -d postgres <<-EOSQL
+  SELECT pg_terminate_backend(pid)
+  FROM pg_stat_activity
+  WHERE datname IN (
+        'accounting',
+        'authz',
+        'company',
+        'consumer',
+        'employee',
+        'invoice',
+        'notification',
+        'salary',
+        'supplier',
+        'supplier_invoice',
+        'time',
+        'accounting_staging',
+        'authz_staging',
+        'company_staging',
+        'consumer_staging',
+        'employee_staging',
+        'invoice_staging',
+        'notification_staging',
+        'salary_staging',
+        'supplier_staging',
+        'supplier_invoice_staging',
+        'time_staging'
+      )
+    AND leader_pid IS NULL;
+  DROP DATABASE accounting_staging;
+  CREATE DATABASE accounting_staging WITH TEMPLATE accounting;
+  DROP DATABASE authz_staging;
+  CREATE DATABASE authz_staging WITH TEMPLATE authz;
+  DROP DATABASE company_staging;
+  CREATE DATABASE company_staging WITH TEMPLATE company;
+  DROP DATABASE consumer_staging;
+  CREATE DATABASE consumer_staging WITH TEMPLATE consumer;
+  DROP DATABASE employee_staging;
+  CREATE DATABASE employee_staging WITH TEMPLATE employee;
+  DROP DATABASE invoice_staging;
+  CREATE DATABASE invoice_staging WITH TEMPLATE invoice;
+  DROP DATABASE notification_staging;
+  CREATE DATABASE notification_staging WITH TEMPLATE notification;
+  DROP DATABASE salary_staging;
+  CREATE DATABASE salary_staging WITH TEMPLATE salary;
+  DROP DATABASE supplier_staging;
+  CREATE DATABASE supplier_staging WITH TEMPLATE supplier;
+  DROP DATABASE supplier_invoice_staging;
+  CREATE DATABASE supplier_invoice_staging WITH TEMPLATE supplier_invoice;
+  DROP DATABASE time_staging;
+  CREATE DATABASE time_staging WITH TEMPLATE time;
+EOSQL
