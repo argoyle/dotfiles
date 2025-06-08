@@ -62,3 +62,9 @@
   stripComponents = 0
   refreshPeriod = "168h"
   include = ["*/**"]
+[".vim/colors/catppuccin_mocha.vim"]
+  type = "archive-file"
+  url = "https://github.com/catppuccin/vim/archive/main.tar.gz"
+  path = "colors/catppuccin_mocha.vim"
+  stripComponents = 1
+  refreshPeriod = "168h"

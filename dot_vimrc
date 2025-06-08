@@ -27,7 +27,8 @@ syntax on
 let g:rdark_current_line=1
 "colorscheme rdark
 "colorscheme argoyle
-colorscheme zenburn
+"colorscheme zenburn
+colorscheme catppuccin_mocha
 
 " Position and size for GUI
 if has("gui_running")
