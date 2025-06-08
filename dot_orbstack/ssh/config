@@ -15,5 +15,6 @@ Host orb
   IdentityFile ~/.orbstack/ssh/id_ed25519
   # only use this key
   IdentitiesOnly yes
+  UserKnownHostsFile ~/.orbstack/ssh/known_hosts
   ProxyCommand '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper.app/Contents/MacOS/OrbStack Helper' ssh-proxy-fdpass 501
   ProxyUseFdpass yes
