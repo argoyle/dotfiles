@@ -1,0 +1,9 @@
+[user]
+	email = external.joakim.olsson@keenfinity-group.com
+	name = Joakim Olsson
+	signingKey = {{ .chezmoi.homeDir }}/.ssh/keen_id_rsa.pub
+[committer]
+	email = external.joakim.olsson@keenfinity-group.com
+	name = Joakim Olsson
+[core]
+	sshCommand = ssh -i ~/.ssh/keen_id_rsa
