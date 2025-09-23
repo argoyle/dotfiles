@@ -1,0 +1,23 @@
+SSOConfig:
+    lifeinside:
+        SSORegion: eu-west-1
+        StartUrl: https://lifeinside.awsapps.com/start
+        DefaultRegion: eu-west-1
+        Accounts:  # optional block for specifying tags & overrides
+          938104711138:
+            Name: root
+          008824663682:
+            Name: production
+          892944254496:
+            Name: staging
+          708359258081:
+            Name: audit
+          149144226158:
+            Name: log-archive
+
+ProfileFormat: 'lifeinside-{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: false
+AutoLogin: true
+ConsoleDuration: 720

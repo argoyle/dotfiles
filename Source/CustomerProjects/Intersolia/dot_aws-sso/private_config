@@ -1,0 +1,12 @@
+SSOConfig:
+    intersolia:
+        SSORegion: eu-north-1
+        StartUrl: https://intersolia.awsapps.com/start
+        DefaultRegion: eu-west-1
+
+ProfileFormat: '{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: true
+AutoLogin: true
+ConsoleDuration: 720

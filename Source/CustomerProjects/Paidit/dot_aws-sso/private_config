@@ -1,0 +1,15 @@
+SSOConfig:
+    paidit:
+        SSORegion: eu-central-1
+        StartUrl: https://paidit.awsapps.com/start
+        DefaultRegion: eu-central-1
+        Accounts:  # optional block for specifying tags & overrides
+          505676538145:
+            Name: paidit
+
+ProfileFormat: '{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: false
+AutoLogin: true
+ConsoleDuration: 720

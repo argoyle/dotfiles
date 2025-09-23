@@ -1,0 +1,8 @@
+# BEGIN_AWS_SSO_CLI_opzkit
+
+[profile production]
+credential_process = /opt/homebrew/bin/aws-sso -S "opzkit" process --arn arn:aws:iam::944650663805:role/AdministratorAccess
+region = eu-west-1
+output = json
+
+# END_AWS_SSO_CLI_opzkit

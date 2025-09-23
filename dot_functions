@@ -29,28 +29,6 @@ lp_add_ssh_key() {
     printf "Private Key: %s\nPublic Key: %s" "$(cat $file)" "$(cat $file.pub)" | lpass add --sync=now --non-interactive --note-type=ssh-key $name
 }
 
-# AWS SSO
-sso() {
-    unset AWS_PROFILE
-    export AWS_PROFILE=$1
-    aws sts get-caller-identity &> /dev/null || aws sso login --profile $1 || (unset AWS_PROFILE && aws-sso-util configure profile --no-credential-process $1)
-    aws-export-credentials --credentials-file-profile $1 || aws sso login --profile $1 && aws-export-credentials --credentials-file-profile $1
-    sed -i '/aws_credential_expiration/d' ${AWS_CONFIG_FILE:-~/.aws/config}
-}
-
-# AWS SSO completion
-_sso() {
-    local -a completions
-    while IFS='\n' read -r comp; do
-        if [ -n "$comp" ]; then
-            completions+=${comp}
-        fi
-    done < <(grep '^\[profile.*\]$' ${AWS_CONFIG_FILE:-~/.aws/config} | sed 's/^\[profile \(.*\)\]$/\1/')
-    IFS=\  compadd $(echo $completions[@])
-}
-
-compdef _sso sso
-
 # Kind load
 kind_load() {
     local DIR=$(pwd)

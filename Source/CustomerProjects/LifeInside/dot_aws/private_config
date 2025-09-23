@@ -1,15 +1,28 @@
-[profile lifeinside-staging]
-sso_start_url = https://lifeinside.awsapps.com/start/
-sso_region = eu-west-1
-sso_account_id = 892944254496
-sso_role_name = AWSAdministratorAccess
+# BEGIN_AWS_SSO_CLI_lifeinside
+
+[profile lifeinside-production]
+credential_process = /opt/homebrew/bin/aws-sso -S "lifeinside" process --arn arn:aws:iam::008824663682:role/AWSAdministratorAccess
 region = eu-west-1
 output = json
 
-[profile lifeinside-prod]
-sso_start_url = https://lifeinside.awsapps.com/start/
-sso_region = eu-west-1
+[profile lifeinside-log-archive]
+credential_process = /opt/homebrew/bin/aws-sso -S "lifeinside" process --arn arn:aws:iam::149144226158:role/AWSAdministratorAccess
 region = eu-west-1
-sso_account_id = 008824663682
-sso_role_name = AWSAdministratorAccess
 output = json
+
+[profile lifeinside-audit]
+credential_process = /opt/homebrew/bin/aws-sso -S "lifeinside" process --arn arn:aws:iam::708359258081:role/AWSAdministratorAccess
+region = eu-west-1
+output = json
+
+[profile lifeinside-staging]
+credential_process = /opt/homebrew/bin/aws-sso -S "lifeinside" process --arn arn:aws:iam::892944254496:role/AWSAdministratorAccess
+region = eu-west-1
+output = json
+
+[profile lifeinside-root]
+credential_process = /opt/homebrew/bin/aws-sso -S "lifeinside" process --arn arn:aws:iam::938104711138:role/AWSAdministratorAccess
+region = eu-west-1
+output = json
+
+# END_AWS_SSO_CLI_lifeinside

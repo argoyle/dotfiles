@@ -1,8 +1,8 @@
+# BEGIN_AWS_SSO_CLI_paidit
 
 [profile paidit]
-sso_start_url = https://paidit.awsapps.com/start/
-sso_region = eu-central-1
+credential_process = /opt/homebrew/bin/aws-sso -S "paidit" process --arn arn:aws:iam::505676538145:role/AWSAdministratorAccess
 region = eu-central-1
-sso_account_id = 505676538145
-sso_role_name = AWSAdministratorAccess
 output = json
+
+# END_AWS_SSO_CLI_paidit

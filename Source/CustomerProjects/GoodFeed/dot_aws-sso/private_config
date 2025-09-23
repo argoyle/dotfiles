@@ -1,0 +1,12 @@
+SSOConfig:
+    goodfeed:
+        SSORegion: eu-west-1
+        StartUrl: https://goodfeed.awsapps.com/start
+        DefaultRegion: eu-west-1
+
+ProfileFormat: 'goodfeed-{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: false
+AutoLogin: true
+ConsoleDuration: 720

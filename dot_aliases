@@ -48,3 +48,4 @@ alias tf="terraform"
 alias tff="terraform fmt --recursive"
 alias cm="chezmoi"
 alias dj="curl -sH 'Accept: application/json' https://icanhazdadjoke.com/ | jq -r '.joke'"
+alias sso=aws-sso-profile

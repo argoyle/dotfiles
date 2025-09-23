@@ -1,0 +1,12 @@
+SSOConfig:
+    producttale:
+        SSORegion: eu-west-1
+        StartUrl: https://product-tale.awsapps.com/start
+        DefaultRegion: eu-west-1
+
+ProfileFormat: '{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: false
+AutoLogin: true
+ConsoleDuration: 720

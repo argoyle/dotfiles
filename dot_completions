@@ -1,0 +1,56 @@
+if type docker > /dev/null ; then
+  source <(docker completion zsh)
+fi
+if type stern > /dev/null ; then
+  source <(stern --completion=zsh)
+fi
+if type kubectl > /dev/null ; then
+  source <(kubectl completion zsh)
+fi
+if type kops > /dev/null ; then
+  source <(kops completion zsh)
+fi
+if type kind > /dev/null ; then
+  source <(kind completion zsh)
+fi
+if type chezmoi > /dev/null ; then
+  source <(chezmoi completion zsh)
+fi
+if type ngrok > /dev/null; then
+  source <(ngrok completion)
+fi
+if type atuin > /dev/null ; then
+  source <(atuin init --disable-up-arrow zsh)
+fi
+if type orbctl > /dev/null ; then
+  source  ~/.orbstack/shell/init.zsh 2>/dev/null || :
+fi
+
+aws-sso-profile() {
+  local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+  if [ -n "$AWS_PROFILE" ]; then
+    echo "Unable to assume a role while AWS_PROFILE is set"
+    return 1
+  fi
+
+  if [ -z "$1" ]; then
+    echo "Usage: aws-sso-profile <profile>"
+    return 1
+  fi
+
+  eval $(/opt/homebrew/bin/aws-sso ${=_args} eval -p "$1")
+  if [ "$AWS_SSO_PROFILE" != "$1" ]; then
+    return 1
+  fi
+}
+
+aws-sso-clear() {
+  local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+  if [ -z "$AWS_SSO_PROFILE" ]; then
+    echo "AWS_SSO_PROFILE is not set"
+    return 1
+  fi
+  eval $(/opt/homebrew/bin/aws-sso ${=_args} eval -c)
+}
+
+compdef __aws_sso_profile_complete aws-sso-profile

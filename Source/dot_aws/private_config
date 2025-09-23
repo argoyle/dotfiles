@@ -1,8 +1,8 @@
+# BEGIN_AWS_SSO_CLI_unbound
 
 [profile unbound]
-sso_start_url = https://usd.awsapps.com/start/
-sso_region = eu-west-1
+credential_process = /opt/homebrew/bin/aws-sso -S "unbound" process --arn arn:aws:iam::724902258495:role/AWSAdministratorAccess
 region = eu-west-1
-sso_account_id = 724902258495
-sso_role_name = AWSAdministratorAccess
 output = json
+
+# END_AWS_SSO_CLI_unbound

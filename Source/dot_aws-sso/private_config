@@ -1,0 +1,15 @@
+SSOConfig:
+    unbound:
+        SSORegion: eu-west-1
+        StartUrl: https://usd.awsapps.com/start
+        DefaultRegion: eu-west-1
+        Accounts:  # optional block for specifying tags & overrides
+          724902258495:
+            Name: unbound
+
+ProfileFormat: '{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: false
+AutoLogin: true
+ConsoleDuration: 720
