@@ -42,12 +42,6 @@
   stripComponents = 2
   refreshPeriod = "168h"
   include = ["*/rio/**"]
-[".config/rio/themes/dimidium.toml"]
-  type = "archive-file"
-  url = "https://github.com/dofuuz/dimidium/archive/main.tar.gz"
-  path = "config/dimidium-rio.toml"
-  stripComponents = 1
-  refreshPeriod = "168h"
 [".tmux/plugins/tpm"]
   type = "archive"
   url = "https://github.com/tmux-plugins/tpm/archive/master.tar.gz"
