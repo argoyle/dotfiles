@@ -1,0 +1,23 @@
+# BEGIN_AWS_SSO_CLI_intersolia
+
+[profile dev]
+credential_process = /opt/homebrew/bin/aws-sso -S "intersolia" process --arn arn:aws:iam::309043243080:role/Administrator
+region = eu-west-1
+output = json
+
+[profile prod]
+credential_process = /opt/homebrew/bin/aws-sso -S "intersolia" process --arn arn:aws:iam::464134132502:role/Administrator
+region = eu-west-1
+output = json
+
+[profile management]
+credential_process = /opt/homebrew/bin/aws-sso -S "intersolia" process --arn arn:aws:iam::731219981847:role/Administrator
+region = eu-west-1
+output = json
+
+[profile platform]
+credential_process = /opt/homebrew/bin/aws-sso -S "intersolia" process --arn arn:aws:iam::893169065165:role/Administrator
+region = eu-west-1
+output = json
+
+# END_AWS_SSO_CLI_intersolia
