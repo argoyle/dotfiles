@@ -5,6 +5,7 @@ slack_ops_url              = {{ (index (lastpass "Shared-paiditenv/system/slack_
 docker_config              = <<EOT
 {{ (index (lastpassRaw "Shared-paiditenv/system/dockercfg") 0).note }}
 EOT
+grafana_cloud_api_key      = {{ (index (lastpass "Shared-paiditenv/system/grafana-cloud") 0).note.grafanaApiKey | trim | quote }}
 loki_api_key               = {{ (index (lastpass "Shared-paiditenv/system/grafana-cloud") 0).note.lokiApiKey | trim | quote }}
 prometheus_api_key         = {{ (index (lastpass "Shared-paiditenv/system/grafana-cloud") 0).note.prometheusApiKey | trim | quote }}
 harbour_secret_prod = {
