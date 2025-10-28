@@ -1,0 +1,6 @@
+source_up .envrc
+
+export PATH=${PATH}:${PWD}/.bin
+export AWS_SSO_CONFIG=${PWD}/.aws-sso/config
+export AWS_CONFIG_FILE=${PWD}/.aws/config
+export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
