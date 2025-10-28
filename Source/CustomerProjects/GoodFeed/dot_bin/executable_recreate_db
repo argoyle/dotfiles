@@ -3,6 +3,8 @@
 export PGPASSWORD=postgres
 DB_NAME="${1:-prod_dump3}"
 DUMP_FILES="${2:-${HOME}/Source/CustomerProjects/Goodfeed/Postgres_RDS_Goodfeed_Prod-backend*.sql}"
+DUMP_FILE="$(ls -1t ${DUMP_FILES} | head -1)"
+echo "Restoring ${DUMP_FILE} to ${DB_NAME}"
 
 psql -h goodfeed-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   SELECT pg_terminate_backend(pid)
@@ -13,4 +15,4 @@ psql -h goodfeed-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   CREATE DATABASE ${DB_NAME} WITH OWNER postgres ENCODING utf8;
 EOSQL
 
-psql -h goodfeed-control-plane.orb.local -U postgres -d ${DB_NAME} < "$(ls -1t ${DUMP_FILES} | head -1)"
+psql -h goodfeed-control-plane.orb.local -U postgres -d ${DB_NAME} < "${DUMP_FILE}"
