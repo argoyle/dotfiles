@@ -1,0 +1,13 @@
+auth0 = {
+  domain        = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.domain | trim | quote }}
+  client_id     = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientId | trim | quote }}
+  client_secret = {{ (index (lastpass "envconfig\\prod/auth0") 0).note.clientSecret | trim | quote }}
+  google = {
+    client_id     = {{ (index (lastpass "envconfig\\prod/google") 0).note.clientId | trim | quote }}
+    client_secret = {{ (index (lastpass "envconfig\\prod/google") 0).note.clientSecret | trim | quote }}
+  }
+  facebook = {
+    client_id     = {{ (index (lastpass "envconfig\\prod/facebook") 0).note.clientId | trim | quote }}
+    client_secret = {{ (index (lastpass "envconfig\\prod/facebook") 0).note.clientSecret | trim | quote }}
+  }
+}

@@ -1,0 +1,2 @@
+cloudamqp_customer_api_key = "{{ (index (lastpassRaw "envconfig\\prod/cloudamqp_api_key") 0).note -}}"
+slack_webhook              = {{ (index (lastpass "envconfig\\prod/slack") 0).note.ops | trim | quote }}
