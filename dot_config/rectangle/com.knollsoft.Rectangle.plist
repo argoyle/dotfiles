@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Disable automatic update checks -->
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+
+	<!-- Allow any shortcut combination -->
+	<key>allowAnyShortcut</key>
+	<true/>
+
+	<!-- Launch on login -->
+	<key>launchOnLogin</key>
+	<true/>
+
+	<!-- Hide menu bar icon (set to false if you want to see it) -->
+	<key>hideMenubarIcon</key>
+	<false/>
+
+	<!-- Default keyboard shortcuts (Spectacle/ShiftIt compatible) -->
+	<!-- Left Half: Ctrl+Opt+Cmd+Left -->
+	<key>leftHalf</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>123</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Right Half: Ctrl+Opt+Cmd+Right -->
+	<key>rightHalf</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>124</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Top Half: Ctrl+Opt+Cmd+Up -->
+	<key>topHalf</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>126</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Bottom Half: Ctrl+Opt+Cmd+Down -->
+	<key>bottomHalf</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>125</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Maximize: Ctrl+Opt+Cmd+M -->
+	<key>maximize</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>46</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Center: Ctrl+Opt+Cmd+C -->
+	<key>center</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>8</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- First Third: Ctrl+Opt+Cmd+D -->
+	<key>firstThird</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>2</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Center Third: Ctrl+Opt+Cmd+E -->
+	<key>centerThird</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>14</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Last Third: Ctrl+Opt+Cmd+G -->
+	<key>lastThird</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>5</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+
+	<!-- Move to next display: Ctrl+Opt+Cmd+N -->
+	<key>nextDisplay</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>45</integer>
+		<key>modifierFlags</key>
+		<integer>1835008</integer>
+	</dict>
+</dict>
+</plist>

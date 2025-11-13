@@ -1,4 +1,8 @@
 README.md
+
+# Rectangle config (handled by run_once script, not direct symlink)
+.config/rectangle/**
+
 {{- if eq .chezmoi.hostname "A6436902" }}
 Source/*
 !Source/Jeppesen
