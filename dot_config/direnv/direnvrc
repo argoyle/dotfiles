@@ -1,30 +1,37 @@
+# fnm (Fast Node Manager) support
 # To use:
 # 1) Node version specified in package.json, in .envrc add:
-#      use nvm package.json
-#    This requires that package.json contains something like
-#      "engines": {
-#        "node": ">=6.9.2"
-#      },
-#
+#      use fnm package.json  (or use nvm package.json)
 # 2) Node version specified in .envrc add:
-#      use nvm 6.9.2
-#
-# 3) Node version specified in .nvmrc, in .envrc add:
-#      use nvm
-use_nvm() {
+#      use fnm 18.0.0  (or use nvm 18.0.0)
+# 3) Node version specified in .nvmrc or .node-version, in .envrc add:
+#      use fnm  (or use nvm)
+use_fnm() {
   local node_version=$1
+
+  if ! has fnm; then
+    echo "fnm is not installed"
+    return 1
+  fi
 
   if [[ $node_version = "package.json" ]]; then
     if has jq; then
       node_version=$(jq --raw-output .engines.node package.json | tr -d "<=> ")
     else
       echo "Parsing package.json for node version to use with direnv requires jq"
+      return 1
     fi
   fi
 
-  nvm_sh=~/.nvm/nvm.sh
-  if [[ -e $nvm_sh ]]; then
-    source $nvm_sh
-    nvm use $node_version
+  # If no version specified, fnm will look for .nvmrc or .node-version
+  if [[ -n $node_version ]]; then
+    fnm use --install-if-missing "$node_version"
+  else
+    fnm use --install-if-missing
   fi
+}
+
+# Alias use_nvm to use_fnm for backward compatibility
+use_nvm() {
+  use_fnm "$@"
 }
