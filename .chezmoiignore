@@ -1,4 +1,5 @@
 README.md
+CLAUDE.md
 
 # Rectangle config (handled by run_once script, not direct symlink)
 .config/rectangle/**
