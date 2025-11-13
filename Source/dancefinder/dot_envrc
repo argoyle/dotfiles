@@ -1,0 +1,3 @@
+source_up .envrc
+
+export PATH=${PATH}:${PWD}/.bin
