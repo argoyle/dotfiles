@@ -2,12 +2,38 @@
 
 export PGPASSWORD=postgres
 
+dumpdate=${1:-}
+dumpdir="/Users/argoyle/Source/shiny/.dbdumps/prod"
+
+if [ -z "${dumpdate}" ]; then
+  if [ -z "${PRODPASSWORD:-}"]; then
+    echo "Set password to production database in PRODPASSWORD"
+    exit 1
+  fi
+  echo "Dumping prod databases and importing them to localhost"
+  tstamp=$(date +%Y%m%d%H%M%S)
+
+  for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
+    PGPASSWORD=${PRODPASSWORD} pg_dump --host=localhost --port=15432 --username=postgres --dbname=${database} --file="${dumpdir}/${database}-${tstamp}-dump.sql"
+  done
+
+  dumpdate=${tstamp}
+else
+  for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
+    if [ ! -r "${dumpdir}/${database}-${dumpdate}-dump.sql" ]; then
+      echo "Dump for ${database} could not be found with date ${dumpdate}"
+      exit 1
+    fi
+  done
+fi
+
 psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   SELECT pg_terminate_backend(pid)
   FROM pg_stat_activity
   WHERE datname IN (
       'accounting',
       'authz',
+      'banking',
       'company',
       'consumer',
       'employee',
@@ -16,6 +42,7 @@ psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
       'salary',
       'supplier',
       'supplier_invoice',
+      'tax',
       'time'
     )
     AND leader_pid IS NULL;
@@ -23,6 +50,8 @@ psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   CREATE DATABASE accounting WITH OWNER postgres ENCODING utf8;
   DROP DATABASE authz;
   CREATE DATABASE authz WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE banking;
+  CREATE DATABASE banking WITH OWNER postgres ENCODING utf8;
   DROP DATABASE company;
   CREATE DATABASE company WITH OWNER postgres ENCODING utf8;
   DROP DATABASE consumer;
@@ -39,6 +68,13 @@ psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   CREATE DATABASE supplier WITH OWNER postgres ENCODING utf8;
   DROP DATABASE supplier_invoice;
   CREATE DATABASE supplier_invoice WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE tax;
+  CREATE DATABASE tax WITH OWNER postgres ENCODING utf8;
   DROP DATABASE time;
   CREATE DATABASE time WITH OWNER postgres ENCODING utf8;
 EOSQL
+
+for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
+  echo "Importing ${database}"
+  psql --host=unbound-control-plane.orb.local --port=5432 --username=postgres --dbname=${database} <"${dumpdir}/${database}-${dumpdate}-dump.sql"
+done
