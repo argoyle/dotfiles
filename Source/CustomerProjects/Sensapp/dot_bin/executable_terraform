@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Sensapp uses opentofu!!!"
+echo "Try tofu $@"

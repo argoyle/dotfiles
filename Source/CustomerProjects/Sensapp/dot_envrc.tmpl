@@ -1,0 +1,6 @@
+source_up .envrc
+
+export PATH=${PWD}/.bin:${PATH}
+export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
+export AZURE_TENANT_ID={{ (index (lastpass "Sensapp/env") 0).note.azureTenantId -}}
+export AZURE_CLIENT_ID={{ (index (lastpass "Sensapp/env") 0).note.azureClientId -}}
