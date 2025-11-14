@@ -1,26 +1,72 @@
+# Lazy-load completions for better shell startup performance
+# Completions are loaded on first use of each command
+
+# Docker completion
 if type docker > /dev/null ; then
-  source <(docker completion zsh)
+  docker() {
+    unfunction docker
+    source <(command docker completion zsh)
+    docker "$@"
+  }
 fi
+
+# Stern completion
 if type stern > /dev/null ; then
-  source <(stern --completion=zsh)
+  stern() {
+    unfunction stern
+    source <(command stern --completion=zsh)
+    stern "$@"
+  }
 fi
+
+# Kubectl completion
 if type kubectl > /dev/null ; then
-  source <(kubectl completion zsh)
+  kubectl() {
+    unfunction kubectl
+    source <(command kubectl completion zsh)
+    kubectl "$@"
+  }
 fi
+
+# Kops completion
 if type kops > /dev/null ; then
-  source <(kops completion zsh)
+  kops() {
+    unfunction kops
+    source <(command kops completion zsh)
+    kops "$@"
+  }
 fi
+
+# Kind completion
 if type kind > /dev/null ; then
-  source <(kind completion zsh)
+  kind() {
+    unfunction kind
+    source <(command kind completion zsh)
+    kind "$@"
+  }
 fi
+
+# Chezmoi completion
 if type chezmoi > /dev/null ; then
-  source <(chezmoi completion zsh)
+  chezmoi() {
+    unfunction chezmoi
+    source <(command chezmoi completion zsh)
+    chezmoi "$@"
+  }
 fi
+
+# Ngrok completion
 if type ngrok > /dev/null; then
-  source <(ngrok completion)
+  ngrok() {
+    unfunction ngrok
+    source <(command ngrok completion)
+    ngrok "$@"
+  }
 fi
+
+# OrbStack completion (always load as it's lightweight)
 if type orbctl > /dev/null ; then
-  source  ~/.orbstack/shell/init.zsh 2>/dev/null || :
+  source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 fi
 
 __aws_sso_profile_complete() {

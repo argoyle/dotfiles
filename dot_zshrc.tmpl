@@ -47,18 +47,46 @@ eval "$(direnv hook zsh)"
 autoload -Uz compinit && compinit -i
 
 {{- if ne .chezmoi.hostname "A6436902" }}
-source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+# Defer Google Cloud SDK loading for better startup performance
+# Load in background after shell is interactive
+() {
+  local gcloud_path="$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk"
+  if [[ -f "$gcloud_path/path.zsh.inc" ]]; then
+    # Source path immediately (lightweight)
+    source "$gcloud_path/path.zsh.inc"
+    # Defer completion loading (heavier)
+    if [[ -f "$gcloud_path/completion.zsh.inc" ]]; then
+      # Load completion in background after a short delay
+      (sleep 0.1 && source "$gcloud_path/completion.zsh.inc") &!
+    fi
+  fi
+}
 {{- end }}
 
+# Lazy-load pyenv for better startup performance
+# Set up PATH and shims, but defer full initialization until first use
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+  # Create wrapper function that loads pyenv on first use
+  pyenv() {
+    unfunction pyenv
+    eval "$(command pyenv init -)"
+    if which pyenv-virtualenv-init > /dev/null; then
+      eval "$(pyenv virtualenv-init -)"
+    fi
+    pyenv "$@"
+  }
+fi
+
+# Defer SDKMAN loading for better startup performance
+# Load in background after shell is interactive
 export SDKMAN_DIR="/Users/argoyle/.sdkman"
-[[ -s "/Users/argoyle/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/argoyle/.sdkman/bin/sdkman-init.sh"
+if [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
+  # Load SDKMAN in background after a short delay
+  (sleep 0.1 && source "$SDKMAN_DIR/bin/sdkman-init.sh") &!
+fi
 
 autoload -U +X bashcompinit && bashcompinit
 autoload -U zmv
