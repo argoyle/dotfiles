@@ -251,7 +251,7 @@ brew install atuin
 ### Week 3 - Cleanup & Organization
 **Priority: MEDIUM**
 
-- [ ] Remove hub from Brewfile
+- [x] Remove hub from Brewfile (COMPLETED: 2025-11-14)
 - [ ] Consolidate terminal emulators (keep one, remove 3)
 - [ ] Break up run_once_zz_modify_macos.sh into modules
 - [ ] Create scripts/lib/common.sh with error handling
