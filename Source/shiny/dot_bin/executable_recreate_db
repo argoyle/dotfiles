@@ -6,7 +6,7 @@ dumpdate=${1:-}
 dumpdir="/Users/argoyle/Source/shiny/.dbdumps/prod"
 
 if [ -z "${dumpdate}" ]; then
-  if [ -z "${PRODPASSWORD:-}"]; then
+  if [ -z "${PRODPASSWORD:-}" ]; then
     echo "Set password to production database in PRODPASSWORD"
     exit 1
   fi
