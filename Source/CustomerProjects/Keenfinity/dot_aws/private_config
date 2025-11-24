@@ -1,0 +1,8 @@
+# BEGIN_AWS_SSO_CLI_keenfinity
+
+[profile rdt-services]
+credential_process = /opt/homebrew/bin/aws-sso -S "keenfinity" process --arn arn:aws:iam::329327479263:role/AWSAdministratorAccess
+region = eu-central-1
+output = json
+
+# END_AWS_SSO_CLI_keenfinity

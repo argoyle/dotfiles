@@ -1,0 +1,15 @@
+SSOConfig:
+    keenfinity:
+        SSORegion: eu-central-1
+        StartUrl: https://d-9967678419.awsapps.com/start
+        DefaultRegion: eu-central-1
+        Accounts:  # optional block for specifying tags & overrides
+          329327479263:
+            Name: rdt-services
+
+ProfileFormat: '{{ FirstItem .AccountName (lower (trimSuffix "Account" (nospace .AccountAlias) ) )}}'
+ConfigVariables:
+  output: json
+AutoConfigCheck: false
+AutoLogin: true
+ConsoleDuration: 720
