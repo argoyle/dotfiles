@@ -1,5 +1,7 @@
 source_up .envrc
 
+layout pyenv 3.14.0
+
 export PATH=${PATH}:${PWD}/.bin
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
 
