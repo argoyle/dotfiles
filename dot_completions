@@ -1,77 +1,80 @@
 # Lazy-load completions for better shell startup performance
 # Completions are loaded on first use of each command
+# This file is zsh-specific - skip if not running zsh
+
+[[ -z "$ZSH_VERSION" ]] && return
 
 # Docker completion
-if type docker > /dev/null ; then
+if type docker > /dev/null 2>&1; then
   docker() {
     unfunction docker
-    source <(command docker completion zsh)
-    docker "$@"
+    source <(command docker completion zsh) 2>/dev/null
+    command docker "$@"
   }
 fi
 
 # Stern completion
-if type stern > /dev/null ; then
+if type stern > /dev/null 2>&1; then
   stern() {
     unfunction stern
-    source <(command stern --completion=zsh)
-    stern "$@"
+    source <(command stern --completion=zsh) 2>/dev/null
+    command stern "$@"
   }
 fi
 
 # Kubectl completion
-if type kubectl > /dev/null ; then
+if type kubectl > /dev/null 2>&1; then
   kubectl() {
     unfunction kubectl
-    source <(command kubectl completion zsh)
-    kubectl "$@"
+    source <(command kubectl completion zsh) 2>/dev/null
+    command kubectl "$@"
   }
 fi
 
 # Kops completion
-if type kops > /dev/null ; then
+if type kops > /dev/null 2>&1; then
   kops() {
     unfunction kops
-    source <(command kops completion zsh)
-    kops "$@"
+    source <(command kops completion zsh) 2>/dev/null
+    command kops "$@"
   }
 fi
 
 # Kind completion
-if type kind > /dev/null ; then
+if type kind > /dev/null 2>&1; then
   kind() {
     unfunction kind
-    source <(command kind completion zsh)
-    kind "$@"
+    source <(command kind completion zsh) 2>/dev/null
+    command kind "$@"
   }
 fi
 
 # Chezmoi completion
-if type chezmoi > /dev/null ; then
+if type chezmoi > /dev/null 2>&1; then
   chezmoi() {
     unfunction chezmoi
-    source <(command chezmoi completion zsh)
-    chezmoi "$@"
+    source <(command chezmoi completion zsh) 2>/dev/null
+    command chezmoi "$@"
   }
 fi
 
 # Ngrok completion
-if type ngrok > /dev/null; then
+if type ngrok > /dev/null 2>&1; then
   ngrok() {
     unfunction ngrok
-    source <(command ngrok completion)
-    ngrok "$@"
+    source <(command ngrok completion) 2>/dev/null
+    command ngrok "$@"
   }
 fi
 
 # OrbStack completion (always load as it's lightweight)
-if type orbctl > /dev/null ; then
+if type orbctl > /dev/null 2>&1; then
   source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 fi
 
 __aws_sso_profile_complete() {
-     local _args=${AWS_SSO_HELPER_ARGS:- -L error}
-    _multi_parts : "($(/opt/homebrew/bin/aws-sso ${=_args} list --csv Profile))"
+  local _args=${AWS_SSO_HELPER_ARGS:- -L error}
+  _multi_parts : "($(/opt/homebrew/bin/aws-sso ${=_args} list --csv Profile))"
 }
 
 aws-sso-profile() {
@@ -101,4 +104,4 @@ aws-sso-clear() {
   eval $(/opt/homebrew/bin/aws-sso ${=_args} eval -c)
 }
 
-compdef __aws_sso_profile_complete aws-sso-profile
+compdef __aws_sso_profile_complete aws-sso-profile 2>/dev/null

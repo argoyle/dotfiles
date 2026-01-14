@@ -28,3 +28,6 @@ export RABBITMQ_USERNAME=admin
 export RABBITMQ_PASSWORD=password
 
 export BASH_ENV=${HOME}/.bashrc
+
+# Required for pinentry/GPG to work correctly in tmux
+export GPG_TTY=$(tty)
