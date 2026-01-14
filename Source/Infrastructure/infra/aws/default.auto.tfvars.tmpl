@@ -1,16 +1,50 @@
+{{- $infra := "MZ5oSCCuiEAFjXuhh68lPcrEHyYk344DZHVd3Ki1TN5hu6Wt28yz0U6zVxArs2uVPNnZkiP5dcoDphlrrsJ0aw==" -}}
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
+{{- $slack := (protonPassJSON (print "pass://" $infra "/hpmGndMV4nvx4e-q_3PtLj6gg_Pm13kjcG9JspIeQ6KNC9RHCxIRp-KBu-T3G_ht2Au12bJAQOFUB1FwIfvRMA==")).item.content.note -}}
+{{- $dockercfg := (protonPassJSON (print "pass://" $infra "/HZwFCZQPq-sSS5uF8i3EK8KqYMX0Lc89Ilgq0Bz0ug36fXrfbU7qiWEiBcrutjQ97i1OcUhxgsbiVbg3DKAOlw==")).item.content.note -}}
+{{- $auths := (protonPassJSON (print "pass://" $personal "/iI_F3jHzuiBM-hYOTcmXaSwjpHFOoztk4rVkDqpegXJE8_R7lnUNxhK2aRI8BDlFGbVb1eCNQsOZixj8xjq19Q==")).item.content.note -}}
+{{- $grafana := (protonPassJSON (print "pass://" $infra "/uLdVZ5gCOspCasmTwoBQyMRFyHDn5l3WW4fTHwp3QFnfIumUHy8ztW9AhChjiEl6L_B-zIenVKfLiscR-bBQqQ==")).item.content.note -}}
+{{- $gitea := (protonPassJSON (print "pass://" $infra "/Z5rT1Qqd9DKdw3OXoOWNyheZn9HYxG4Rjxs1kdjoABrxHjSU5nPUHaTp_KHEZkPj06kcssBUuzSncv4f9f8ZRg==")).item.content.note -}}
 slack = {
-  ops          = {{ (index (lastpass "envconfig\\prod/slack") 0).note.ops | trim | quote }}
-  gitlab_ci    = {{ (index (lastpass "envconfig\\prod/slack") 0).note.gitlabCi | trim | quote }}
-  dancefinder  = {{ (index (lastpass "envconfig\\prod/slack") 0).note.dancefinder | trim | quote }}
-  shiny        = {{ (index (lastpass "envconfig\\prod/slack") 0).note.shiny | trim | quote }}
-  hifi         = {{ (index (lastpass "envconfig\\prod/slack") 0).note.hifi | trim | quote }}
-  eventsourced = {{ (index (lastpass "envconfig\\prod/slack") 0).note.eventsourced | trim | quote }}
-  angus        = {{ (index (lastpass "envconfig\\prod/slack") 0).note.angus | trim | quote }}
+  ops          = {{ regexFind "ops:[^\n]*" $slack | trimPrefix "ops:" | trim | quote }}
+  gitlab_ci    = {{ regexFind "gitlabCi:[^\n]*" $slack | trimPrefix "gitlabCi:" | trim | quote }}
+  dancefinder  = {{ regexFind "dancefinder:[^\n]*" $slack | trimPrefix "dancefinder:" | trim | quote }}
+  shiny        = {{ regexFind "shiny:[^\n]*" $slack | trimPrefix "shiny:" | trim | quote }}
+  hifi         = {{ regexFind "hifi:[^\n]*" $slack | trimPrefix "hifi:" | trim | quote }}
+  eventsourced = {{ regexFind "eventsourced:[^\n]*" $slack | trimPrefix "eventsourced:" | trim | quote }}
+  angus        = {{ regexFind "angus:[^\n]*" $slack | trimPrefix "angus:" | trim | quote }}
 }
-docker_config         = <<EOT
-{{ (index (lastpassRaw "envconfig\\prod/dockercfg") 0).note }}
+docker_config                  = <<EOT
+{{ $dockercfg }}
 EOT
-gitlab_provider_token = {{ (index (lastpass "devenv/.auths") 0).note.gitlabTerraformToken | trim | quote }}
-gitlab_cleanup_token  = {{ (index (lastpass "devenv/.auths") 0).note.gitlabCleanupHandlerToken | trim | quote }}
-gitlab_runner_token   = {{ (index (lastpass "devenv/.auths") 0).note.gitlabRunnerRegistrationToken | trim | quote }}
-grafana_cloud_api_key = {{ (index (lastpass "envconfig\\prod/grafana-cloud") 0).note.terraform | trim | quote }}
+gitlab_provider_token          = {{ regexFind "GitlabTerraformToken:[^\n]*" $auths | trimPrefix "GitlabTerraformToken:" | trim | quote }}
+gitlab_cleanup_token           = {{ regexFind "GitlabCleanupHandlerToken:[^\n]*" $auths | trimPrefix "GitlabCleanupHandlerToken:" | trim | quote }}
+gitlab_runner_token            = {{ regexFind "GitlabRunnerRegistrationToken:[^\n]*" $auths | trimPrefix "GitlabRunnerRegistrationToken:" | trim | quote }}
+grafana_cloud_api_key          = {{ regexFind "terraform:[^\n]*" $grafana | trimPrefix "terraform:" | trim | quote }}
+gitea_admin_password           = {{ regexFind "AdminPassword:[^\n]*" $gitea | trimPrefix "AdminPassword:" | trim | quote }}
+gitea_db_password              = {{ regexFind "DbPassword:[^\n]*" $gitea | trimPrefix "DbPassword:" | trim | quote }}
+gitea_secret_key               = {{ regexFind "SecretKey:[^\n]*" $gitea | trimPrefix "SecretKey:" | trim | quote }}
+gitea_internal_token           = {{ regexFind "InternalToken:[^\n]*" $gitea | trimPrefix "InternalToken:" | trim | quote }}
+gitea_lfs_jwt_secret           = {{ regexFind "LfsJwtSecret:[^\n]*" $gitea | trimPrefix "LfsJwtSecret:" | trim | quote }}
+gitea_oauth2_jwt_secret        = {{ regexFind "OauthJwtSecret:[^\n]*" $gitea | trimPrefix "OauthJwtSecret:" | trim | quote }}
+gitea_runner_token             = {{ regexFind "RunnerToken:[^\n]*" $gitea | trimPrefix "RunnerToken:" | trim | quote }}
+gitea_runner_registry_token    = {{ regexFind "BuildtoolsToken:[^\n]*" $gitea | trimPrefix "BuildtoolsToken:" | trim | quote }}
+renovate_gitea_token           = {{ regexFind "RenovateToken:[^\n]*" $gitea | trimPrefix "RenovateToken:" | trim | quote }}
+gitea_admin_api_token          = {{ regexFind "AdminToken:[^\n]*" $gitea | trimPrefix "AdminToken:" | trim | quote }}
+gitea_release_token            = {{ regexFind "ReleaseToken:[^\n]*" $gitea | trimPrefix "ReleaseToken:" | trim | quote }}
+docker_hub_username            = "argoyle"
+docker_hub_token               = {{ regexFind "DockerHubToken:[^\n]*" $gitea | trimPrefix "DockerHubToken:" | trim | quote }}
+gitea_registry_pull_token      = {{ regexFind "GiteaPullToken:[^\n]*" $gitea | trimPrefix "GiteaPullToken:" | trim | quote }}
+renovate_github_token          = {{ regexFind "RenovateGithubToken:[^\n]*" $auths | trimPrefix "RenovateGithubToken:" | trim | quote }}
+gitea_ssh_host_ed25519_key     = <<EOT
+{{ regexFind "SshHostKeyEDDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyEDDSA:" | trim | b64dec -}}
+EOT
+gitea_ssh_host_ed25519_key_pub = {{ regexFind "SshHostKeyPubEDDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyPubEDDSA:" | trim | quote }}
+gitea_ssh_host_rsa_key         = <<EOT
+{{ regexFind "SshHostKeyRSA:[^\n]*" $gitea | trimPrefix "SshHostKeyRSA:" | trim | b64dec -}}
+EOT
+gitea_ssh_host_rsa_key_pub     = {{ regexFind "SshHostKeyPubRSA:[^\n]*" $gitea | trimPrefix "SshHostKeyPubRSA:" | trim | quote }}
+gitea_ssh_host_ecdsa_key       = <<EOT
+{{ regexFind "SshHostKeyECDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyECDSA:" | trim | b64dec -}}
+EOT
+gitea_ssh_host_ecdsa_key_pub   = {{ regexFind "SshHostKeyPubECDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyPubECDSA:" | trim | quote }}

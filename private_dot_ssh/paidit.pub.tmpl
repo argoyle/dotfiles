@@ -1,1 +1,2 @@
-{{ (index (lastpass "PaidIT/ssh_key") 0).note.publicKey }}
+{{- $item := protonPassJSON "pass://NtduTg1bifSE9lekT6uuLlwDqVAQmLCXagAf-CTAwEfo3UTVDb9_TEb9UIq38W5cwnUzcIUzinOzqe4SxyOS8Q==/hIwSF46N4GyuCBfHkHyIPpgc0S6zx-Pc6Oe52TzBq6ELQYNQ8vvU9ddO_ZR_RSBE-1L7fjSurThQHqqOF7hSow==" }}
+{{- $item.item.content.content.SshKey.public_key }}

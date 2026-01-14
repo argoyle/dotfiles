@@ -1,94 +1,116 @@
-cloudamqp_customer_api_key = "{{ (index (lastpassRaw "Shared-paiditenv/system/cloudamqp_api_key") 0).note -}}"
-mongodbatlas_private_key   = {{ (index (lastpass "Shared-paiditenv/system/Mongo Atlas API Project") 0).note.password | trim | quote }}
-mongodbatlas_public_key    = {{ (index (lastpass "Shared-paiditenv/system/Mongo Atlas API Project") 0).note.username | trim | quote }}
-slack_ops_url              = {{ (index (lastpass "Shared-paiditenv/system/slack_webhook_url") 0).note.ops | trim | quote }}
+{{- $paidit := "NtduTg1bifSE9lekT6uuLlwDqVAQmLCXagAf-CTAwEfo3UTVDb9_TEb9UIq38W5cwnUzcIUzinOzqe4SxyOS8Q==" -}}
+{{- $cloudamqp := (protonPassJSON (print "pass://" $paidit "/mu4wYD21nyI9MEPfGdMCac2md-ko6SQ_Hl6lYPb5tIz8Ztn7tGpb_z9ljSws-vAB2jEarquqbQWY42WflSU78Q==")).item.content.note -}}
+{{- $mongo := (protonPassJSON (print "pass://" $paidit "/eMt1na8wl0LKlfo5kbN3qv_Ylk5AGLXKoiV_DtYcVWIF6xUS5oIvWYccBeVek7NoyPFiqIvAKk1xARDNlMchCA==")).item.content.extra_fields -}}
+{{- $harbourProd := (protonPassJSON (print "pass://" $paidit "/QL_4WPgv2whvncSjqC8mcjKqVVIzl02xQgijfOGKPc1yi9FCJ2qTXyAM8BPYEsnBTiwFKlA0eH0JfZG4NAu_fw==")).item.content.note -}}
+{{- $harbourDemo := (protonPassJSON (print "pass://" $paidit "/wDg6sofx5ZG8EYTz5-QZAXO1-ZYEjypKECDCMcLHynCTap6d2XJ9gyl1B5gOpyXhQaAe0SfDZpyAYWxzcG67SA==")).item.content.note -}}
+{{- $harbourStage := (protonPassJSON (print "pass://" $paidit "/J2AYHkBtY-fymufyC403x0x5IZu2C3NCMnae24pE9So9jwvvP5_6J6u5MoCuw_7A1LyyCkclCiKr1OkjULXZCw==")).item.content.note -}}
+{{- $elks := (protonPassJSON (print "pass://" $paidit "/zCnJIOn4tNugRxe2aBUQFADZO9w7to-uM28QdU3fdZcsEy4IIzO8nSlQrQKQWyMiVo5FU6gGCkHcQoezwBlkxA==")).item.content.content.Login -}}
+{{- $stripeProd := (protonPassJSON (print "pass://" $paidit "/l4U9yYamYE7BG-dPHi-o_QJX8ECVwdWt-nD0bfiomrq0bdVyLx3DkS_zTGJnjjFexjq6FqnxARg4WZCqsuyeqg==")).item.content.extra_fields -}}
+{{- $stripeDev := (protonPassJSON (print "pass://" $paidit "/UHhyGQr_Az-dohOaMNGJQeIC6oyVNVQuZTzYAE45jE9okNcwsaRZjz4jaN91rbvF_qXDg6UwTWc57TM0obtsGQ==")).item.content.extra_fields -}}
+{{- $firestoreProd := (protonPassJSON (print "pass://" $paidit "/HoFzZVtW14j8fqUep9-ppJZTtd5Aat1-PDLpWTPat4U65DH05OZd-MfWLGZ78AuUNqs1ou18r_65VnyMksD3cQ==")).item.content.note -}}
+{{- $firestoreDemo := (protonPassJSON (print "pass://" $paidit "/8_pL5CB2Whi62MTjH0lc8DICnjVdwCRzoMOZkZow6FRB7Elsb81VTtBT9GFfcc97z6lYVfP_Jf0R7IAr9ICUXw==")).item.content.note -}}
+{{- $firestoreStage := (protonPassJSON (print "pass://" $paidit "/H5g93JZRKnGnP72ijGdmU8hFbDksvVFjrotAmWbOD51JzpF2A1Ho0bUvEQ41pi-mq7Cj4ia0juL4EXgQLRyL7Q==")).item.content.note -}}
+{{- $swedbankProd := (protonPassJSON (print "pass://" $paidit "/zX1W5tCvWL-NwAqNfjq7rG1-_UhOloZTYpzvwwaN7pJr3Z4DWPomXpMj5SzOfJMl0us-jdiF4IG0FqoEyjlq_w==")).item.content.note -}}
+{{- $swedbankDemo := (protonPassJSON (print "pass://" $paidit "/Z3ouf-dxinvnyqnS46qlZY7vdCeEgqbMAo6MG-qhzOfNEhr4ii5bXkDwdHJPMRWlTQsRnq3WzWCguO1qSGx2TA==")).item.content.note -}}
+{{- $swedbankStage := (protonPassJSON (print "pass://" $paidit "/bw-gOu8uRIdSk8SMKgPKB3TVx9ZS3e9_I7uCtUBPLUcZIxkR09213uQEKKbm9R_9WxPCxsRdYDSyHokhHYg5kA==")).item.content.note -}}
+{{- $infrasecProd := (protonPassJSON (print "pass://" $paidit "/1VAXb4VfpUFVKzTrgRy8Ol7Eij2heESOVg-8RGyRVab-eiYJrTjN8Jqdc3q74htv4QGFVAVs9W9JCc2WlqV-3w==")).item.content -}}
+{{- $infrasecDemo := (protonPassJSON (print "pass://" $paidit "/9Kca3BoR7banblEcmhAXraFzMi0PvHHhZp7sobk4XMQ_fwAlTiJoMPnrz4sgp1wIZKrGGQTg4OxEklimSoF05g==")).item.content -}}
+{{- $infrasecStage := (protonPassJSON (print "pass://" $paidit "/OEawLnYsizW8LNLfXvGgR8gbe0nVtKWN2ZkGdQv0kTdXut--bN8RroGH4OCZJ-AAaQ-I9ymVrhE8Hwi1eqLmPQ==")).item.content -}}
+{{- $slackWebhook := (protonPassJSON (print "pass://" $paidit "/5ULlSl57LsLY8t6qVHLaoQH13t0deys-uVInGeLgMi2HIRjYMKVp5lksLbzwMbuMXgpKCcYOIUDk4CMt85V-jg==")).item.content.note -}}
+{{- $dockercfg := (protonPassJSON (print "pass://" $paidit "/SENKFndDwlgOHFOL_IbWQi9CVjClH_J99z1GFnHVktl7956abFIQH9ys93V7oEjHXMgA5LPkkB6iIGdVBzzkUw==")).item.content.note -}}
+{{- $grafana := (protonPassJSON (print "pass://" $paidit "/ixa0hcfg0BywrF7irThAywe6aIc8WNXKEs8yFqYhfqR4j0FZMYH3ZV6-XBwXFY23lw4nxsd4oUYzGRdlBf2F4Q==")).item.content.note -}}
+{{- $gitlabToken := (protonPassJSON (print "pass://" $paidit "/bfLXYK6ltD3_1aH8kt-o21GqIP9wpBfZ67b9B_MQaKG6P98EDJEXawNDj39E6Ps_vJHEQOgbuWMP0gXCw78elA==")).item.content.note -}}
+cloudamqp_customer_api_key = "{{ $cloudamqp -}}"
+mongodbatlas_private_key   = {{ (index $mongo 5).content.Hidden | trim | quote }}
+mongodbatlas_public_key    = {{ (index $mongo 4).content.Text | trim | quote }}
+slack_ops_url              = {{ regexFind "ops:[^\n]*" $slackWebhook | trimPrefix "ops:" | trim | quote }}
 docker_config              = <<EOT
-{{ (index (lastpassRaw "Shared-paiditenv/system/dockercfg") 0).note }}
+{{ $dockercfg }}
 EOT
-grafana_cloud_api_key      = {{ (index (lastpass "Shared-paiditenv/system/grafana-cloud") 0).note.grafanaApiKey | trim | quote }}
-loki_api_key               = {{ (index (lastpass "Shared-paiditenv/system/grafana-cloud") 0).note.lokiApiKey | trim | quote }}
-prometheus_api_key         = {{ (index (lastpass "Shared-paiditenv/system/grafana-cloud") 0).note.prometheusApiKey | trim | quote }}
+grafana_cloud_api_key      = {{ regexFind "grafanaApiKey:[^\n]*" $grafana | trimPrefix "grafanaApiKey:" | trim | quote }}
+loki_api_key               = {{ regexFind "lokiApiKey:[^\n]*" $grafana | trimPrefix "lokiApiKey:" | trim | quote }}
+prometheus_api_key         = {{ regexFind "prometheusApiKey:[^\n]*" $grafana | trimPrefix "prometheusApiKey:" | trim | quote }}
 harbour_secret_prod = {
-  API_KEY = "{{ (index (lastpassRaw "Shared-paiditenv/prod/harbour") 0).note -}}"
+  API_KEY = "{{ $harbourProd -}}"
 }
 harbour_secret_demo = {
-  API_KEY = "{{ (index (lastpassRaw "Shared-paiditenv/demo/harbour") 0).note -}}"
+  API_KEY = "{{ $harbourDemo -}}"
 }
 harbour_secret_stage = {
-  API_KEY = "{{ (index (lastpassRaw "Shared-paiditenv/stage/harbour") 0).note -}}"
+  API_KEY = "{{ $harbourStage -}}"
 }
-fortysixelks_password = {{ (index (lastpass "Shared-paiditenv/system/46elks") 0).note.password | trim | quote }}
+fortysixelks_password = {{ $elks.password | trim | quote }}
 stripe_prod = {
-  STRIPE_PUBLIC_KEY = {{ (index (lastpass "Shared-paiditenv/system/stripe_prod") 0).note.clientId | trim | quote }}
-  STRIPE_SECRET_KEY = {{ (index (lastpass "Shared-paiditenv/system/stripe_prod") 0).note.secret | trim | quote }}
-  WEBHOOK_SECRET    = {{ (index (lastpass "Shared-paiditenv/system/stripe_prod") 0).note.webhookSecret | trim | quote }}
+  STRIPE_PUBLIC_KEY = {{ (index $stripeProd 0).content.Text | trim | quote }}
+  STRIPE_SECRET_KEY = {{ (index $stripeProd 1).content.Text | trim | quote }}
+  WEBHOOK_SECRET    = {{ (index $stripeProd 2).content.Text | trim | quote }}
 }
 stripe_dev = {
-  STRIPE_PUBLIC_KEY = {{ (index (lastpass "Shared-paiditenv/system/stripe_dev") 0).note.clientId | trim | quote }}
-  STRIPE_SECRET_KEY = {{ (index (lastpass "Shared-paiditenv/system/stripe_dev") 0).note.secret | trim | quote }}
-  WEBHOOK_SECRET    = {{ (index (lastpass "Shared-paiditenv/system/stripe_dev") 0).note.webhookSecret | trim | quote }}
+  STRIPE_PUBLIC_KEY = {{ (index $stripeDev 0).content.Text | trim | quote }}
+  STRIPE_SECRET_KEY = {{ (index $stripeDev 1).content.Text | trim | quote }}
+  WEBHOOK_SECRET    = {{ (index $stripeDev 2).content.Text | trim | quote }}
 }
 firestore_prod  = <<EOT
-{{ (index (lastpassRaw "Shared-paiditenv/prod/firestore") 0).note -}}
+{{ $firestoreProd -}}
 EOT
 firestore_demo  = <<EOT
-{{ (index (lastpassRaw "Shared-paiditenv/demo/firestore") 0).note -}}
+{{ $firestoreDemo -}}
 EOT
 firestore_stage = <<EOT
-{{ (index (lastpassRaw "Shared-paiditenv/stage/firestore") 0).note -}}
+{{ $firestoreStage -}}
 EOT
 swedbank_cert_prod = {
   pem   = <<EOT
-{{ (index (lastpass "Shared-paiditenv/prod/swedbank") 0).note.publicKey | trim | replace "^^" "\n" -}}
+{{ regexFind "publicKey:[^\n]*" $swedbankProd | trimPrefix "publicKey:" | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ (index (lastpass "Shared-paiditenv/prod/swedbank") 0).note.privateKey | trim | replace "^^" "\n" -}}
+{{ regexFind "privateKey:[^\n]*" $swedbankProd | trimPrefix "privateKey:" | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ (index (lastpass "Shared-paiditenv/prod/swedbank") 0).note.hostname | trim | quote }}
+  alias = {{ regexFind "hostname:[^\n]*" $swedbankProd | trimPrefix "hostname:" | trim | quote }}
 }
 swedbank_cert_demo = {
   pem   = <<EOT
-{{ (index (lastpass "Shared-paiditenv/demo/swedbank") 0).note.publicKey | trim | replace "^^" "\n" -}}
+{{ regexFind "publicKey:[^\n]*" $swedbankDemo | trimPrefix "publicKey:" | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ (index (lastpass "Shared-paiditenv/demo/swedbank") 0).note.privateKey | trim | replace "^^" "\n" -}}
+{{ regexFind "privateKey:[^\n]*" $swedbankDemo | trimPrefix "privateKey:" | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ (index (lastpass "Shared-paiditenv/demo/swedbank") 0).note.hostname | trim | quote }}
+  alias = {{ regexFind "hostname:[^\n]*" $swedbankDemo | trimPrefix "hostname:" | trim | quote }}
 }
 swedbank_cert_stage = {
   pem   = <<EOT
-{{ (index (lastpass "Shared-paiditenv/stage/swedbank") 0).note.publicKey | trim | replace "^^" "\n" -}}
+{{ regexFind "publicKey:[^\n]*" $swedbankStage | trimPrefix "publicKey:" | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ (index (lastpass "Shared-paiditenv/stage/swedbank") 0).note.privateKey | trim | replace "^^" "\n" -}}
+{{ regexFind "privateKey:[^\n]*" $swedbankStage | trimPrefix "privateKey:" | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ (index (lastpass "Shared-paiditenv/stage/swedbank") 0).note.hostname | trim | quote }}
+  alias = {{ regexFind "hostname:[^\n]*" $swedbankStage | trimPrefix "hostname:" | trim | quote }}
 }
 infrasec_cert_prod = {
   ca         = <<EOT
-{{ (index (lastpass "Shared-paiditenv/prod/infrasec") 0).note.publicKey | trim | replace "^^" "\n" -}}
+{{ $infrasecProd.content.SshKey.public_key | replace "^^" "\n" -}}
 EOT
   cert       = <<EOT
-{{ (index (lastpass "Shared-paiditenv/prod/infrasec") 0).note.privateKey | trim | replace "^^" "\n" -}}
+{{ $infrasecProd.content.SshKey.private_key | replace "^^" "\n" -}}
 EOT
-  passphrase = {{ (index (lastpass "Shared-paiditenv/prod/infrasec") 0).note.hostname | trim | quote }}
+  passphrase = {{ range $infrasecProd.extra_fields }}{{ if eq .name "Hostname" }}{{ .content.Text | quote }}{{ break }}{{ end }}{{ end }}
 }
 infrasec_cert_demo = {
   ca         = <<EOT
-{{ (index (lastpass "Shared-paiditenv/demo/infrasec") 0).note.publicKey | trim | replace "^^" "\n" -}}
+{{ $infrasecDemo.content.SshKey.public_key | replace "^^" "\n" -}}
 EOT
   cert       = <<EOT
-{{ (index (lastpass "Shared-paiditenv/demo/infrasec") 0).note.privateKey | trim | replace "^^" "\n" -}}
+{{ $infrasecDemo.content.SshKey.private_key | replace "^^" "\n" -}}
 EOT
-  passphrase = {{ (index (lastpass "Shared-paiditenv/demo/infrasec") 0).note.hostname | trim | quote }}
+  passphrase = {{ range $infrasecDemo.extra_fields }}{{ if eq .name "Hostname" }}{{ .content.Text | quote }}{{ break }}{{ end }}{{ end }}
 }
 infrasec_cert_stage = {
   ca         = <<EOT
-{{ (index (lastpass "Shared-paiditenv/stage/infrasec") 0).note.publicKey | trim | replace "^^" "\n" -}}
+{{ $infrasecStage.content.SshKey.public_key | replace "^^" "\n" -}}
 EOT
   cert       = <<EOT
-{{ (index (lastpass "Shared-paiditenv/stage/infrasec") 0).note.privateKey | trim | replace "^^" "\n" -}}
+{{ $infrasecStage.content.SshKey.private_key | replace "^^" "\n" -}}
 EOT
-  passphrase = {{ (index (lastpass "Shared-paiditenv/stage/infrasec") 0).note.hostname | trim | quote }}
+  passphrase = {{ range $infrasecStage.extra_fields }}{{ if eq .name "Hostname" }}{{ .content.Text | quote }}{{ break }}{{ end }}{{ end }}
 }
-gitlab_token = "{{ (index (lastpassRaw "Shared-paiditenv/system/gitlab_token") 0).note -}}"
+gitlab_token = {{ $gitlabToken | trim | quote }}

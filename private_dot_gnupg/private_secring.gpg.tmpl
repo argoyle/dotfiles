@@ -1,1 +1,2 @@
-{{ (index (lastpassRaw "devenv/gnupg-secring") 0).note | b64dec -}}
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
+{{ (protonPassJSON (print "pass://" $personal "/vLUt7YC3aKxmuxjn9D0D_TuuC3ApRqGCmzPwc5cH5WB5CtrnUbPfeIn8-MyK19snNX3boNVbZi7wlBRgRpCY5A==")).item.content.note | b64dec -}}

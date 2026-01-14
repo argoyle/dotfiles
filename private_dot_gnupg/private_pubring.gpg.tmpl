@@ -1,1 +1,2 @@
-{{ (index (lastpassRaw "devenv/gnupg-pubring") 0).note | b64dec -}}
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
+{{ (protonPassJSON (print "pass://" $personal "/vFrmmSEiZmk-l3qPMLQUt_owAqCy8rThu8mkNzYj5Jms5LOQG8MGT6WS7jACRyoN9b5gJwhg0akE1rgRW4I9rQ==")).item.content.note | b64dec -}}

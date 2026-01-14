@@ -1,4 +1,6 @@
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
+{{- $auths := (protonPassJSON (print "pass://" $personal "/iI_F3jHzuiBM-hYOTcmXaSwjpHFOoztk4rVkDqpegXJE8_R7lnUNxhK2aRI8BDlFGbVb1eCNQsOZixj8xjq19Q==")).item.content.note -}}
 machine gitlab.com
 login argoyle
-password {{ (index (lastpass "devenv/.auths") 0).note.gitlabToken -}}
+password {{ regexFind "GitlabToken:[^\n]*" $auths | trimPrefix "GitlabToken:" -}}
 

@@ -1,1 +1,2 @@
-{{ (index (lastpass "devenv/github_ssh_key") 0).note.publicKey }}
+{{- $item := protonPassJSON "pass://gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==/jtFwT_7vvRrviKexa82yaY_OU6p07I-PalPKBzcjHlUSNfWzOvr0731sZfzyDi22V5z4CmYINdAOS7stg-L51g==" }}
+{{- $item.item.content.content.SshKey.public_key }}

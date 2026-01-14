@@ -1,7 +1,9 @@
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
+{{- $auths := (protonPassJSON (print "pass://" $personal "/iI_F3jHzuiBM-hYOTcmXaSwjpHFOoztk4rVkDqpegXJE8_R7lnUNxhK2aRI8BDlFGbVb1eCNQsOZixj8xjq19Q==")).item.content.note -}}
 source_up .envrc
 
 export PATH=${PATH}:${PWD}/.bin
 export AWS_SSO_CONFIG=${PWD}/.aws-sso/config
 export AWS_CONFIG_FILE=${PWD}/.aws/config
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
-export BUILDKITE_API_TOKEN={{ (index (lastpass "devenv/.auths") 0).note.goodfeedBuildkiteApiToken -}}
+export BUILDKITE_API_TOKEN={{ regexFind "GoodfeedBuildkiteApiToken:[^\n]*" $auths | trimPrefix "GoodfeedBuildkiteApiToken:" -}}

@@ -1,1 +1,2 @@
-{{(index (lastpassRaw "Shared-env-goodfeed/cicd-default.tfvars") 0).note}}
+{{- $goodfeed := "oSOSZ5ACbCbYWPNnpOOuIabjq9fA66_7guFtTo7D5y4ZCBDSbFtNQzAFlamU149oF8E-2DP62LYObxYiMP3QSw==" -}}
+{{ (protonPassJSON (print "pass://" $goodfeed "/SW6V72i95rcNtHr-HheuzC13jaqhgX69cthTgdh1ibcnJrLd0OVXICLonNXsOjIFbgM9AHZiyUBfR5TVVOok3Q==")).item.content.note }}

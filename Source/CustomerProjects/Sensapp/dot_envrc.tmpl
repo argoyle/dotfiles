@@ -1,6 +1,8 @@
+{{- $sensapp := "waoblyOL1mxUG_8J3u4QaLFC05FYa-HQPnTzUvCV5IZgdtllJK3SYgR2tPUxilIqIemLpM_HPZ-c5831D9M5_A==" -}}
+{{- $azure := (protonPassJSON (print "pass://" $sensapp "/XvBWteLN9jjMvXx6Jnr2FK_Tn1C70mt31TuMU-yJziwU5kxZPQ_Al0PchOYjajWtpMLXGgZYrlghALnR1nH5Jw==")).item.content.note -}}
 source_up .envrc
 
 export PATH=${PWD}/.bin:${PATH}
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
-export AZURE_TENANT_ID={{ (index (lastpass "Sensapp/env") 0).note.azureTenantId -}}
-export AZURE_CLIENT_ID={{ (index (lastpass "Sensapp/env") 0).note.azureClientId -}}
+export AZURE_TENANT_ID={{ regexFind "azureTenantId:[^\n]*" $azure | trimPrefix "azureTenantId:" }}
+export AZURE_CLIENT_ID={{ regexFind "azureClientId:[^\n]*" $azure | trimPrefix "azureClientId:" -}}

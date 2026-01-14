@@ -1,1 +1,2 @@
-{{ (index (lastpassRaw "devenv/gnupg-trustdb") 0).note | b64dec -}}
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
+{{ (protonPassJSON (print "pass://" $personal "/7N--0XOtiuY52WpDFw1Ro7DqHSwX9vx-DsY_NnSqSM_YMkSeeX3Ac9sq00rtWnuNTfNSWM0_rHbKLlfmISd6Pg==")).item.content.note | b64dec -}}

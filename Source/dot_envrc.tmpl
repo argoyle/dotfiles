@@ -6,7 +6,9 @@ export GITLAB_PRIVATE_TOKEN=${GITLAB_TOKEN}
 export CI_TOKEN=${GITLAB_TOKEN}
 export CI_REGISTRY_USER=git
 export CI_JOB_TOKEN=${GITLAB_TOKEN}
-export NGROK_TOKEN={{ (index (lastpass "devenv/ngrok") 0).note.token -}}
+{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" }}
+{{- $ngrok := (protonPassJSON (print "pass://" $personal "/z_76LvILqAAgeRkHWGX5A-24Pgn0WujO4REOOzx6CIClu3F7CW2PkCprl1W1sbnabJj41FEM5tUxs2_wOXRCxA==")).item.content.note }}
+export NGROK_TOKEN={{ regexFind "token:[^\n]*" $ngrok | trimPrefix "token:" }}
 export NGROK_REGION=eu
 export NGROK_URL=https://usd.eu.ngrok.io
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )

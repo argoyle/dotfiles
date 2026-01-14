@@ -1,1 +1,2 @@
-{{ (index (lastpassRaw "Shared-env-goodfeed/staging-default.tfvars") 0).note }}
+{{- $goodfeed := "oSOSZ5ACbCbYWPNnpOOuIabjq9fA66_7guFtTo7D5y4ZCBDSbFtNQzAFlamU149oF8E-2DP62LYObxYiMP3QSw==" -}}
+{{ (protonPassJSON (print "pass://" $goodfeed "/3vKBNNDhVFbrggp8oN6vW9VpU8yLLb9aDmOl1dpamY4ljhVxZdJxgrxChF4-QTJ3eFu0-utJc_UiXOUDr8lLZA==")).item.content.note }}
