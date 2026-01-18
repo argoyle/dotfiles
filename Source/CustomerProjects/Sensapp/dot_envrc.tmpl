@@ -1,5 +1,4 @@
-{{- $sensapp := "waoblyOL1mxUG_8J3u4QaLFC05FYa-HQPnTzUvCV5IZgdtllJK3SYgR2tPUxilIqIemLpM_HPZ-c5831D9M5_A==" -}}
-{{- $azure := (protonPassJSON (print "pass://" $sensapp "/XvBWteLN9jjMvXx6Jnr2FK_Tn1C70mt31TuMU-yJziwU5kxZPQ_Al0PchOYjajWtpMLXGgZYrlghALnR1nH5Jw==")).item.content.note -}}
+{{- $azure := (protonPassJSON "pass://Sensapp shared/azure-credentials").item.content.note -}}
 source_up .envrc
 
 export PATH=${PWD}/.bin:${PATH}

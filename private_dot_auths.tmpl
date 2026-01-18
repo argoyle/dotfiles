@@ -1,4 +1,4 @@
-{{- $item := protonPassJSON "pass://gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==/iI_F3jHzuiBM-hYOTcmXaSwjpHFOoztk4rVkDqpegXJE8_R7lnUNxhK2aRI8BDlFGbVb1eCNQsOZixj8xjq19Q==" -}}
+{{- $item := protonPassJSON "pass://Personal/.auths" -}}
 {{- $note := $item.item.content.note -}}
 export GITHUB_TOKEN={{ regexFind "GithubToken:[^\n]*" $note | trimPrefix "GithubToken:" }}
 export HOMEBREW_GITHUB_API_TOKEN={{ regexFind "GithubToken:[^\n]*" $note | trimPrefix "GithubToken:" }}

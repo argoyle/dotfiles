@@ -1,10 +1,8 @@
-{{- $infra := "MZ5oSCCuiEAFjXuhh68lPcrEHyYk344DZHVd3Ki1TN5hu6Wt28yz0U6zVxArs2uVPNnZkiP5dcoDphlrrsJ0aw==" -}}
-{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
-{{- $slack := (protonPassJSON (print "pass://" $infra "/hpmGndMV4nvx4e-q_3PtLj6gg_Pm13kjcG9JspIeQ6KNC9RHCxIRp-KBu-T3G_ht2Au12bJAQOFUB1FwIfvRMA==")).item.content.note -}}
-{{- $dockercfg := (protonPassJSON (print "pass://" $infra "/HZwFCZQPq-sSS5uF8i3EK8KqYMX0Lc89Ilgq0Bz0ug36fXrfbU7qiWEiBcrutjQ97i1OcUhxgsbiVbg3DKAOlw==")).item.content.note -}}
-{{- $auths := (protonPassJSON (print "pass://" $personal "/iI_F3jHzuiBM-hYOTcmXaSwjpHFOoztk4rVkDqpegXJE8_R7lnUNxhK2aRI8BDlFGbVb1eCNQsOZixj8xjq19Q==")).item.content.note -}}
-{{- $grafana := (protonPassJSON (print "pass://" $infra "/uLdVZ5gCOspCasmTwoBQyMRFyHDn5l3WW4fTHwp3QFnfIumUHy8ztW9AhChjiEl6L_B-zIenVKfLiscR-bBQqQ==")).item.content.note -}}
-{{- $gitea := (protonPassJSON (print "pass://" $infra "/Z5rT1Qqd9DKdw3OXoOWNyheZn9HYxG4Rjxs1kdjoABrxHjSU5nPUHaTp_KHEZkPj06kcssBUuzSncv4f9f8ZRg==")).item.content.note -}}
+{{- $slack := (protonPassJSON "pass://Unbound Infrastructure/slack").item.content.note -}}
+{{- $dockercfg := (protonPassJSON "pass://Unbound Infrastructure/dockercfg").item.content.note -}}
+{{- $auths := (protonPassJSON "pass://Personal/.auths").item.content.note -}}
+{{- $grafana := (protonPassJSON "pass://Unbound Infrastructure/grafana-cloud").item.content.note -}}
+{{- $gitea := (protonPassJSON "pass://Unbound Infrastructure/gitea").item.content.note -}}
 slack = {
   ops          = {{ regexFind "ops:[^\n]*" $slack | trimPrefix "ops:" | trim | quote }}
   gitlab_ci    = {{ regexFind "gitlabCi:[^\n]*" $slack | trimPrefix "gitlabCi:" | trim | quote }}

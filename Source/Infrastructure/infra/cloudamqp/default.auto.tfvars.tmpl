@@ -1,5 +1,4 @@
-{{- $infra := "MZ5oSCCuiEAFjXuhh68lPcrEHyYk344DZHVd3Ki1TN5hu6Wt28yz0U6zVxArs2uVPNnZkiP5dcoDphlrrsJ0aw==" -}}
-{{- $cloudamqp := (protonPassJSON (print "pass://" $infra "/YWdZEv0YCD-MIG6af3JtIQWHxygCG1Phg1yJGX3orj3GIOrnW9yaSgo8zf3GBJSH3loYuyRBuSpv0Wst976i6w==")).item.content.note -}}
-{{- $slack := (protonPassJSON (print "pass://" $infra "/hpmGndMV4nvx4e-q_3PtLj6gg_Pm13kjcG9JspIeQ6KNC9RHCxIRp-KBu-T3G_ht2Au12bJAQOFUB1FwIfvRMA==")).item.content.note -}}
+{{- $cloudamqp := (protonPassJSON "pass://Unbound Infrastructure/cloudamqp_api_key").item.content.note -}}
+{{- $slack := (protonPassJSON "pass://Unbound Infrastructure/slack").item.content.note -}}
 cloudamqp_customer_api_key = "{{ $cloudamqp -}}"
 slack_webhook              = {{ regexFind "ops:[^\n]*" $slack | trimPrefix "ops:" | trim | quote }}
