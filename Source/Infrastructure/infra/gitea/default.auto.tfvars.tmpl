@@ -1,8 +1,6 @@
-{{- $infra := "MZ5oSCCuiEAFjXuhh68lPcrEHyYk344DZHVd3Ki1TN5hu6Wt28yz0U6zVxArs2uVPNnZkiP5dcoDphlrrsJ0aw==" -}}
-{{- $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
-{{- $gitea := (protonPassJSON (print "pass://" $infra "/Z5rT1Qqd9DKdw3OXoOWNyheZn9HYxG4Rjxs1kdjoABrxHjSU5nPUHaTp_KHEZkPj06kcssBUuzSncv4f9f8ZRg==")).item.content.note -}}
-{{- $auths := (protonPassJSON (print "pass://" $personal "/iI_F3jHzuiBM-hYOTcmXaSwjpHFOoztk4rVkDqpegXJE8_R7lnUNxhK2aRI8BDlFGbVb1eCNQsOZixj8xjq19Q==")).item.content.note -}}
-{{- $slack := (protonPassJSON (print "pass://" $infra "/hpmGndMV4nvx4e-q_3PtLj6gg_Pm13kjcG9JspIeQ6KNC9RHCxIRp-KBu-T3G_ht2Au12bJAQOFUB1FwIfvRMA==")).item.content.note -}}
+{{- $gitea := (protonPassJSON "pass://Unbound Infrastructure/gitea").item.content.note -}}
+{{- $auths := (protonPassJSON "pass://Personal/.auths").item.content.note -}}
+{{- $slack := (protonPassJSON "pass://Unbound Infrastructure/slack").item.content.note -}}
 gitea_token         = {{ regexFind "Terraform:[^\n]*" $gitea | trimPrefix "Terraform:" | trim | quote }}
 gitlab_token        = {{ regexFind "GitlabTerraformToken:[^\n]*" $auths | trimPrefix "GitlabTerraformToken:" | trim | quote }}
 anthropic_api_key   = {{ regexFind "AnthropicApiKey:[^\n]*" $gitea | trimPrefix "AnthropicApiKey:" | trim | quote }}

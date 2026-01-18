@@ -1,6 +1,5 @@
-{{- $paidit := "NtduTg1bifSE9lekT6uuLlwDqVAQmLCXagAf-CTAwEfo3UTVDb9_TEb9UIq38W5cwnUzcIUzinOzqe4SxyOS8Q==" -}}
-{{- $cypress := (protonPassJSON (print "pass://" $paidit "/EwOZzG5JarIPuPa7bFiKzCuDH7sCRME81WNiKDmk8696dZvuzRwmgZ_NrZ6XeKBR5yARoMC9J-2zQX8fbDWauA==")).item.content.content.Login -}}
-{{- $stage := (protonPassJSON (print "pass://" $paidit "/NESirvNwA22HzKaBhMudQG05P3I4i2jXEClcjwd74GUBgmcl2mp7_-hhGmnLPI7TCrwfoIN1fo-4hpCkD7EGoQ==")).item.content.content.Login -}}
+{{- $cypress := (protonPassJSON "pass://PaidIT shared/Cypress Normal User").item.content.content.Login -}}
+{{- $stage := (protonPassJSON "pass://PaidIT shared/Paidit Stage").item.content.content.Login -}}
 source_up .envrc
 use nvm
 export PORT=3333

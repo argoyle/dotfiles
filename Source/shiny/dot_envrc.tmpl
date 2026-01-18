@@ -4,9 +4,8 @@ export GITLAB_USER=argoyle
 export CLUSTER_NAME=jocke
 export GOPRIVATE=gitea.unbound.se/shiny,gitea.unbound.se/unboundsoftware
 export AMQP_URL="amqp://user:password@unbound-control-plane.orb.local:5672/"
-{{ $personal := "gA-ol5KM9A5u56gTKWJXhaSBin2Mtr8R6dM-LkL_mtMITW1sp9--i9p46CZevZtUrtB9Mi9VLpLQ8Y0U-JhNiw==" -}}
-{{- $schemas := (protonPassJSON (print "pass://" $personal "/LYpVdTNg5UPGc1eF4zMDKab9wzqMeUcd1B8LgW14sMUR99yIEOekY8PRFZP-zng7o9UoUbXzuWj0RHD9fc9Ziw==")).item.content.note -}}
-{{- $cosmo := (protonPassJSON (print "pass://" $personal "/-VvKap2--tSNTiacL-wa52kYzFJmKhK0JpsuL9wlogLH6NBdKL3fSbiSlEKWHG9YI7UOxnkMECOxN2vw66kM7A==")).item.content.note -}}
+{{ $schemas := (protonPassJSON "pass://Personal/schemas").item.content.note -}}
+{{ $cosmo := (protonPassJSON "pass://Personal/Cosmo").item.content.note -}}
 export API_KEY={{ regexFind "apiKey:[^\n]*" $schemas | trimPrefix "apiKey:" }}
 export SCHEMA_REF=Shiny@dev
 export COSMO_API_KEY={{ regexFind "apiKey:[^\n]*" $cosmo | trimPrefix "apiKey:" }}

@@ -1,7 +1,6 @@
-{{- $infra := "MZ5oSCCuiEAFjXuhh68lPcrEHyYk344DZHVd3Ki1TN5hu6Wt28yz0U6zVxArs2uVPNnZkiP5dcoDphlrrsJ0aw==" -}}
-{{- $auth0 := (protonPassJSON (print "pass://" $infra "/R-lUFpa3d5KbMYsKrMIM8liKSMAvf_1gx4ffQZLrTz5U0V9SYVSimposttLOYUYkVohqe6bM03oXZDAYPaswSw==")).item.content.note -}}
-{{- $google := (protonPassJSON (print "pass://" $infra "/UwtN9Mz7CGIV-mZY70QhVMwzNspPsS-E120Ys_y1rmYGobwkDiLVX2B-ixxXNQCrnbRn9Wg7hed4CGJkxesk3g==")).item.content.note -}}
-{{- $facebook := (protonPassJSON (print "pass://" $infra "/lAB49STr_yKvr5isAXuWRCTpnwwoZp4R4VvM0--e0L4eF8QbU5SeFZ8rQHthD6DovCV1thmKhTuL7jNxf5qp2g==")).item.content.note -}}
+{{- $auth0 := (protonPassJSON "pass://Unbound Infrastructure/auth0").item.content.note -}}
+{{- $google := (protonPassJSON "pass://Unbound Infrastructure/google").item.content.note -}}
+{{- $facebook := (protonPassJSON "pass://Unbound Infrastructure/facebook").item.content.note -}}
 auth0 = {
   domain        = {{ regexFind "domain:[^\n]*" $auth0 | trimPrefix "domain:" | trim | quote }}
   client_id     = {{ regexFind "clientId:[^\n]*" $auth0 | trimPrefix "clientId:" | trim | quote }}
