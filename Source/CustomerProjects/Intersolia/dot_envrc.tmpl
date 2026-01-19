@@ -12,3 +12,5 @@ export AWS_CONFIG_FILE=${PWD}/.aws/config
 
 export GITHUB_TOKEN={{ regexFind "IntersoliaGithubToken:[^\n]*" $note | trimPrefix "IntersoliaGithubToken:" }}
 
+export AUTH_JWKS_URI=http://keycloak.localhost/realms/intersolia/protocol/openid-connect/certs
+export AUTH_ISSUER=http://keycloak.localhost/realms/intersolia
