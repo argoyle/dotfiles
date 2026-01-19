@@ -49,11 +49,15 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 2. **Assign changes using CLI IDs** (NOT file paths):
    - Single file: `but rub <cliId> <branch>` (e.g., `but rub g0 goodfeed-infra`)
    - All unassigned: `but rub 00 <branch>` (when all changes go to one branch)
-3. **Commit to branch**: `but commit --only -m "message" <branch>`
+3. **Run pre-commit** (if `.pre-commit-config.yaml` exists in repo):
+   - Stage all files first: `git add -A`
+   - Run: `pre-commit run --all-files`
+   - Fix any issues before proceeding
+4. **Commit to branch**: `but commit --only -m "message" <branch>`
    - **IMPORTANT**: Always use `--only` flag to commit only the assigned files
    - Without `--only`, all staged files will be committed regardless of branch assignment
-4. Follow conventional commits format
-5. Add `Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>` line
+5. Follow conventional commits format
+6. Add `Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>` line
 
 ### Key Commands Reference
 
