@@ -48,7 +48,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 1. **Create branches** if needed: `but branch new <name>`
 2. **Assign changes using CLI IDs** (NOT file paths):
    - Single file: `but rub <cliId> <branch>` (e.g., `but rub g0 goodfeed-infra`)
-   - All unassigned: `but rub 00 <branch>` (when all changes go to one branch)
+   - All unassigned: `but rub zz <branch>` (when all changes go to one branch)
 3. **Run pre-commit** (if `.pre-commit-config.yaml` exists in repo):
    - Stage all files first: `git add -A`
    - Run: `pre-commit run --all-files`
@@ -67,7 +67,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but branch list --json` | Get existing branches |
 | `but branch new <name>` | Create new branch |
 | `but rub <cliId> <branch>` | Assign single change (by CLI ID) to branch |
-| `but rub 00 <branch>` | Assign ALL unassigned changes to branch |
+| `but rub zz <branch>` | Assign ALL unassigned changes to branch |
 | `but commit --only -m "msg" <branch>` | Commit only assigned files to branch |
 | `but commit -c --only -m "msg"` | Create new branch and commit assigned files |
 
@@ -76,11 +76,11 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 CLI IDs from `but status` are short codes like `g0`, `h0`, `i1`, etc.
 - First character: letter (a-z)
 - Second character: digit (0-9)
-- Special: `00` refers to ALL unassigned changes
+- Special: `zz` refers to ALL unassigned changes
 - Use these IDs in `but rub`, NOT file paths
 
 ### Optimization: Bulk Assignment
 
 When all unassigned changes should go to a single branch:
-- Use `but rub 00 <branch>` to assign everything at once
+- Use `but rub zz <branch>` to assign everything at once
 - This is faster than assigning files individually
