@@ -11,7 +11,13 @@ Host homeassistant.local
   User root
   Port 2222
 
-Host 192.168.1.70
+Host ottestala
+  HostName 192.168.1.70
+  User root
+  Port 2222
+
+Host granvagen
+  HostName 192.168.11.58
   User root
   Port 2222
 
