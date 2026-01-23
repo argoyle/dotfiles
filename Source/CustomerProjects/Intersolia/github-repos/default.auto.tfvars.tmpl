@@ -1,0 +1,3 @@
+{{- $item := protonPassJSON "pass://Personal/.auths" -}}
+{{- $note := $item.item.content.note -}}
+gh_token = {{ regexFind "IntersoliaInfraGithubToken:[^\n]*" $note | trimPrefix "IntersoliaInfraGithubToken:" | quote }}
