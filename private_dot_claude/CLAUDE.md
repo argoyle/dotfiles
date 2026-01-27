@@ -77,6 +77,10 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but reword <branch-id> -m "name"` | Rename a branch |
 | `but push <branch>` | Push branch to remote (use instead of `git push`) |
 | `but pr new <branch>` | Create a PR on GitHub for the given branch |
+| `but absorb` | Amend uncommitted changes into the appropriate existing commits |
+| `but absorb <cliId>` | Absorb a specific uncommitted file into its matching commit |
+| `but absorb <branch>` | Absorb all changes staged to a specific branch |
+| `but absorb --dry-run` | Show absorption plan without making changes |
 
 ### CLI ID Format
 
