@@ -16,6 +16,9 @@
 
 When the current branch is `gitbutler/workspace`, use the `but` CLI instead of git.
 
+- **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
+- **Create PRs using `but pr new <branch>`** when the remote is GitHub.
+
 ### Pre-Commit Analysis Workflow
 
 1. **Gather workspace state** (run both in parallel):
@@ -70,6 +73,10 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but rub zz <branch>` | Assign ALL unassigned changes to branch |
 | `but commit --only -m "msg" <branch>` | Commit only assigned files to branch |
 | `but commit -c --only -m "msg"` | Create new branch and commit assigned files |
+| `but reword <commit-id> -m "msg"` | Edit a commit message |
+| `but reword <branch-id> -m "name"` | Rename a branch |
+| `but push <branch>` | Push branch to remote (use instead of `git push`) |
+| `but pr new <branch>` | Create a PR on GitHub for the given branch |
 
 ### CLI ID Format
 
