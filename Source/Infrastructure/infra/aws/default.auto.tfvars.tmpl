@@ -16,8 +16,6 @@ docker_config                  = <<EOT
 {{ $dockercfg }}
 EOT
 gitlab_provider_token          = {{ regexFind "GitlabTerraformToken:[^\n]*" $auths | trimPrefix "GitlabTerraformToken:" | trim | quote }}
-gitlab_cleanup_token           = {{ regexFind "GitlabCleanupHandlerToken:[^\n]*" $auths | trimPrefix "GitlabCleanupHandlerToken:" | trim | quote }}
-gitlab_runner_token            = {{ regexFind "GitlabRunnerRegistrationToken:[^\n]*" $auths | trimPrefix "GitlabRunnerRegistrationToken:" | trim | quote }}
 grafana_cloud_api_key          = {{ regexFind "terraform:[^\n]*" $grafana | trimPrefix "terraform:" | trim | quote }}
 gitea_admin_password           = {{ regexFind "AdminPassword:[^\n]*" $gitea | trimPrefix "AdminPassword:" | trim | quote }}
 gitea_db_password              = {{ regexFind "DbPassword:[^\n]*" $gitea | trimPrefix "DbPassword:" | trim | quote }}
