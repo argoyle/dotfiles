@@ -1,19 +1,11 @@
 {{- $gitea := (protonPassJSON "pass://Unbound Infrastructure/gitea").item.content.note -}}
 {{- $auths := (protonPassJSON "pass://Personal/.auths").item.content.note -}}
 {{- $slack := (protonPassJSON "pass://Unbound Infrastructure/slack").item.content.note -}}
-gitea_token         = {{ regexFind "Terraform:[^\n]*" $gitea | trimPrefix "Terraform:" | trim | quote }}
-gitlab_token        = {{ regexFind "GitlabTerraformToken:[^\n]*" $auths | trimPrefix "GitlabTerraformToken:" | trim | quote }}
-anthropic_api_key   = {{ regexFind "AnthropicApiKey:[^\n]*" $gitea | trimPrefix "AnthropicApiKey:" | trim | quote }}
-gitea_actions_token = {{ regexFind "GiteaActionsToken:[^\n]*" $gitea | trimPrefix "GiteaActionsToken:" | trim | quote }}
-slack = {
-  ops          = {{ regexFind "ops:[^\n]*" $slack | trimPrefix "ops:" | trim | quote }}
-  gitlab_ci    = {{ regexFind "gitlabCi:[^\n]*" $slack | trimPrefix "gitlabCi:" | trim | quote }}
-  dancefinder  = {{ regexFind "dancefinder:[^\n]*" $slack | trimPrefix "dancefinder:" | trim | quote }}
-  shiny        = {{ regexFind "shiny:[^\n]*" $slack | trimPrefix "shiny:" | trim | quote }}
-  hifi         = {{ regexFind "hifi:[^\n]*" $slack | trimPrefix "hifi:" | trim | quote }}
-  eventsourced = {{ regexFind "eventsourced:[^\n]*" $slack | trimPrefix "eventsourced:" | trim | quote }}
-  angus        = {{ regexFind "angus:[^\n]*" $slack | trimPrefix "angus:" | trim | quote }}
-}
+gitea_token           = {{ regexFind "Terraform:[^\n]*" $gitea | trimPrefix "Terraform:" | trim | quote }}
+gitlab_token          = {{ regexFind "GitlabTerraformToken:[^\n]*" $auths | trimPrefix "GitlabTerraformToken:" | trim | quote }}
+anthropic_api_key     = {{ regexFind "AnthropicApiKey:[^\n]*" $gitea | trimPrefix "AnthropicApiKey:" | trim | quote }}
+gitea_actions_token   = {{ regexFind "GiteaActionsToken:[^\n]*" $gitea | trimPrefix "GiteaActionsToken:" | trim | quote }}
+slack_url             = {{ regexFind "gitea:[^\n]*" $slack | trimPrefix "gitea:" | trim | quote }}
 aws_access_key_id     = {{ regexFind "TerraformKey:[^\n]*" $gitea | trimPrefix "TerraformKey:" | trim | quote }}
 aws_secret_access_key = {{ regexFind "TerraformSecret:[^\n]*" $gitea | trimPrefix "TerraformSecret:" | trim | quote }}
 schemas_api_key       = {{ regexFind "SchemasApiKey:[^\n]*" $gitea | trimPrefix "SchemasApiKey:" | trim | quote }}
