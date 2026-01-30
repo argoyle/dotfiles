@@ -105,3 +105,38 @@ aws-sso-clear() {
 }
 
 compdef __aws_sso_profile_complete aws-sso-profile 2>/dev/null
+
+# but-pull-all completion - complete GitButler project names and flags
+__but_pull_all_complete() {
+  local projects_file="$HOME/Library/Application Support/com.gitbutler.app/projects.json"
+  _arguments \
+    '(-f --force)'{-f,--force}'[Clean broken refs automatically]' \
+    '(-t --timeout)'{-t,--timeout}'[Timeout in seconds per repo (default: 30)]:timeout:' \
+    '*:project:->projects'
+
+  if [[ $state == projects ]] && [[ -f "$projects_file" ]]; then
+    local projects=($(jq -r '.[].path' "$projects_file" 2>/dev/null | xargs -I{} basename {} | sort -u))
+    _describe 'project' projects
+  fi
+}
+
+compdef __but_pull_all_complete but-pull-all 2>/dev/null
+
+# k8s-rds-tunnel completion - complete cluster names and flags
+__k8s_rds_tunnel_complete() {
+  _arguments \
+    '(-p --port)'{-p,--port}'[Local port (default: 35432)]:port:' \
+    '*:cluster:->clusters'
+
+  if [[ $state == clusters ]] && [[ -n "$K8S_RDS_CONFIG" ]] && [[ -f "$K8S_RDS_CONFIG" ]]; then
+    local clusters=()
+    while IFS= read -r line; do
+      [[ "$line" =~ ^[[:space:]]*# ]] && continue
+      [[ -z "${line// }" ]] && continue
+      clusters+=("${line%% *}")
+    done < "$K8S_RDS_CONFIG"
+    _describe 'cluster' clusters
+  fi
+}
+
+compdef __k8s_rds_tunnel_complete k8s-rds-tunnel 2>/dev/null

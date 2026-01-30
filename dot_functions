@@ -88,3 +88,192 @@ bup() {
     fi
   done
 }
+
+# Update all GitButler projects to latest remote state
+but-pull-all() {
+    local force=0
+    local timeout_secs=30
+    local filter=""
+    local projects_file="$HOME/Library/Application Support/com.gitbutler.app/projects.json"
+
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -f|--force)
+                force=1
+                shift
+                ;;
+            -t|--timeout)
+                timeout_secs="$2"
+                shift 2
+                ;;
+            *)
+                filter="$1"
+                shift
+                ;;
+        esac
+    done
+
+    if [[ ! -f "$projects_file" ]]; then
+        echo "GitButler projects.json not found"
+        return 1
+    fi
+
+    local matched=0
+
+    for path in $(jq -r '.[].path' "$projects_file"); do
+        local name=$(basename "$path")
+
+        # Skip if filter provided and doesn't match
+        if [[ -n "$filter" ]] && [[ "$name" != *"$filter"* ]]; then
+            continue
+        fi
+
+        if [[ -d "$path/.git/gitbutler" ]]; then
+            ((matched++))
+            # Check status first
+            local check_output=$(timeout $timeout_secs but -C "$path" pull --check 2>&1)
+            local check_status=$?
+
+            if [[ $check_status -eq 124 ]]; then
+                echo "$name: \033[31mtimed out during check\033[0m"
+            elif echo "$check_output" | grep -q "Up to date"; then
+                echo "$name: \033[32mup to date\033[0m"
+            elif echo "$check_output" | grep -q "bad object"; then
+                # Broken refs detected
+                if [[ $force -eq 1 ]]; then
+                    echo "$name: \033[33mcleaning broken refs...\033[0m"
+                    # Find all broken refs from git branch warnings
+                    for ref in $(git -C "$path" branch 2>&1 | grep "warning: ignoring broken ref" | sed 's/.*refs\/heads\//refs\/heads\//'); do
+                        echo "  removing $ref"
+                        git -C "$path" update-ref -d "$ref" 2>/dev/null
+                    done
+                    git -C "$path" fetch --prune origin 2>/dev/null
+                    # Retry pull
+                    timeout $timeout_secs but -C "$path" pull
+                    if [[ $? -eq 124 ]]; then
+                        echo "\033[31m  timed out after ${timeout_secs}s\033[0m"
+                    fi
+                    echo
+                else
+                    echo "$name: \033[31mbroken refs\033[0m (use --force to clean)"
+                fi
+            else
+                # Has changes or errors - run with full output
+                echo "$name:"
+                timeout $timeout_secs but -C "$path" pull
+                if [[ $? -eq 124 ]]; then
+                    echo "\033[31m  timed out after ${timeout_secs}s\033[0m"
+                fi
+                echo
+            fi
+        fi
+    done
+
+    if [[ -n "$filter" ]] && [[ $matched -eq 0 ]]; then
+        echo "\033[31mNo projects matching '$filter'\033[0m"
+        return 1
+    fi
+}
+
+# Port forward to RDS via SSM through a k8s node
+k8s-rds-tunnel() {
+    local local_port=35432
+    local cluster=""
+
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -p|--port)
+                local_port="$2"
+                shift 2
+                ;;
+            *)
+                cluster="$1"
+                shift
+                ;;
+        esac
+    done
+
+    # Check config file
+    if [[ -z "$K8S_RDS_CONFIG" ]]; then
+        echo "\033[31mK8S_RDS_CONFIG is not set\033[0m"
+        return 1
+    fi
+
+    if [[ ! -f "$K8S_RDS_CONFIG" ]]; then
+        echo "\033[31mConfig file not found: $K8S_RDS_CONFIG\033[0m"
+        return 1
+    fi
+
+    # Parse available clusters from config
+    local clusters=()
+    while IFS= read -r line; do
+        [[ "$line" =~ ^[[:space:]]*# ]] && continue
+        [[ -z "${line// }" ]] && continue
+        clusters+=("${line%% *}")
+    done < "$K8S_RDS_CONFIG"
+
+    if [[ -z "$cluster" ]]; then
+        echo "Usage: k8s-rds-tunnel <cluster-name> [--port <local-port>]"
+        echo ""
+        echo "Available clusters:"
+        for c in "${clusters[@]}"; do
+            echo "  $c"
+        done
+        return 1
+    fi
+
+    # Look up cluster in config
+    local rds_host=""
+    local region=""
+    local remote_port=""
+    while IFS= read -r line; do
+        [[ "$line" =~ ^[[:space:]]*# ]] && continue
+        [[ -z "${line// }" ]] && continue
+        local fields=($line)
+        if [[ "${fields[0]}" == "$cluster" ]]; then
+            rds_host="${fields[1]}"
+            region="${fields[2]}"
+            remote_port="${fields[3]:-5432}"
+            break
+        fi
+    done < "$K8S_RDS_CONFIG"
+
+    if [[ -z "$rds_host" ]]; then
+        echo "\033[31mUnknown cluster: $cluster\033[0m"
+        echo ""
+        echo "Available clusters:"
+        for c in "${clusters[@]}"; do
+            echo "  $c"
+        done
+        return 1
+    fi
+
+    # Get a node instance ID from the cluster
+    echo "Getting node from cluster $cluster..."
+    local instance_id
+    instance_id=$(kubectl --context "$cluster" get nodes -o jsonpath='{.items[0].spec.providerID}' 2>&1)
+    if [[ $? -ne 0 ]]; then
+        echo "\033[31mFailed to get node from cluster: $instance_id\033[0m"
+        return 1
+    fi
+
+    # Extract instance ID from provider ID (format: aws:///az/i-xxx)
+    instance_id="${instance_id##*/}"
+
+    if [[ -z "$instance_id" ]]; then
+        echo "\033[31mNo nodes found in cluster $cluster\033[0m"
+        return 1
+    fi
+
+    echo "Using node: $instance_id"
+    echo "Forwarding localhost:$local_port → $rds_host:$remote_port via $instance_id"
+    echo ""
+
+    aws ssm start-session \
+        --region "$region" \
+        --target "$instance_id" \
+        --document-name AWS-StartPortForwardingSessionToRemoteHost \
+        --parameters "host=$rds_host,portNumber=$remote_port,localPortNumber=$local_port"
+}
