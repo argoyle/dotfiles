@@ -61,6 +61,8 @@ Defined in `dot_functions`:
 - `bup` - Safely update brew packages by validating Brewfile first
 - `ecr` - Login to AWS ECR
 - `reload` - Reload zsh configuration
+- `but-pull-all` - Update all GitButler projects to latest remote state (supports `-f/--force` and `-t/--timeout`)
+- `k8s-rds-tunnel` - Port forward to RDS via AWS SSM through k8s node (uses `K8S_RDS_CONFIG`)
 
 Git repository management aliases (from `dot_aliases`):
 - `updrepo` - Update all git repos in subdirectories
