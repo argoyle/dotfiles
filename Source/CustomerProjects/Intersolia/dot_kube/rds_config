@@ -1,0 +1,7 @@
+# k8s-rds-tunnel configuration
+# Format: cluster_name rds_host region [port]
+# Port defaults to 5432 if omitted
+
+k8s.platform.intersolia.io platform.cluster-cpa4kgoogeu5.eu-north-1.rds.amazonaws.com eu-north-1
+k8s.intersolia.io shared.cluster-cb8qycm0qiz7.eu-north-1.rds.amazonaws.com eu-north-1
+k8s.dev.intersolia.io shared.cluster-chu6gwqekcof.eu-north-1.rds.amazonaws.com eu-north-1

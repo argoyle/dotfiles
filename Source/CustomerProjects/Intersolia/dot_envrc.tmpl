@@ -6,6 +6,7 @@ layout pyenv 3.14.0
 
 export PATH=${PATH}:${PWD}/.bin
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
+export K8S_RDS_CONFIG=${PWD}/.kube/rds_config
 
 export AWS_SSO_CONFIG=${PWD}/.aws-sso/config
 export AWS_CONFIG_FILE=${PWD}/.aws/config

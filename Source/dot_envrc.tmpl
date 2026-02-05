@@ -11,5 +11,6 @@ export NGROK_TOKEN={{ regexFind "token:[^\n]*" $ngrok | trimPrefix "token:" }}
 export NGROK_REGION=eu
 export NGROK_URL=https://usd.eu.ngrok.io
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
+export K8S_RDS_CONFIG=${PWD}/.kube/rds_config
 #export DOCKER_HOST=unix:///${HOME}/.docker/run/docker.sock
 PATH_add /opt/homebrew/opt/ruby/bin
