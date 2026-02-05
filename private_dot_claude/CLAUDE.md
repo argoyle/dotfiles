@@ -18,6 +18,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
 - **Create PRs using `but pr new <branch>`** when the remote is GitHub.
+  - In non-interactive mode, must use `-m "title\n\nbody"`, `-t` (use commit message), or `-F <file>`
 
 ### Pre-Commit Analysis Workflow
 
@@ -76,7 +77,8 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but reword <commit-id> -m "msg"` | Edit a commit message |
 | `but reword <branch-id> -m "name"` | Rename a branch |
 | `but push <branch>` | Push branch to remote (use instead of `git push`) |
-| `but pr new <branch>` | Create a PR on GitHub for the given branch |
+| `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body |
+| `but pr new -t <branch>` | Create PR using commit message as default content |
 | `but absorb` | Amend uncommitted changes into the appropriate existing commits |
 | `but absorb <cliId>` | Absorb a specific uncommitted file into its matching commit |
 | `but absorb <branch>` | Absorb all changes staged to a specific branch |
