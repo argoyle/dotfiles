@@ -1,4 +1,7 @@
-# CLAUDE.md
+# CLAUDE.md (Project)
+
+This is the **project-level** CLAUDE.md for the chezmoi dotfiles repository.
+Global user instructions live in `private_dot_claude/CLAUDE.md` (deployed to `~/.claude/CLAUDE.md`).
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
