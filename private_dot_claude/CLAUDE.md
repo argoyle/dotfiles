@@ -11,6 +11,7 @@
 - always use the latest versions of dependencies and docker images
 - We don't use docker buildx but build-tools
 - Always add unit tests when making changes, if possible
+- Always explicitly specify the context when running `kubectl` commands using `--context <context>`. Check the project's `.buildtools.yaml` or `.envrc` for the expected k8s context. Never rely on the current default context — it may point to a different cluster (e.g., production instead of local). For local development, the context typically follows the pattern: `kind-<project-name>`
 
 ## GitButler Workflow (when on gitbutler/workspace branch)
 
