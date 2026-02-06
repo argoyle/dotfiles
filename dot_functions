@@ -242,11 +242,11 @@ k8s-rds-tunnel() {
     while IFS= read -r line; do
         [[ "$line" =~ ^[[:space:]]*# ]] && continue
         [[ -z "${line// }" ]] && continue
-        local fields=($line)
-        if [[ "${fields[0]}" == "$cluster" ]]; then
-            rds_host="${fields[1]}"
-            region="${fields[2]}"
-            remote_port="${fields[3]:-5432}"
+        local fields=(${=line})
+        if [[ "${fields[1]}" == "$cluster" ]]; then
+            rds_host="${fields[2]}"
+            region="${fields[3]}"
+            remote_port="${fields[4]:-5432}"
             break
         fi
     done < "$K8S_RDS_CONFIG"
