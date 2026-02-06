@@ -95,6 +95,12 @@ but-pull-all() {
     local timeout_secs=30
     local filter=""
     local projects_file="$HOME/Library/Application Support/com.gitbutler.app/projects.json"
+    local but_cmd
+    but_cmd=$(command -v but)
+    if [[ -z "$but_cmd" ]]; then
+        echo "but command not found"
+        return 1
+    fi
 
     # Parse arguments
     while [[ $# -gt 0 ]]; do
@@ -121,18 +127,23 @@ but-pull-all() {
 
     local matched=0
 
-    for path in $(jq -r '.[].path' "$projects_file"); do
-        local name=$(basename "$path")
+    for project_path in $(jq -r '.[].path' "$projects_file"); do
+        local name=$(basename "$project_path")
 
         # Skip if filter provided and doesn't match
         if [[ -n "$filter" ]] && [[ "$name" != *"$filter"* ]]; then
             continue
         fi
 
-        if [[ -d "$path/.git/gitbutler" ]]; then
+        if [[ ! -d "$project_path" ]]; then
+            echo "$name: \033[33mpath not found, skipping\033[0m"
+            continue
+        fi
+
+        if [[ -d "$project_path/.git/gitbutler" ]]; then
             ((matched++))
             # Check status first
-            local check_output=$(timeout $timeout_secs but -C "$path" pull --check 2>&1)
+            local check_output=$(timeout $timeout_secs "$but_cmd" -C "$project_path" pull --check 2>&1)
             local check_status=$?
 
             if [[ $check_status -eq 124 ]]; then
@@ -144,13 +155,13 @@ but-pull-all() {
                 if [[ $force -eq 1 ]]; then
                     echo "$name: \033[33mcleaning broken refs...\033[0m"
                     # Find all broken refs from git branch warnings
-                    for ref in $(git -C "$path" branch 2>&1 | grep "warning: ignoring broken ref" | sed 's/.*refs\/heads\//refs\/heads\//'); do
+                    for ref in $(git -C "$project_path" branch 2>&1 | grep "warning: ignoring broken ref" | sed 's/.*refs\/heads\//refs\/heads\//'); do
                         echo "  removing $ref"
-                        git -C "$path" update-ref -d "$ref" 2>/dev/null
+                        git -C "$project_path" update-ref -d "$ref" 2>/dev/null
                     done
-                    git -C "$path" fetch --prune origin 2>/dev/null
+                    git -C "$project_path" fetch --prune origin 2>/dev/null
                     # Retry pull
-                    timeout $timeout_secs but -C "$path" pull
+                    timeout $timeout_secs "$but_cmd" -C "$project_path" pull
                     if [[ $? -eq 124 ]]; then
                         echo "\033[31m  timed out after ${timeout_secs}s\033[0m"
                     fi
@@ -161,7 +172,7 @@ but-pull-all() {
             else
                 # Has changes or errors - run with full output
                 echo "$name:"
-                timeout $timeout_secs but -C "$path" pull
+                timeout $timeout_secs "$but_cmd" -C "$project_path" pull
                 if [[ $? -eq 124 ]]; then
                     echo "\033[31m  timed out after ${timeout_secs}s\033[0m"
                 fi
