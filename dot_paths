@@ -1,3 +1,5 @@
+prepend_path /opt/homebrew/bin
+prepend_path /opt/homebrew/sbin
 prepend_path /opt/homebrew/opt/grep/libexec/gnubin
 prepend_path /opt/homebrew/opt/gnu-getopt/bin
 prepend_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
