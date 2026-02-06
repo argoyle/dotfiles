@@ -5,6 +5,10 @@ Global user instructions live in `private_dot_claude/CLAUDE.md` (deployed to `~/
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Important: Always Edit Chezmoi Source
+
+Unless explicitly told otherwise, **always edit files in the chezmoi source directory** (`~/.local/share/chezmoi/`), never the deployed target files directly (e.g., `~/.functions`, `~/Source/.kube/rds_config`). Direct edits to target files will be overwritten on the next `chezmoi apply`.
+
 ## Repository Overview
 
 This is a chezmoi dotfiles repository managing development environment configuration across macOS machines. It manages both dotfiles and a complete multi-project development workspace under the `Source/` directory.
