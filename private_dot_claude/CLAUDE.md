@@ -51,6 +51,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 ### Commit Workflow
 
 1. **Create branches** if needed: `but branch new <name>`
+   - For dependent/stacked branches: `but branch new --anchor <parent> <name>`
 2. **Assign changes using CLI IDs** (NOT file paths):
    - Single file: `but rub <cliId> <branch>` (e.g., `but rub g0 goodfeed-infra`)
    - All unassigned: `but rub zz <branch>` (when all changes go to one branch)
@@ -71,6 +72,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but status --json` | Get workspace state with CLI IDs |
 | `but branch list --json` | Get existing branches |
 | `but branch new <name>` | Create new branch |
+| `but branch new --anchor <parent> <name>` | Create dependent branch (stacked on parent) |
 | `but rub <cliId> <branch>` | Assign single change (by CLI ID) to branch |
 | `but rub zz <branch>` | Assign ALL unassigned changes to branch |
 | `but commit --only -m "msg" <branch>` | Commit only assigned files to branch |
