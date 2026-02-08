@@ -66,7 +66,6 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
    - **IMPORTANT**: Always use `--only` flag to commit only the assigned files
    - Without `--only`, all staged files will be committed regardless of branch assignment
 6. Follow conventional commits format
-7. Add `Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>` line
 
 ### Key Commands Reference
 
