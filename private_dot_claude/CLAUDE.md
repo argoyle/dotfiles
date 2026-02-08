@@ -67,25 +67,79 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 
 ### Key Commands Reference
 
+#### Inspection
+
 | Command | Purpose |
 |---------|---------|
 | `but status --json` | Get workspace state with CLI IDs |
 | `but branch list --json` | Get existing branches |
+| `but diff` | Show all uncommitted diffs |
+| `but diff <cliId>` | Show diff for a file, branch, stack, or commit |
+| `but show <commit-or-branch>` | Show commit details or branch commits |
+| `but show <branch> --verbose` | Show branch with full commit details and files |
+
+#### Branching and Committing
+
+| Command | Purpose |
+|---------|---------|
 | `but branch new <name>` | Create new branch |
 | `but branch new --anchor <parent> <name>` | Create dependent branch (stacked on parent) |
 | `but rub <cliId> <branch>` | Assign single change (by CLI ID) to branch |
 | `but rub zz <branch>` | Assign ALL unassigned changes to branch |
+| `but stage <file-or-hunk> <branch>` | Stage a file or hunk to a branch (alternative to rub) |
 | `but commit --only -m "msg" <branch>` | Commit only assigned files to branch |
 | `but commit -c --only -m "msg"` | Create new branch and commit assigned files |
+| `but commit -p <cliId> -m "msg" <branch>` | Commit specific files/hunks only |
+| `but commit empty --before <target>` | Insert blank placeholder commit before target |
+| `but mark <branch>` | Auto-stage new changes to this branch |
+| `but mark <commit>` | Auto-amend new changes into this commit |
+| `but unmark` | Remove all marks |
+| `but discard <cliId>` | Discard uncommitted changes for a file/hunk |
+
+#### Editing Commits
+
+| Command | Purpose |
+|---------|---------|
 | `but reword <commit-id> -m "msg"` | Edit a commit message |
 | `but reword <branch-id> -m "name"` | Rename a branch |
-| `but push <branch>` | Push branch to remote (use instead of `git push`) |
-| `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body |
-| `but pr new -t <branch>` | Create PR using commit message as default content |
-| `but absorb` | Amend uncommitted changes into the appropriate existing commits |
+| `but absorb` | Amend uncommitted changes into appropriate existing commits |
 | `but absorb <cliId>` | Absorb a specific uncommitted file into its matching commit |
 | `but absorb <branch>` | Absorb all changes staged to a specific branch |
 | `but absorb --dry-run` | Show absorption plan without making changes |
+| `but squash <branch>` | Squash all commits in branch into bottom-most |
+| `but squash <commit1> <commit2>` | Squash first commit into second |
+| `but squash <commit1>..<commit2>` | Squash commit range into last commit |
+| `but move <commit> <target>` | Move commit before target (commit or branch) |
+| `but move <commit> <target> --after` | Move commit after target |
+| `but uncommit <commit>` | Uncommit changes back to unstaged area |
+| `but pick <source> <target-branch>` | Cherry-pick from unapplied branch |
+
+#### Server Interactions
+
+| Command | Purpose |
+|---------|---------|
+| `but push <branch>` | Push branch to remote (use instead of `git push`) |
+| `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body |
+| `but pr new -t <branch>` | Create PR using commit message as default content |
+| `but merge <branch>` | Merge a branch into local target branch |
+
+#### Operation History
+
+| Command | Purpose |
+|---------|---------|
+| `but undo` | Undo the last operation |
+| `but oplog` | View operation history |
+
+### Rub Operations Matrix
+
+`but rub <SOURCE> <TARGET>` combines two entities:
+
+| SOURCE / TARGET | zz (unassigned) | Commit | Branch | Stack |
+|----------------|-----------------|--------|--------|-------|
+| File/Hunk | Unstage | Amend | Stage | Stage |
+| Commit | Undo | Squash | Move | - |
+| Branch (all) | Unstage all | Amend all | Reassign | Reassign |
+| Unassigned (zz) | - | Amend all | Stage all | Stage all |
 
 ### CLI ID Format
 
@@ -93,10 +147,16 @@ CLI IDs from `but status` are short codes like `g0`, `h0`, `i1`, etc.
 - First character: letter (a-z)
 - Second character: digit (0-9)
 - Special: `zz` refers to ALL unassigned changes
-- Use these IDs in `but rub`, NOT file paths
+- Use these IDs in `but rub`, `but stage`, `but discard`, etc.
 
 ### Optimization: Bulk Assignment
 
 When all unassigned changes should go to a single branch:
 - Use `but rub zz <branch>` to assign everything at once
 - This is faster than assigning files individually
+
+### Global Options
+
+- `--json` / `-j` — JSON output on any command
+- `--status-after` — Print workspace status after mutation commands
+- `-C <path>` — Run as if started in a different directory
