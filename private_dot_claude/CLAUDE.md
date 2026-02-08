@@ -50,20 +50,23 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 
 ### Commit Workflow
 
-1. **Create branches** if needed: `but branch new <name>`
+1. **Pull latest from remote**: `but pull`
+   - Always do this before creating new branches or committing to existing ones
+   - This syncs with upstream and removes branches that have been merged
+2. **Create branches** if needed: `but branch new <name>`
    - For dependent/stacked branches: `but branch new --anchor <parent> <name>`
-2. **Assign changes using CLI IDs** (NOT file paths):
+3. **Assign changes using CLI IDs** (NOT file paths):
    - Single file: `but rub <cliId> <branch>` (e.g., `but rub g0 goodfeed-infra`)
    - All unassigned: `but rub zz <branch>` (when all changes go to one branch)
-3. **Run pre-commit** (if `.pre-commit-config.yaml` exists in repo):
+4. **Run pre-commit** (if `.pre-commit-config.yaml` exists in repo):
    - Stage all files first: `git add -A`
    - Run: `pre-commit run --all-files`
    - Fix any issues before proceeding
-4. **Commit to branch**: `but commit --only -m "message" <branch>`
+5. **Commit to branch**: `but commit --only -m "message" <branch>`
    - **IMPORTANT**: Always use `--only` flag to commit only the assigned files
    - Without `--only`, all staged files will be committed regardless of branch assignment
-5. Follow conventional commits format
-6. Add `Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>` line
+6. Follow conventional commits format
+7. Add `Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>` line
 
 ### Key Commands Reference
 
