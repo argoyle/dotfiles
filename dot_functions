@@ -130,8 +130,8 @@ but-pull-all() {
     for project_path in $(jq -r '.[].path' "$projects_file"); do
         local name=$(basename "$project_path")
 
-        # Skip if filter provided and doesn't match
-        if [[ -n "$filter" ]] && [[ "$name" != *"$filter"* ]]; then
+        # Skip if filter provided and doesn't match name or path
+        if [[ -n "$filter" ]] && [[ "$name" != *"$filter"* ]] && [[ "$project_path" != *"$filter"* ]]; then
             continue
         fi
 
