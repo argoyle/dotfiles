@@ -115,7 +115,7 @@ __but_pull_all_complete() {
     '*:project:->projects'
 
   if [[ $state == projects ]] && [[ -f "$projects_file" ]]; then
-    local projects=($(jq -r '.[].path' "$projects_file" 2>/dev/null | xargs -I{} basename {} | sort -u))
+    local projects=($(jq -r '.[].path' "$projects_file" 2>/dev/null | while read -r p; do basename "$p"; dirname "$p" | xargs basename; done | sort -u))
     _describe 'project' projects
   fi
 }
