@@ -17,6 +17,7 @@
 
 When the current branch is `gitbutler/workspace`, use the `but` CLI instead of git.
 
+- **Always `cd` into the repository root** before running any `but` commands. The `but` CLI must be run from within the git working tree (or use `-C <path>`).
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
 - **Create PRs using `but pr new <branch>`** when the remote is GitHub.
   - In non-interactive mode, must use `-m "title\n\nbody"`, `-t` (use commit message), or `-F <file>`
