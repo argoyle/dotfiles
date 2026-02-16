@@ -19,8 +19,9 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 
 - **Always `cd` into the repository root** before running any `but` commands. The `but` CLI must be run from within the git working tree (or use `-C <path>`).
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
-- **Create PRs using `but pr new <branch>`** when the remote is GitHub.
-  - In non-interactive mode, must use `-m "title\n\nbody"`, `-t` (use commit message), or `-F <file>`
+- **Create PRs using `but pr new <branch>`**:
+  - **GitHub remotes**: Use `-m "title\n\nbody"` or `-F <file>` to set a custom title and body
+  - **GitLab remotes**: Always use `-t` flag only (`but pr new -t <branch>`) — do not try to set a PR title or body
 
 ### Pre-Commit Analysis Workflow
 
@@ -122,8 +123,8 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | Command | Purpose |
 |---------|---------|
 | `but push <branch>` | Push branch to remote (use instead of `git push`) |
-| `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body |
-| `but pr new -t <branch>` | Create PR using commit message as default content |
+| `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body (GitHub only) |
+| `but pr new -t <branch>` | Create PR using commit message (required for GitLab) |
 | `but merge <branch>` | Merge a branch into local target branch |
 
 #### Operation History
