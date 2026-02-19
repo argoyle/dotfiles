@@ -17,7 +17,7 @@
 
 When the current branch is `gitbutler/workspace`, use the `but` CLI instead of git.
 
-- **Always `cd` into the repository root** before running any `but` commands. The `but` CLI must be run from within the git working tree (or use `-C <path>`).
+- **Always pass `-C <repo-root>`** to every `but` command (e.g., `but -C /path/to/repo status`). This ensures the command targets the correct repository without relying on the current working directory. All examples below omit `-C` for brevity, but it must always be included.
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
 - **Create PRs using `but pr new <branch>`**:
   - **GitHub remotes**: Use `-m "title\n\nbody"` or `-F <file>` to set a custom title and body
@@ -163,6 +163,6 @@ When all unassigned changes should go to a single branch:
 
 ### Global Options
 
+- `-C <path>` — **Required**: Always pass this to target the correct repository (e.g., `but -C /path/to/repo <command>`)
 - `--json` / `-j` — JSON output on any command
 - `--status-after` — Print workspace status after mutation commands
-- `-C <path>` — Run as if started in a different directory
