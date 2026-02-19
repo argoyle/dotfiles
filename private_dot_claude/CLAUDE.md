@@ -26,7 +26,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 ### Pre-Commit Analysis Workflow
 
 1. **Gather workspace state** (run both in parallel):
-   - `but status --json` - Get structured changes with CLI IDs
+   - `but status --json` - Get structured changes with CLI IDs (check for `locked` fields — locked changes are tied to an existing branch)
    - `but branch list --json` - Get existing branches
 
 2. **Analyze change content** (sample diffs to understand patterns):
@@ -44,6 +44,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
    - Example: "ProtonPass name migration (18 files): `protonpass-name-migration`"
    - Example: "Brewfile updates (1 file): `brewfile-update`"
    - Identify existing branches that match the change type
+   - Flag locked changes and indicate which branch they're locked to — suggest anchored branches when new changes depend on locked ones
 
 5. **Ask user for confirmation** on:
    - How to group the changes (accept suggestions or regroup)
@@ -57,6 +58,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
    - This syncs with upstream and removes branches that have been merged
 2. **Create branches** if needed: `but branch new <name>`
    - For dependent/stacked branches: `but branch new --anchor <parent> <name>`
+   - **If any changes are locked to an existing branch**, create the new branch as anchored to that branch (e.g., `but branch new --anchor <locked-branch> <name>`). Locked changes indicate a dependency on commits in the existing branch.
 3. **Assign changes using CLI IDs** (NOT file paths):
    - Single file: `but rub <cliId> <branch>` (e.g., `but rub g0 goodfeed-infra`)
    - All unassigned: `but rub zz <branch>` (when all changes go to one branch)
