@@ -1,4 +1,4 @@
-{{- $item := protonPassJSON "pass://Personal/.auths" -}}
+{{- $item := protonPassJSON "pass://Personal/Intersolia" -}}
 {{- $note := $item.item.content.note -}}
 source_up .envrc
 
@@ -7,11 +7,12 @@ layout pyenv 3.14.0
 export PATH=${PATH}:${PWD}/.bin
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
 export K8S_RDS_CONFIG=${PWD}/.kube/rds_config
+export STATEGRAPH_API_KEY={{ regexFind "StategraphApiKey:[^\n]*" $note | trimPrefix "StategraphApiKey:" }}
 
 export AWS_SSO_CONFIG=${PWD}/.aws-sso/config
 export AWS_CONFIG_FILE=${PWD}/.aws/config
 
-export GITHUB_TOKEN={{ regexFind "IntersoliaGithubToken:[^\n]*" $note | trimPrefix "IntersoliaGithubToken:" }}
+export GITHUB_TOKEN={{ regexFind "GithubToken:[^\n]*" $note | trimPrefix "GithubToken:" }}
 
 export AUTH_JWKS_URI=http://keycloak.localhost/realms/intersolia/protocol/openid-connect/certs
 export AUTH_ISSUER=http://keycloak.localhost/realms/intersolia
