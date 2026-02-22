@@ -5,6 +5,7 @@
 - if current branch is gitbutler/workspace, use but cli tool to create new feature branches, assign changes to branches (but rub)
   and commiting (but commit)
 - it's always `but branch new` and not `bu branch create`
+- it's always `but apply <branch>` and not `but branch apply`
 - always name goose migrations with a numeric prefix with current date and time following the YYYYMMDDHHmmss format
 - Always add all files to git before running pre-commit since it stashes all unstaged files when running
 - I use GNU versions of rm and cp which ask for confirmation on replace and remove.
@@ -100,6 +101,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but mark <branch>` | Auto-stage new changes to this branch |
 | `but mark <commit>` | Auto-amend new changes into this commit |
 | `but unmark` | Remove all marks |
+| `but apply <branch>` | Apply (enable) an unapplied branch |
 | `but discard <cliId>` | Discard uncommitted changes for a file/hunk |
 
 #### Editing Commits
