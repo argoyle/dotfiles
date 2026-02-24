@@ -3,7 +3,27 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
-    "allow": []
+    "allow": [
+      "Bash(gh api *)",
+      "Bash(gh repo view *)",
+      "Bash(gh repo list *)",
+      "Bash(gh issue view *)",
+      "Bash(gh issue list *)",
+      "Bash(gh issue status *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr list *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr checks *)",
+      "Bash(gh pr status *)",
+      "Bash(gh run list *)",
+      "Bash(gh run view *)",
+      "Bash(gh workflow list *)",
+      "Bash(gh workflow view *)",
+      "Bash(gh search *)",
+      "Bash(gh label list *)",
+      "Bash(gh release list *)",
+      "Bash(gh auth status *)"
+    ]
   },
   "hooks": {
     "PreToolUse": [
@@ -14,6 +34,11 @@
             "type": "command",
             "command": "python3 ~/.claude/hooks/gitbutler-commit-hook.py",
             "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/gh-api-readonly.sh",
+            "timeout": 5
           }
         ]
       }
