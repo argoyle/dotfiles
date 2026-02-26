@@ -6,8 +6,7 @@ export GITLAB_PRIVATE_TOKEN=${GITLAB_TOKEN}
 export CI_TOKEN=${GITLAB_TOKEN}
 export CI_REGISTRY_USER=git
 export CI_JOB_TOKEN=${GITLAB_TOKEN}
-{{- $ngrok := (protonPassJSON "pass://Personal/ngrok").item.content.note }}
-export NGROK_TOKEN={{ regexFind "token:[^\n]*" $ngrok | trimPrefix "token:" }}
+export NGROK_TOKEN={{ protonPass "pass://Personal/ngrok/token" | trim }}
 export NGROK_REGION=eu
 export NGROK_URL=https://usd.eu.ngrok.io
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )

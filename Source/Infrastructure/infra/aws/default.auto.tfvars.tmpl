@@ -1,51 +1,46 @@
-{{- $slack := (protonPassJSON "pass://Unbound Infrastructure/slack").item.content.note -}}
 {{- $dockercfg := (protonPassJSON "pass://Unbound Infrastructure/dockercfg").item.content.note -}}
-{{- $auths := (protonPassJSON "pass://Personal/.auths").item.content.note -}}
-{{- $grafana := (protonPassJSON "pass://Unbound Infrastructure/grafana-cloud").item.content.note -}}
-{{- $gitea := (protonPassJSON "pass://Unbound Infrastructure/gitea").item.content.note -}}
-{{- $k8s := (protonPassJSON "pass://Unbound Infrastructure/k8s").item.content.note -}}
 slack = {
-  ops          = {{ regexFind "ops:[^\n]*" $slack | trimPrefix "ops:" | trim | quote }}
-  gitlab_ci    = {{ regexFind "gitlabCi:[^\n]*" $slack | trimPrefix "gitlabCi:" | trim | quote }}
-  dancefinder  = {{ regexFind "dancefinder:[^\n]*" $slack | trimPrefix "dancefinder:" | trim | quote }}
-  shiny        = {{ regexFind "shiny:[^\n]*" $slack | trimPrefix "shiny:" | trim | quote }}
-  hifi         = {{ regexFind "hifi:[^\n]*" $slack | trimPrefix "hifi:" | trim | quote }}
-  eventsourced = {{ regexFind "eventsourced:[^\n]*" $slack | trimPrefix "eventsourced:" | trim | quote }}
-  angus        = {{ regexFind "angus:[^\n]*" $slack | trimPrefix "angus:" | trim | quote }}
+  ops          = {{ protonPass "pass://Unbound Infrastructure/slack/ops" | trim | quote }}
+  gitlab_ci    = {{ protonPass "pass://Unbound Infrastructure/slack/gitlabCi" | trim | quote }}
+  dancefinder  = {{ protonPass "pass://Unbound Infrastructure/slack/dancefinder" | trim | quote }}
+  shiny        = {{ protonPass "pass://Unbound Infrastructure/slack/shiny" | trim | quote }}
+  hifi         = {{ protonPass "pass://Unbound Infrastructure/slack/hifi" | trim | quote }}
+  eventsourced = {{ protonPass "pass://Unbound Infrastructure/slack/eventsourced" | trim | quote }}
+  angus        = {{ protonPass "pass://Unbound Infrastructure/slack/angus" | trim | quote }}
 }
 docker_config                  = <<EOT
 {{ $dockercfg }}
 EOT
-gitlab_provider_token          = {{ regexFind "GitlabTerraformToken:[^\n]*" $auths | trimPrefix "GitlabTerraformToken:" | trim | quote }}
-grafana_cloud_api_key          = {{ regexFind "terraform:[^\n]*" $grafana | trimPrefix "terraform:" | trim | quote }}
-grafana_oncall_token           = {{ regexFind "terraformOnCall:[^\n]*" $grafana | trimPrefix "terraformOnCall:" | trim | quote }}
+gitlab_provider_token          = {{ protonPass "pass://Personal/.auths/GitlabTerraformToken" | trim | quote }}
+grafana_cloud_api_key          = {{ protonPass "pass://Unbound Infrastructure/grafana-cloud/terraform" | trim | quote }}
+grafana_oncall_token           = {{ protonPass "pass://Unbound Infrastructure/grafana-cloud/terraformOnCall" | trim | quote }}
 grafana_oncall_username        = "argoyle"
-gitea_admin_password           = {{ regexFind "AdminPassword:[^\n]*" $gitea | trimPrefix "AdminPassword:" | trim | quote }}
-gitea_db_password              = {{ regexFind "DbPassword:[^\n]*" $gitea | trimPrefix "DbPassword:" | trim | quote }}
-gitea_secret_key               = {{ regexFind "SecretKey:[^\n]*" $gitea | trimPrefix "SecretKey:" | trim | quote }}
-gitea_internal_token           = {{ regexFind "InternalToken:[^\n]*" $gitea | trimPrefix "InternalToken:" | trim | quote }}
-gitea_lfs_jwt_secret           = {{ regexFind "LfsJwtSecret:[^\n]*" $gitea | trimPrefix "LfsJwtSecret:" | trim | quote }}
-gitea_oauth2_jwt_secret        = {{ regexFind "OauthJwtSecret:[^\n]*" $gitea | trimPrefix "OauthJwtSecret:" | trim | quote }}
-gitea_runner_token             = {{ regexFind "RunnerToken:[^\n]*" $gitea | trimPrefix "RunnerToken:" | trim | quote }}
-gitea_runner_registry_token    = {{ regexFind "BuildtoolsToken:[^\n]*" $gitea | trimPrefix "BuildtoolsToken:" | trim | quote }}
-renovate_gitea_token           = {{ regexFind "RenovateToken:[^\n]*" $gitea | trimPrefix "RenovateToken:" | trim | quote }}
-gitea_admin_api_token          = {{ regexFind "AdminToken:[^\n]*" $gitea | trimPrefix "AdminToken:" | trim | quote }}
-gitea_release_token            = {{ regexFind "ReleaseToken:[^\n]*" $gitea | trimPrefix "ReleaseToken:" | trim | quote }}
+gitea_admin_password           = {{ protonPass "pass://Unbound Infrastructure/gitea/AdminPassword" | trim | quote }}
+gitea_db_password              = {{ protonPass "pass://Unbound Infrastructure/gitea/DbPassword" | trim | quote }}
+gitea_secret_key               = {{ protonPass "pass://Unbound Infrastructure/gitea/SecretKey" | trim | quote }}
+gitea_internal_token           = {{ protonPass "pass://Unbound Infrastructure/gitea/InternalToken" | trim | quote }}
+gitea_lfs_jwt_secret           = {{ protonPass "pass://Unbound Infrastructure/gitea/LfsJwtSecret" | trim | quote }}
+gitea_oauth2_jwt_secret        = {{ protonPass "pass://Unbound Infrastructure/gitea/OauthJwtSecret" | trim | quote }}
+gitea_runner_token             = {{ protonPass "pass://Unbound Infrastructure/gitea/RunnerToken" | trim | quote }}
+gitea_runner_registry_token    = {{ protonPass "pass://Unbound Infrastructure/gitea/BuildtoolsToken" | trim | quote }}
+renovate_gitea_token           = {{ protonPass "pass://Unbound Infrastructure/gitea/RenovateToken" | trim | quote }}
+gitea_admin_api_token          = {{ protonPass "pass://Unbound Infrastructure/gitea/AdminToken" | trim | quote }}
+gitea_release_token            = {{ protonPass "pass://Unbound Infrastructure/gitea/ReleaseToken" | trim | quote }}
 docker_hub_username            = "joakim@unbound.se"
-docker_hub_token               = {{ regexFind "DockerHubToken:[^\n]*" $k8s | trimPrefix "DockerHubToken:" | trim | quote }}
+docker_hub_token               = {{ protonPass "pass://Unbound Infrastructure/k8s/DockerHubToken" | trim | quote }}
 github_username                = "argoyle"
-github_token                   = {{ regexFind "GithubToken:[^\n]*" $k8s | trimPrefix "GithubToken:" | trim | quote }}
-gitea_registry_pull_token      = {{ regexFind "GiteaPullToken:[^\n]*" $gitea | trimPrefix "GiteaPullToken:" | trim | quote }}
-renovate_github_token          = {{ regexFind "RenovateGithubToken:[^\n]*" $auths | trimPrefix "RenovateGithubToken:" | trim | quote }}
+github_token                   = {{ protonPass "pass://Unbound Infrastructure/k8s/GithubToken" | trim | quote }}
+gitea_registry_pull_token      = {{ protonPass "pass://Unbound Infrastructure/gitea/GiteaPullToken" | trim | quote }}
+renovate_github_token          = {{ protonPass "pass://Personal/.auths/RenovateGithubToken" | trim | quote }}
 gitea_ssh_host_ed25519_key     = <<EOT
-{{ regexFind "SshHostKeyEDDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyEDDSA:" | trim | b64dec -}}
+{{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyEDDSA" | trim | b64dec -}}
 EOT
-gitea_ssh_host_ed25519_key_pub = {{ regexFind "SshHostKeyPubEDDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyPubEDDSA:" | trim | quote }}
+gitea_ssh_host_ed25519_key_pub = {{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyPubEDDSA" | trim | quote }}
 gitea_ssh_host_rsa_key         = <<EOT
-{{ regexFind "SshHostKeyRSA:[^\n]*" $gitea | trimPrefix "SshHostKeyRSA:" | trim | b64dec -}}
+{{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyRSA" | trim | b64dec -}}
 EOT
-gitea_ssh_host_rsa_key_pub     = {{ regexFind "SshHostKeyPubRSA:[^\n]*" $gitea | trimPrefix "SshHostKeyPubRSA:" | trim | quote }}
+gitea_ssh_host_rsa_key_pub     = {{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyPubRSA" | trim | quote }}
 gitea_ssh_host_ecdsa_key       = <<EOT
-{{ regexFind "SshHostKeyECDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyECDSA:" | trim | b64dec -}}
+{{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyECDSA" | trim | b64dec -}}
 EOT
-gitea_ssh_host_ecdsa_key_pub   = {{ regexFind "SshHostKeyPubECDSA:[^\n]*" $gitea | trimPrefix "SshHostKeyPubECDSA:" | trim | quote }}
+gitea_ssh_host_ecdsa_key_pub   = {{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyPubECDSA" | trim | quote }}

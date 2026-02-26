@@ -1,7 +1,6 @@
-{{- $auths := (protonPassJSON "pass://Personal/.auths").item.content.note -}}
 registry:
   gitea:
     registry: oci.unbound.se
     username: argoyle
-    token: {{ regexFind "GiteaToken:[^\n]*" $auths | trimPrefix "GiteaToken:" -}}
+    token: {{ protonPass "pass://Personal/.auths/GiteaToken" | trim -}}
 

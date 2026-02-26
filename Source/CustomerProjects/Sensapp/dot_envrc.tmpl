@@ -1,7 +1,6 @@
-{{- $azure := (protonPassJSON "pass://Sensapp shared/azure-credentials").item.content.note -}}
 source_up .envrc
 
 export PATH=${PWD}/.bin:${PATH}
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
-export AZURE_TENANT_ID={{ regexFind "azureTenantId:[^\n]*" $azure | trimPrefix "azureTenantId:" }}
-export AZURE_CLIENT_ID={{ regexFind "azureClientId:[^\n]*" $azure | trimPrefix "azureClientId:" -}}
+export AZURE_TENANT_ID={{ protonPass "pass://Sensapp shared/azure-credentials/azureTenantId" | trim }}
+export AZURE_CLIENT_ID={{ protonPass "pass://Sensapp shared/azure-credentials/azureClientId" | trim -}}

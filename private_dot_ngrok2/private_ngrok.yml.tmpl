@@ -1,5 +1,4 @@
-{{- $ngrok := (protonPassJSON "pass://Personal/ngrok").item.content.note -}}
-authtoken: {{ regexFind "token:[^\n]*" $ngrok | trimPrefix "token:" }}
+authtoken: {{ protonPass "pass://Personal/ngrok/token" | trim }}
 region: eu
 tunnels:
     paidit:

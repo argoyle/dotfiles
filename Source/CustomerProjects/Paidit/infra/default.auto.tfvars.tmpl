@@ -1,34 +1,26 @@
 {{- $cloudamqp := (protonPassJSON "pass://PaidIT shared/cloudamqp_api_key").item.content.note -}}
-{{- $mongo := (protonPassJSON "pass://PaidIT shared/Mongo Atlas API Project").item.content.extra_fields -}}
 {{- $harbourProd := (protonPassJSON "pass://PaidIT shared/prod-harbour").item.content.note -}}
 {{- $harbourDemo := (protonPassJSON "pass://PaidIT shared/demo-harbour").item.content.note -}}
 {{- $harbourStage := (protonPassJSON "pass://PaidIT shared/stage-harbour").item.content.note -}}
 {{- $elks := (protonPassJSON "pass://PaidIT shared/46elks").item.content.content.Login -}}
-{{- $stripeProd := (protonPassJSON "pass://PaidIT shared/stripe_prod").item.content.extra_fields -}}
-{{- $stripeDev := (protonPassJSON "pass://PaidIT shared/stripe_dev").item.content.extra_fields -}}
 {{- $firestoreProd := (protonPassJSON "pass://PaidIT shared/prod-firestore").item.content.note -}}
 {{- $firestoreDemo := (protonPassJSON "pass://PaidIT shared/demo-firestore").item.content.note -}}
 {{- $firestoreStage := (protonPassJSON "pass://PaidIT shared/stage-firestore").item.content.note -}}
-{{- $swedbankProd := (protonPassJSON "pass://PaidIT shared/prod-swedbank").item.content.note -}}
-{{- $swedbankDemo := (protonPassJSON "pass://PaidIT shared/demo-swedbank").item.content.note -}}
-{{- $swedbankStage := (protonPassJSON "pass://PaidIT shared/stage-swedbank").item.content.note -}}
 {{- $infrasecProd := (protonPassJSON "pass://PaidIT shared/prod-infrasec").item.content -}}
 {{- $infrasecDemo := (protonPassJSON "pass://PaidIT shared/demo-infrasec").item.content -}}
 {{- $infrasecStage := (protonPassJSON "pass://PaidIT shared/stage-infrasec").item.content -}}
-{{- $slackWebhook := (protonPassJSON "pass://PaidIT shared/slack_webhook_url").item.content.note -}}
 {{- $dockercfg := (protonPassJSON "pass://PaidIT shared/dockercfg").item.content.note -}}
-{{- $grafana := (protonPassJSON "pass://PaidIT shared/grafana-cloud").item.content.note -}}
 {{- $gitlabToken := (protonPassJSON "pass://PaidIT shared/gitlab_token").item.content.note -}}
 cloudamqp_customer_api_key = "{{ $cloudamqp -}}"
-mongodbatlas_private_key   = {{ (index $mongo 5).content.Hidden | trim | quote }}
-mongodbatlas_public_key    = {{ (index $mongo 4).content.Text | trim | quote }}
-slack_ops_url              = {{ regexFind "ops:[^\n]*" $slackWebhook | trimPrefix "ops:" | trim | quote }}
+mongodbatlas_private_key   = {{ protonPass "pass://PaidIT shared/Mongo Atlas API Project/privateKey" | trim | quote }}
+mongodbatlas_public_key    = {{ protonPass "pass://PaidIT shared/Mongo Atlas API Project/publicKey" | trim | quote }}
+slack_ops_url              = {{ protonPass "pass://PaidIT shared/slack_webhook_url/ops" | trim | quote }}
 docker_config              = <<EOT
 {{ $dockercfg }}
 EOT
-grafana_cloud_api_key      = {{ regexFind "grafanaApiKey:[^\n]*" $grafana | trimPrefix "grafanaApiKey:" | trim | quote }}
-loki_api_key               = {{ regexFind "lokiApiKey:[^\n]*" $grafana | trimPrefix "lokiApiKey:" | trim | quote }}
-prometheus_api_key         = {{ regexFind "prometheusApiKey:[^\n]*" $grafana | trimPrefix "prometheusApiKey:" | trim | quote }}
+grafana_cloud_api_key      = {{ protonPass "pass://PaidIT shared/grafana-cloud/grafanaApiKey" | trim | quote }}
+loki_api_key               = {{ protonPass "pass://PaidIT shared/grafana-cloud/lokiApiKey" | trim | quote }}
+prometheus_api_key         = {{ protonPass "pass://PaidIT shared/grafana-cloud/prometheusApiKey" | trim | quote }}
 harbour_secret_prod = {
   API_KEY = "{{ $harbourProd -}}"
 }
@@ -40,14 +32,14 @@ harbour_secret_stage = {
 }
 fortysixelks_password = {{ $elks.password | trim | quote }}
 stripe_prod = {
-  STRIPE_PUBLIC_KEY = {{ (index $stripeProd 0).content.Text | trim | quote }}
-  STRIPE_SECRET_KEY = {{ (index $stripeProd 1).content.Text | trim | quote }}
-  WEBHOOK_SECRET    = {{ (index $stripeProd 2).content.Text | trim | quote }}
+  STRIPE_PUBLIC_KEY = {{ protonPass "pass://PaidIT shared/stripe_prod/clientId" | trim | quote }}
+  STRIPE_SECRET_KEY = {{ protonPass "pass://PaidIT shared/stripe_prod/secret" | trim | quote }}
+  WEBHOOK_SECRET    = {{ protonPass "pass://PaidIT shared/stripe_prod/webhookSecret" | trim | quote }}
 }
 stripe_dev = {
-  STRIPE_PUBLIC_KEY = {{ (index $stripeDev 0).content.Text | trim | quote }}
-  STRIPE_SECRET_KEY = {{ (index $stripeDev 1).content.Text | trim | quote }}
-  WEBHOOK_SECRET    = {{ (index $stripeDev 2).content.Text | trim | quote }}
+  STRIPE_PUBLIC_KEY = {{ protonPass "pass://PaidIT shared/stripe_dev/clientId" | trim | quote }}
+  STRIPE_SECRET_KEY = {{ protonPass "pass://PaidIT shared/stripe_dev/secret" | trim | quote }}
+  WEBHOOK_SECRET    = {{ protonPass "pass://PaidIT shared/stripe_dev/webhookSecret" | trim | quote }}
 }
 firestore_prod  = <<EOT
 {{ $firestoreProd -}}
@@ -60,30 +52,30 @@ firestore_stage = <<EOT
 EOT
 swedbank_cert_prod = {
   pem   = <<EOT
-{{ regexFind "publicKey:[^\n]*" $swedbankProd | trimPrefix "publicKey:" | trim | replace "^^" "\n" -}}
+{{ protonPass "pass://PaidIT shared/prod-swedbank/publicKey" | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ regexFind "privateKey:[^\n]*" $swedbankProd | trimPrefix "privateKey:" | trim | replace "^^" "\n" -}}
+{{ protonPass "pass://PaidIT shared/prod-swedbank/privateKey" | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ regexFind "hostname:[^\n]*" $swedbankProd | trimPrefix "hostname:" | trim | quote }}
+  alias = {{ protonPass "pass://PaidIT shared/prod-swedbank/hostname" | trim | quote }}
 }
 swedbank_cert_demo = {
   pem   = <<EOT
-{{ regexFind "publicKey:[^\n]*" $swedbankDemo | trimPrefix "publicKey:" | trim | replace "^^" "\n" -}}
+{{ protonPass "pass://PaidIT shared/demo-swedbank/publicKey" | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ regexFind "privateKey:[^\n]*" $swedbankDemo | trimPrefix "privateKey:" | trim | replace "^^" "\n" -}}
+{{ protonPass "pass://PaidIT shared/demo-swedbank/privateKey" | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ regexFind "hostname:[^\n]*" $swedbankDemo | trimPrefix "hostname:" | trim | quote }}
+  alias = {{ protonPass "pass://PaidIT shared/demo-swedbank/hostname" | trim | quote }}
 }
 swedbank_cert_stage = {
   pem   = <<EOT
-{{ regexFind "publicKey:[^\n]*" $swedbankStage | trimPrefix "publicKey:" | trim | replace "^^" "\n" -}}
+{{ protonPass "pass://PaidIT shared/stage-swedbank/publicKey" | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ regexFind "privateKey:[^\n]*" $swedbankStage | trimPrefix "privateKey:" | trim | replace "^^" "\n" -}}
+{{ protonPass "pass://PaidIT shared/stage-swedbank/privateKey" | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ regexFind "hostname:[^\n]*" $swedbankStage | trimPrefix "hostname:" | trim | quote }}
+  alias = {{ protonPass "pass://PaidIT shared/stage-swedbank/hostname" | trim | quote }}
 }
 infrasec_cert_prod = {
   ca         = <<EOT
