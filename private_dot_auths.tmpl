@@ -1,6 +1,4 @@
-{{- $item := protonPassJSON "pass://Personal/.auths" -}}
-{{- $note := $item.item.content.note -}}
-export GITHUB_TOKEN={{ regexFind "GithubToken:[^\n]*" $note | trimPrefix "GithubToken:" }}
-export HOMEBREW_GITHUB_API_TOKEN={{ regexFind "GithubToken:[^\n]*" $note | trimPrefix "GithubToken:" }}
-export GITLAB_TOKEN={{ regexFind "GitlabToken:[^\n]*" $note | trimPrefix "GitlabToken:" }}
-export GITEA_TOKEN={{ regexFind "GiteaToken:[^\n]*" $note | trimPrefix "GiteaToken:" }}
+export GITHUB_TOKEN={{ protonPass "pass://Personal/.auths/GithubToken" | trim }}
+export HOMEBREW_GITHUB_API_TOKEN={{ protonPass "pass://Personal/.auths/GithubToken" | trim }}
+export GITLAB_TOKEN={{ protonPass "pass://Personal/.auths/GitlabToken" | trim }}
+export GITEA_TOKEN={{ protonPass "pass://Personal/.auths/GiteaToken" | trim }}

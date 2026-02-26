@@ -1,16 +1,13 @@
-{{- $auth0 := (protonPassJSON "pass://Unbound Infrastructure/auth0").item.content.note -}}
-{{- $google := (protonPassJSON "pass://Unbound Infrastructure/google").item.content.note -}}
-{{- $facebook := (protonPassJSON "pass://Unbound Infrastructure/facebook").item.content.note -}}
 auth0 = {
-  domain        = {{ regexFind "domain:[^\n]*" $auth0 | trimPrefix "domain:" | trim | quote }}
-  client_id     = {{ regexFind "clientId:[^\n]*" $auth0 | trimPrefix "clientId:" | trim | quote }}
-  client_secret = {{ regexFind "clientSecret:[^\n]*" $auth0 | trimPrefix "clientSecret:" | trim | quote }}
+  domain        = {{ protonPass "pass://Unbound Infrastructure/auth0/domain" | trim | quote }}
+  client_id     = {{ protonPass "pass://Unbound Infrastructure/auth0/clientId" | trim | quote }}
+  client_secret = {{ protonPass "pass://Unbound Infrastructure/auth0/clientSecret" | trim | quote }}
   google = {
-    client_id     = {{ regexFind "clientId:[^\n]*" $google | trimPrefix "clientId:" | trim | quote }}
-    client_secret = {{ regexFind "clientSecret:[^\n]*" $google | trimPrefix "clientSecret:" | trim | quote }}
+    client_id     = {{ protonPass "pass://Unbound Infrastructure/google/clientId" | trim | quote }}
+    client_secret = {{ protonPass "pass://Unbound Infrastructure/google/clientSecret" | trim | quote }}
   }
   facebook = {
-    client_id     = {{ regexFind "clientId:[^\n]*" $facebook | trimPrefix "clientId:" | trim | quote }}
-    client_secret = {{ regexFind "clientSecret:[^\n]*" $facebook | trimPrefix "clientSecret:" | trim | quote }}
+    client_id     = {{ protonPass "pass://Unbound Infrastructure/facebook/clientId" | trim | quote }}
+    client_secret = {{ protonPass "pass://Unbound Infrastructure/facebook/clientSecret" | trim | quote }}
   }
 }

@@ -1,4 +1,3 @@
 {{- $cloudamqp := (protonPassJSON "pass://Unbound Infrastructure/cloudamqp_api_key").item.content.note -}}
-{{- $slack := (protonPassJSON "pass://Unbound Infrastructure/slack").item.content.note -}}
 cloudamqp_customer_api_key = "{{ $cloudamqp -}}"
-slack_webhook              = {{ regexFind "ops:[^\n]*" $slack | trimPrefix "ops:" | trim | quote }}
+slack_webhook              = {{ protonPass "pass://Unbound Infrastructure/slack/ops" | trim | quote }}

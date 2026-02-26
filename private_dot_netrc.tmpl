@@ -1,5 +1,4 @@
-{{- $auths := (protonPassJSON "pass://Personal/.auths").item.content.note -}}
 machine gitlab.com
 login argoyle
-password {{ regexFind "GitlabToken:[^\n]*" $auths | trimPrefix "GitlabToken:" -}}
+password {{ protonPass "pass://Personal/.auths/GitlabToken" | trim -}}
 
