@@ -3,7 +3,7 @@ use_nvm
 export GITLAB_USER=argoyle
 export CLUSTER_NAME=jocke
 export GOPRIVATE=gitea.unbound.se/shiny,gitea.unbound.se/unboundsoftware
-export AMQP_URL="amqp://user:password@unbound-control-plane.orb.local:5672/"
+export AMQP_URL="amqp://guest:guest@unbound-control-plane.orb.local:5672/"
 export API_KEY={{ protonPass "pass://Personal/schemas/apiKey" | trim }}
 export SCHEMA_REF=Shiny@dev
 export COSMO_API_KEY={{ protonPass "pass://Personal/Cosmo/apiKey" | trim }}
