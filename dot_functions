@@ -150,6 +150,8 @@ but-pull-all() {
                 echo "$name: \033[31mtimed out during check\033[0m"
             elif echo "$check_output" | grep -q "Up to date"; then
                 echo "$name: \033[32mup to date\033[0m"
+            elif echo "$check_output" | grep -q "Setup required"; then
+                echo "$name: \033[33mnot initialized, skipping\033[0m"
             elif echo "$check_output" | grep -q "bad object"; then
                 # Broken refs detected
                 if [[ $force -eq 1 ]]; then
