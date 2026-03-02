@@ -50,6 +50,9 @@
 - When given a bug report: just fix it — don't ask for hand-holding
 - Point at logs, errors, failing tests — then resolve them
 - Go fix failing CI tests without being told how
+- **Before diagnosing**: gather actual evidence first (logs, error messages, versions, recent changes)
+- **Form hypotheses, then verify** — never jump straight to code changes based on assumptions
+- If the first fix attempt fails, STOP and re-examine evidence from scratch — don't iterate on a wrong diagnosis
 
 ## Core Principles
 
@@ -63,9 +66,19 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 
 - **Always pass `-C <repo-root>`** to every `but` command (e.g., `but -C /path/to/repo status`). This ensures the command targets the correct repository without relying on the current working directory. All examples below omit `-C` for brevity, but it must always be included.
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
+- **NEVER use `but pr` for Gitea remotes** — it will fail. Always use the Gitea REST API via curl.
 - **Create PRs using `but pr new <branch>`**:
   - **GitHub remotes**: Use `-m "title\n\nbody"` or `-F <file>` to set a custom title and body
   - **GitLab remotes**: Always use `-t` flag only (`but pr new -t <branch>`) — do not try to set a PR title or body
+  - **Gitea remotes** (git.unbound.se, git.nl.cloud): `but pr` does NOT support Gitea. Use the Gitea REST API directly:
+    ```bash
+    curl -sk -X POST \
+      -H "Authorization: token $GITEA_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d '{"title":"PR title","head":"branch-name","base":"main"}' \
+      "https://<host>/api/v1/repos/<owner>/<repo>/pulls"
+    ```
+    Detect Gitea remotes by checking `git remote -v` for `git.unbound.se` or `git.nl.cloud`.
 
 ### Pre-Commit Analysis Workflow
 
