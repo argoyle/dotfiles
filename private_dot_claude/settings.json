@@ -146,6 +146,11 @@
             "type": "command",
             "command": "~/.claude/hooks/gitea-pr-guard.sh",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pre-commit-guard.sh",
+            "timeout": 5
           }
         ]
       }
