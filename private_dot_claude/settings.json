@@ -81,8 +81,51 @@
       "Bash(git -C * ls-files *)",
       "Bash(git config --get *)",
       "Bash(git config --list *)",
-      "Bash(git config --list)"
-    ]
+      "Bash(git config --list)",
+      "Bash(tree:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git -C /Users/argoyle/.local/share/chezmoi status)",
+      "Bash(git -C /Users/argoyle/.local/share/chezmoi diff --name-only)",
+      "Bash(time zsh:*)",
+      "Bash(find:*)",
+      "Bash(bash:*)",
+      "Bash(git -C /Users/argoyle/.local/share/chezmoi status --short)",
+      "Bash(brew info:*)",
+      "WebSearch",
+      "Bash(brew list:*)",
+      "WebFetch(domain:www.chezmoi.io)",
+      "Bash(pass-cli item list:*)",
+      "Bash(pass-cli item view:*)",
+      "Bash(/usr/local/bin/lpass show:*)",
+      "Bash(pass item get:*)",
+      "Bash(pass item list:*)",
+      "Bash(pass-cli vault list:*)",
+      "Bash(chezmoi diff:*)",
+      "Bash(lpass show:*)",
+      "Bash(grep:*)",
+      "Bash(lpass ls:*)",
+      "Bash(chezmoi cat:*)",
+      "WebFetch(domain:protonpass.github.io)",
+      "Bash(but --help:*)",
+      "Bash(but commit:*)",
+      "Bash(but branch:*)",
+      "WebFetch(domain:docs.gitbutler.com)",
+      "WebFetch(domain:blog.gitbutler.com)",
+      "WebFetch(domain:gist.github.com)",
+      "Bash(claude --version:*)",
+      "Bash(but status --json)",
+      "Bash(but status:*)",
+      "Bash(but pr new --help:*)",
+      "Bash(but pr --help:*)",
+      "Bash(chezmoi apply:*)",
+      "Bash(git add:*)",
+      "Bash(pre-commit run:*)",
+      "WebFetch(domain:cli.github.com)"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "default"
   },
   "hooks": {
     "PreToolUse": [
@@ -97,6 +140,11 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/gh-api-readonly.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/gitea-pr-guard.sh",
             "timeout": 5
           }
         ]
