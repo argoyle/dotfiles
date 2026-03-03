@@ -80,6 +80,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
     ```
     Detect Gitea remotes by checking `git remote -v` for `git.unbound.se` or `git.nl.cloud`.
     **Note**: The HTTPS API endpoint for `git.unbound.se` repos is `gitea.unbound.se` (e.g., `https://gitea.unbound.se/api/v1/repos/...`).
+    **Note**: The HTTPS API endpoint for `git.nl.cloud` repos is `https://git.nl.cloud:8443` (e.g., `https://git.nl.cloud:8443/api/v1/repos/...`).
 
 ### Pre-Commit Analysis Workflow
 
