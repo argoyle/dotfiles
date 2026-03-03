@@ -1,6 +1,12 @@
 unset $(compgen -v | grep "AWS_")
 export AWS_CONFIG_FILE=${PWD}/.aws/config
 export AWS_SSO_CONFIG=${PWD}/.aws-sso/config
+# Go remote build cache (shared with CI)
+export AWS_DEFAULT_PROFILE=unbound
+export AWS_REGION=eu-west-1
+export GOCACHEPROG=$HOME/go/bin/gobuildcache
+export GOBUILDCACHE_BACKEND_TYPE=s3
+export GOBUILDCACHE_S3_BUCKET=gobuildcache.unbound.se
 export KOPS_STATE_STORE=s3://724902258495-eu-west-1-kops-storage
 export GITLAB_PRIVATE_TOKEN=${GITLAB_TOKEN}
 export CI_TOKEN=${GITLAB_TOKEN}
