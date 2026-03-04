@@ -107,3 +107,7 @@ typeset -U manpath
 fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
 setopt CLOBBER
+
+# GitButler CLI
+export PATH="/Users/argoyle/.local/bin:$PATH"
+eval "$(but completions zsh)"
