@@ -140,9 +140,12 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but status -f` | Show status including committed files |
 | `but status -v` | Verbose output with commit author and timestamp |
 | `but status -u` | Show detailed upstream commits not yet integrated |
+| `but status -r` | Force sync of PRs from forge before showing status |
+| `but status --no-hint` | Disable command hints at end of output |
 | `but branch list --json` | Get existing branches |
 | `but diff` | Show all uncommitted diffs |
 | `but diff <cliId>` | Show diff for a file, branch, stack, or commit |
+| `but diff --tui` | Open interactive TUI diff viewer |
 | `but show <commit-or-branch>` | Show commit details or branch commits |
 | `but show <branch> --verbose` | Show branch with full commit details and files |
 
@@ -154,11 +157,14 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | `but branch new --anchor <parent> <name>` | Create dependent branch (stacked on parent) |
 | `but rub <cliId> <branch>` | Assign single change (by CLI ID) to branch |
 | `but rub zz <branch>` | Assign ALL unassigned changes to branch |
+| `but stage` | Interactive TUI for selecting files and hunks to stage |
 | `but stage <file-or-hunk> <branch>` | Stage a file or hunk to a branch (alternative to rub) |
 | `but commit --only -m "msg" <branch>` | Commit only assigned files to branch |
 | `but commit -c --only -m "msg"` | Create new branch and commit assigned files |
 | `but commit -p <cliId> -m "msg" <branch>` | Commit specific files/hunks only |
 | `but commit -i -m "msg" <branch>` | AI-generated commit message (optional summary after `--ai=`) |
+| `but commit -n <branch>` | Bypass pre-commit hooks |
+| `but commit --message-file <file> <branch>` | Read commit message from file |
 | `but commit empty --before <target>` | Insert blank placeholder commit before target |
 | `but commit empty --after <target>` | Insert blank placeholder commit after target |
 | `but mark <branch>` | Auto-stage new changes to this branch |
@@ -204,9 +210,14 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 | Command | Purpose |
 |---------|---------|
 | `but push <branch>` | Push branch to remote (use instead of `git push`) |
+| `but push` | Push all branches with unpushed commits (non-interactive) |
+| `but push -d <branch>` | Dry-run: show what would be pushed |
+| `but push -f <branch>` | Force push even if not fast-forward |
+| `but push -r <branch>` | Run pre-push hooks |
+| `but pull --check` | Check if branches can cleanly merge without updating |
 | `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body (GitHub only) |
 | `but pr new -d <branch>` | Create PR as draft |
-| `but pr new -t <branch>` | Create PR using commit message (required for GitLab) |
+| `but pr new -t <branch>` | Create PR using default content from commits (required for GitLab) |
 | `but pr auto-merge <branch>` | Enable/disable auto-merge on a PR |
 | `but pr set-draft <branch>` | Set existing PR as draft |
 | `but pr set-ready <branch>` | Set existing PR as ready for review |
@@ -224,12 +235,20 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 
 | Command | Purpose |
 |---------|---------|
+| `but gui` / `but .` | Open the GitButler GUI for current project |
+| `but setup` | Set up a GitButler project from a git repo |
+| `but setup --init` | Initialize a new git repo and set up GitButler |
+| `but teardown` | Exit GitButler mode, return to normal Git workflow |
+| `but config` | View configuration overview (user, forge, target, metrics, ui) |
+| `but config ui set tui true` | Enable TUI mode for diff by default |
 | `but alias add <name> <command>` | Create command shortcut |
 | `but alias remove <name>` | Remove a command shortcut |
 | `but alias list` | List all aliases |
 | `but skill install` | Install GitButler AI skill files for coding agents |
 | `but skill check` | Check if installed skills are up to date |
 | `but update check` | Check for new CLI version |
+| `but update install` | Install or update the GitButler desktop app |
+| `but update suppress` | Suppress update notifications temporarily |
 
 ### Rub Operations Matrix
 
