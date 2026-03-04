@@ -29,6 +29,7 @@
 - For complex problems, throw more compute at it via subagents
 - One task per subagent for focused execution
 - When spawning agents/subprocesses that need the `claude` binary, ALWAYS use `/opt/homebrew/bin/claude` (the stable symlink), NEVER the versioned Caskroom path (`/opt/homebrew/Caskroom/claude-code/<version>/claude`) which breaks on upgrades
+- **File freshness after sub-agents**: After sub-agents modify files, always re-read the file before making further edits — sub-agent changes may have shifted line numbers or content
 
 ### Self-Improvement Loop
 - After ANY correction from the user: update auto-memory or the relevant CLAUDE.md with the pattern
@@ -52,6 +53,8 @@
 - Go fix failing CI tests without being told how
 - **Before diagnosing**: gather actual evidence first (logs, error messages, versions, recent changes)
 - **Form hypotheses, then verify** — never jump straight to code changes based on assumptions
+- **List 3+ hypotheses** ranked by likelihood before committing to a fix — describe what evidence would confirm or eliminate each
+- **Never add delays or workaround hacks** as a first attempt (e.g., `sleep`, retry loops, animation waits) — find the actual root cause first
 - If the first fix attempt fails, STOP and re-examine evidence from scratch — don't iterate on a wrong diagnosis
 
 ## Core Principles
@@ -59,6 +62,15 @@
 - **Simplicity First**: Make every change as simple as possible. Minimal code impact.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+
+## Multi-Repo Batch Operations
+
+When applying the same change across multiple repositories:
+
+- **Validate on one repo first** before scaling to all — confirm the edit, build, and CI pass on a single repo, then apply the pattern to the rest
+- **CI not triggering after push**: If the remote already has the same commit SHA, CI webhooks won't fire. Amend the commit (`git commit --amend --no-edit`) and force push to generate a new SHA
+- **Use `Read` tool to verify file state** before applying `Edit` — files may have changed from parallel sub-agent work or previous batch operations
+- **Track progress**: Use TaskCreate/TaskUpdate to track which repos are done, which need fixes, and which are pending CI
 
 ## Linear CLI (Issue Tracking)
 
