@@ -241,6 +241,10 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
    - **IMPORTANT**: Always use `--only` flag to commit only the assigned files
    - Without `--only`, all staged files will be committed regardless of branch assignment
 6. Follow conventional commits format
+7. **Pull and resolve before pushing**: `but pull` again before `but push <branch>`
+   - Always pull to rebase on top of any new upstream changes before pushing
+   - If conflicts arise, resolve them with `but resolve <commit>`, fix files, then `but resolve finish`
+   - Only push after a clean pull with no conflicts
 
 ### Key Commands Reference
 
