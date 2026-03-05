@@ -13,12 +13,7 @@ pane_tty=$(tmux display-message -p -t "$TMUX_PANE" '#{pane_tty}')
 event=$(cat | jq -r '.hook_event_name // empty')
 
 case "$event" in
-    Stop)
-        tmux display-message -t "$TMUX_PANE" "Claude finished responding"
-        printf '\a' > "$pane_tty"
-        ;;
-    Notification)
-        tmux display-message -t "$TMUX_PANE" "Claude is waiting for input"
+    Stop|Notification)
         printf '\a' > "$pane_tty"
         ;;
 esac
