@@ -31,6 +31,11 @@
 - When spawning agents/subprocesses that need the `claude` binary, ALWAYS use `/opt/homebrew/bin/claude` (the stable symlink), NEVER the versioned Caskroom path (`/opt/homebrew/Caskroom/claude-code/<version>/claude`) which breaks on upgrades
 - **File freshness after sub-agents**: After sub-agents modify files, always re-read the file before making further edits — sub-agent changes may have shifted line numbers or content
 
+### Context Management
+- Use subagents for exploration — keep the main context window focused on decision-making
+- Delegate research and multi-file analysis to subagents rather than pulling large results into the main thread
+- Return only summarized insights from subagents — avoid dumping raw tool output into the conversation
+
 ### Self-Improvement Loop
 - After ANY correction from the user: update auto-memory or the relevant CLAUDE.md with the pattern
 - Write rules for yourself that prevent the same mistake
