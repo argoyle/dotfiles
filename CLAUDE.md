@@ -18,17 +18,23 @@ This is a chezmoi dotfiles repository managing development environment configura
 - `dot_` prefix: Creates hidden files (e.g., `dot_bashrc.tmpl` → `~/.bashrc`)
 - `private_` prefix: Marks sensitive files (SSH keys, tokens)
 - `executable_` prefix: Makes files executable
-- `.tmpl` suffix: Processed as Go templates with access to LastPass secrets
+- `.tmpl` suffix: Processed as Go templates with access to ProtonPass/1Password secrets
 - `run_once_*.sh`: Executes only once during `chezmoi apply`
 
 ## Secret Management
 
-All sensitive data is retrieved from LastPass using template functions:
+Sensitive data is retrieved using chezmoi template functions:
+
+**ProtonPass** (personal secrets — SSH keys, tokens, GPG keys):
 ```
-{{ (index (lastpass "path/to/secret") 0).note.field }}
+{{ protonPass "pass://Vault/Item/Field" | trim }}
+{{ (protonPassJSON "pass://Vault/Item").item.content.note | b64dec }}
 ```
 
-The repository owner must be logged in via `lpass login joakim@unbound.se` before applying changes.
+**1Password** (work/team secrets — Terraform vars, API keys):
+```
+{{ onepasswordRead "op://Vault/Item/Field" }}
+```
 
 ## Source Directory Structure
 
