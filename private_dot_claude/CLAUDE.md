@@ -79,7 +79,7 @@ When applying the same change across multiple repositories:
 
 ## Linear CLI (Issue Tracking)
 
-Use the `linear` CLI (v1.10.0) for managing Linear issues, projects, and initiatives from the terminal.
+Use the `linear` CLI (v1.11.0) for managing Linear issues, projects, and initiatives from the terminal.
 
 ### Authentication
 
@@ -96,13 +96,16 @@ Use the `linear` CLI (v1.10.0) for managing Linear issues, projects, and initiat
 
 | Command | Alias | Purpose |
 |---------|-------|---------|
-| `linear issue list` | `linear i list` | List your issues (default: unstarted state) |
+| `linear issue list --sort priority` | `linear i list` | List your issues (default: unstarted state) |
 | `linear issue list -s started` | | List in-progress issues |
 | `linear issue list --all-states` | | List issues across all states |
 | `linear issue list -A` | | List issues for all assignees |
 | `linear issue list -U` | | List unassigned issues |
 | `linear issue list --project <name>` | | Filter by project |
 | `linear issue list --team <key>` | | Filter by team |
+| `linear issue list --cycle active` | | Filter by active cycle |
+| `linear issue list --limit <n>` | | Limit results (default: 50, 0=unlimited) |
+| `linear issue list --assignee <user>` | | Filter by specific assignee username |
 | `linear issue view [issueId]` | `linear i v` | View issue details |
 | `linear issue view [issueId] -j` | | Output issue as JSON |
 | `linear issue view [issueId] -w` | | Open issue in browser |
@@ -151,6 +154,16 @@ Use the `linear` CLI (v1.10.0) for managing Linear issues, projects, and initiat
 | `linear initiative list` | `linear init list` | List initiatives |
 | `linear initiative view <id>` | `linear init v` | View initiative details |
 | `linear initiative create` | | Create a new initiative |
+| `linear initiative-update create <initId>` | `linear iu c` | Create initiative status update (timeline post) |
+| `linear initiative-update list <initId>` | `linear iu l` | List initiative status updates |
+
+### Cycles
+
+| Command | Alias | Purpose |
+|---------|-------|---------|
+| `linear cycle list` | `linear cy list` | List cycles for a team |
+| `linear cycle list --team <key>` | | List cycles for a specific team |
+| `linear cycle view <cycleRef>` | `linear cy v` | View cycle details |
 
 ### Teams, Labels & Documents
 
@@ -160,7 +173,7 @@ Use the `linear` CLI (v1.10.0) for managing Linear issues, projects, and initiat
 | `linear team members [teamKey]` | List team members |
 | `linear label list` | List issue labels |
 | `linear label create` | Create a new label |
-| `linear document list` | List documents |
+| `linear document list` | List documents (alias: `docs`, `doc`) |
 | `linear document view <id>` | View document content |
 | `linear document create` | Create a new document |
 | `linear document update <id>` | Update a document |
@@ -172,6 +185,9 @@ Use the `linear` CLI (v1.10.0) for managing Linear issues, projects, and initiat
 | `linear api <query>` | Make a raw GraphQL API request |
 | `linear api <query> --variable key=value` | GraphQL with variables |
 | `linear api <query> --paginate` | Auto-paginate a connection field |
+| `linear schema` | Print the GraphQL schema (SDL) to stdout |
+| `linear schema --json` | Print schema as JSON introspection result |
+| `linear schema -o <file>` | Write schema to file |
 | `linear config` | Interactively generate `.linear.toml` config |
 | `linear completions` | Generate shell completions |
 
@@ -183,6 +199,7 @@ Use the `linear` CLI (v1.10.0) for managing Linear issues, projects, and initiat
 ### Key Patterns
 
 - **Issue IDs** use the format `TEAM-123` (e.g., `ENG-456`)
+- **Sort is required for `issue list`**: Always pass `--sort priority` (or `--sort manual`). Without it, the command fails with an error. Can also be set via `LINEAR_ISSUE_SORT` env var or `.linear.toml` config
 - `linear issue start` creates a git branch named after the issue and sets state to "In Progress"
 - `linear issue id` infers the issue from the current git branch name
 - Most commands that accept `[issueId]` will auto-detect from the current branch if omitted
