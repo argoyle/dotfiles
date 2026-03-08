@@ -96,7 +96,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Essential Rules
-- **Always pass `-C <repo-root>`** to every `but` command
+- **Always pass `-C <repo-root>` BEFORE the subcommand** in every `but` command (e.g., `but -C /path status`, NOT `but status -C /path`)
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
 - **NEVER use `but pr` for Gitea remotes** — use Gitea REST API via curl instead
 - **Create PRs using `but pr new <branch>`**:
