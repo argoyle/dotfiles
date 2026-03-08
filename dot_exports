@@ -29,5 +29,8 @@ export RABBITMQ_PASSWORD=password
 
 export BASH_ENV=${HOME}/.bashrc
 
+# Go remote build cache (shared with CI) — wrapper handles AWS credentials
+export GOCACHEPROG=$HOME/.bin/gobuildcache-wrapper
+
 # Required for pinentry/GPG to work correctly in tmux
 export GPG_TTY=$(tty)

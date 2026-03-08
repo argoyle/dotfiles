@@ -1,0 +1,9 @@
+#!/bin/sh
+# Wrapper for gobuildcache that ensures S3 access via the unbound AWS profile,
+# regardless of which directory's .envrc is active.
+export AWS_CONFIG_FILE="${HOME}/Source/.aws/config"
+export AWS_PROFILE=unbound
+export AWS_REGION=eu-west-1
+export GOBUILDCACHE_BACKEND_TYPE=s3
+export GOBUILDCACHE_S3_BUCKET=gobuildcache.unbound.se
+exec "${HOME}/go/bin/gobuildcache" "$@"
