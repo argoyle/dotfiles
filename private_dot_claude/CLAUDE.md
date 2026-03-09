@@ -114,24 +114,25 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Pre-Commit Analysis Workflow
 
-1. **Gather workspace state** (run both in parallel):
+1. **Pull latest from remote**: `but pull` — ensures merged branches are detected and removed before assigning changes
+2. **Gather workspace state** (run both in parallel):
    - `but status --json` - Get structured changes with CLI IDs (check for `locked` fields — locked changes are tied to an existing branch)
    - `but branch list --json` - Get existing branches
 
-2. **Analyze change content** (sample diffs to understand patterns):
+3. **Analyze change content** (sample diffs to understand patterns):
    - Run `git diff HEAD -- <file>` on a few representative files
    - Identify common change patterns across the repository
    - Look for semantic themes (migrations, rotations, config updates)
 
-3. **Group changes by content pattern**, not just location:
+4. **Group changes by content pattern**, not just location:
    - Example: "ProtonPass ID -> name migration (18 files)" - all files changing from ID-based to name-based ProtonPass references
    - Secondary grouping by directory if changes are unrelated
 
-4. **Present change groups to user** with suggested branch names:
+5. **Present change groups to user** with suggested branch names:
    - Identify existing branches that match the change type
    - Flag locked changes and indicate which branch they're locked to — suggest anchored branches when new changes depend on locked ones
 
-5. **Ask user for confirmation** on grouping, branch names, and assignment
+6. **Ask user for confirmation** on grouping, branch names, and assignment
 
 ### Commit Workflow
 
