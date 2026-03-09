@@ -10,9 +10,12 @@ case "$command" in
   *) exit 0 ;;
 esac
 
-# Extract repo path from -C flag or git add -C, fall back to cwd
+# Extract repo path from cd, -C flag, or fall back to cwd
 repo_path="."
 case "$command" in
+  "cd "*)
+    repo_path=$(echo "$command" | sed 's/^cd  *//' | sed 's/ .*//')
+    ;;
   *"-C "*)
     repo_path=$(echo "$command" | sed 's/.*-C  *//' | sed 's/ .*//')
     ;;
