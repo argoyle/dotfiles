@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Jump to the next tmux window with @bell set, wrapping around.
+# Does nothing if no window has a pending bell.
+
+current=$(tmux display-message -p '#{window_index}')
+session=$(tmux display-message -p '#{session_name}')
+
+targets=$(tmux list-windows -t "$session" \
+  -F '#{window_index} #{@bell}' \
+  | awk '$2==1 {print $1}')
+
+[ -z "$targets" ] && exit 0
+
+# First index after current
+next=$(echo "$targets" | awk -v cur="$current" '$1 > cur { print $1; exit }')
+
+# Wrap to first bell window if nothing found after current
+if [ -z "$next" ]; then
+  next=$(echo "$targets" | head -1)
+fi
+
+tmux select-window -t "$session:$next"
