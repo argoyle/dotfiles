@@ -1,3 +1,6 @@
+source_up .envrc
+use nvm
+layout pyenv 3.14.0
 export GITEA_TOKEN={{ protonPass "pass://Personal/git.nl.cloud/Token" | trim | quote }}
 export GOPRIVATE="git.nl.cloud/*"
 export GONOSUMCHECK="git.nl.cloud/*"
