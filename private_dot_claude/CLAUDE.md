@@ -96,6 +96,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Essential Rules
+- **ALWAYS `but pull` before ANY branch operation** (`but rub`, `but commit`, `but absorb`, `but branch new`). Branches may have been merged upstream — pulling first removes integrated branches and prevents assigning changes to stale branches. This is non-negotiable.
 - **Always pass `-C <repo-root>` BEFORE the subcommand** in every `but` command (e.g., `but -C /path status`, NOT `but status -C /path`)
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
 - **NEVER use `but pr` for Gitea remotes** — use Gitea REST API via curl instead
@@ -136,7 +137,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Commit Workflow
 
-1. **Pull latest from remote**: `but pull`
+1. **Pull latest from remote**: `but pull` — MUST run before any `rub`, `commit`, or `absorb` to remove integrated branches
 2. **Create branches** if needed: `but branch new <name>` (or `--anchor <parent> <name>` for stacked/dependent)
    - If changes are locked to an existing branch, anchor new branches to it
 3. **Assign changes using CLI IDs** (NOT file paths): `but rub <cliId> <branch>` or `but rub zz <branch>` for all
