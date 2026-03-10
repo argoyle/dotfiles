@@ -32,5 +32,10 @@ export BASH_ENV=${HOME}/.bashrc
 # Go remote build cache (shared with CI) — wrapper handles AWS credentials
 export GOCACHEPROG=$HOME/.bin/gobuildcache-wrapper
 
+# Go private modules (git.nl.cloud = NordicLight, gitea.unbound.se = Unbound)
+export GOPRIVATE="git.nl.cloud/*,gitea.unbound.se/*"
+export GONOSUMCHECK="git.nl.cloud/*,gitea.unbound.se/*"
+export GOINSECURE="git.nl.cloud,gitea.unbound.se"
+
 # Required for pinentry/GPG to work correctly in tmux
 export GPG_TTY=$(tty)
