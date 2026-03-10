@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Send a macOS notification when a tmux bell fires.
+# Called by tmux alert-bell hook with: "#S" "#W" "#I"
+# Also sets persistent @bell marker for tmux-jump-bell.
+
+SESSION="${1:-?}"
+WINDOW="${2:-?}"
+INDEX="${3:-?}"
+
+# Set persistent @bell marker (window_bell_flag is transient)
+tmux set-option -w -t "${SESSION}:${INDEX}" @bell 1
+
+TITLE="tmux: ${SESSION}:${INDEX}"
+MSG="${WINDOW} needs attention"
+
+if command -v terminal-notifier &>/dev/null; then
+  terminal-notifier \
+    -title "$TITLE" \
+    -message "$MSG" \
+    -sound Blow \
+    -activate com.mitchellh.ghostty
+  exit 0
+fi
+
+osascript -e "display notification \"$MSG\" with title \"$TITLE\"" 2>/dev/null || true
