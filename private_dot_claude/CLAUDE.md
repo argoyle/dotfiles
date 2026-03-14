@@ -76,6 +76,7 @@ When applying the same change across multiple repositories:
 - **CI not triggering after push**: If the remote already has the same commit SHA, CI webhooks won't fire. Amend the commit (`git commit --amend --no-edit`) and force push to generate a new SHA
 - **Use `Read` tool to verify file state** before applying `Edit` — files may have changed from parallel sub-agent work or previous batch operations
 - **Track progress**: Use TaskCreate/TaskUpdate to track which repos are done, which need fixes, and which are pending CI
+- **Avoid sed for multiline changes** — use Python, Go, or the Edit tool instead; sed multiline replacements are fragile and error-prone across different file formats
 
 ## Linear CLI (Issue Tracking)
 

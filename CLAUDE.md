@@ -100,10 +100,15 @@ These scripts dump production data and restore locally to OrbStack/kind clusters
 - Always follow conventional commits format
 - Always `git add` all files before running `pre-commit`
 - Don't commit if current branch is `gitbutler/workspace`
+- Always create a new branch for new work; never reuse merged branches
+- Prefer existing Renovate branches for dependency updates — do not manually edit dependency files (`go.mod`, `package.json`, etc.) when Renovate has already created a branch
 
 ### Go Development
 - Run `go generate ./...` when changing GraphQL schemas
 - Use gobrew for Go version management
+- Always return empty slices (`[]`), never nil slices — nil serializes to JSON `null` and crashes frontends
+- Always handle errcheck: wrap `json.Encode`, `json.NewEncoder().Encode()`, and similar calls with error checks
+- Use `go mod tidy`, not manual `go.mod`/`go.sum` edits
 
 ### Migrations
 - Name goose migrations with numeric prefix: `YYYYMMDDHHmmss` format
