@@ -12,6 +12,11 @@
 - always use the latest versions of dependencies and docker images
 - We don't use docker buildx but build-tools
 - Always add unit tests when making changes, if possible
+- Always create a new branch for new work; never reuse merged branches
+- Prefer existing Renovate branches for dependency updates — do not manually edit dependency files (`go.mod`, `package.json`, etc.) when Renovate has already created a branch
+- Go: always return empty slices (`[]`), never nil slices — nil serializes to JSON `null` and crashes frontends
+- Go: always handle errcheck — wrap `json.Encode`, `json.NewEncoder().Encode()`, and similar calls with error checks
+- Go: use `go mod tidy`, not manual `go.mod`/`go.sum` edits
 - Always explicitly specify the context when running `kubectl` commands using `--context <context>`. Check the project's `.buildtools.yaml` or `.envrc` for the expected k8s context. Never rely on the current default context — it may point to a different cluster (e.g., production instead of local). For local development, the context typically follows the pattern: `kind-<project-name>`
 
 ## Workflow Orchestration
@@ -76,6 +81,7 @@ When applying the same change across multiple repositories:
 - **CI not triggering after push**: If the remote already has the same commit SHA, CI webhooks won't fire. Amend the commit (`git commit --amend --no-edit`) and force push to generate a new SHA
 - **Use `Read` tool to verify file state** before applying `Edit` — files may have changed from parallel sub-agent work or previous batch operations
 - **Track progress**: Use TaskCreate/TaskUpdate to track which repos are done, which need fixes, and which are pending CI
+- **Avoid sed for multiline changes** — use Python, Go, or the Edit tool instead; sed multiline replacements are fragile and error-prone across different file formats
 
 ## Linear CLI (Issue Tracking)
 

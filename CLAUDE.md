@@ -100,7 +100,6 @@ These scripts dump production data and restore locally to OrbStack/kind clusters
 - Always follow conventional commits format
 - Always `git add` all files before running `pre-commit`
 - Don't commit if current branch is `gitbutler/workspace`
-
 ### Go Development
 - Run `go generate ./...` when changing GraphQL schemas
 - Use gobrew for Go version management
