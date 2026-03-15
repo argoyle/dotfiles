@@ -14,6 +14,7 @@
 - Always add unit tests when making changes, if possible
 - Always create a new branch for new work; never reuse merged branches
 - Prefer existing Renovate branches for dependency updates — do not manually edit dependency files (`go.mod`, `package.json`, etc.) when Renovate has already created a branch
+- When investigating Renovate upgrade problems, always `but apply` the Renovate branch first to get its changes before diagnosing or fixing
 - Go: always return empty slices (`[]`), never nil slices — nil serializes to JSON `null` and crashes frontends
 - Go: always handle errcheck — wrap `json.Encode`, `json.NewEncoder().Encode()`, and similar calls with error checks
 - Go: use `go mod tidy`, not manual `go.mod`/`go.sum` edits
