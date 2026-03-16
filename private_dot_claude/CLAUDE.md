@@ -103,9 +103,10 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Essential Rules
-- **ALWAYS `but pull` before ANY branch operation** (`but rub`, `but commit`, `but absorb`, `but branch new`). Branches may have been merged upstream — pulling first removes integrated branches and prevents assigning changes to stale branches. This is non-negotiable.
+- **ALWAYS `but pull` before ANY branch operation** (`but rub`, `but stage`, `but commit`, `but absorb`, `but branch new`). Branches may have been merged upstream — pulling first removes integrated branches and prevents assigning changes to stale branches. This is non-negotiable.
 - **Always pass `-C <repo-root>` BEFORE the subcommand** in every `but` command (e.g., `but -C /path status`, NOT `but status -C /path`)
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
+- **Staging changes**: Use `but rub <cliId> <branch>` or `but stage <cliId> <branch>` — both work. `but rub zz <branch>` stages all unassigned changes at once.
 - **NEVER use `but pr` for Gitea remotes** — use Gitea REST API via curl instead
 - **Create PRs using `but pr new <branch>`**:
   - **GitHub remotes**: Use `-m "title\n\nbody"` or `-F <file>`
@@ -119,6 +120,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
       "https://<host>/api/v1/repos/<owner>/<repo>/pulls"
     ```
     API endpoint for `git.unbound.se` is `gitea.unbound.se`. For `git.nl.cloud` it's `https://git.nl.cloud:8443`.
+- **PR management**: `but pr auto-merge <branch>` to enable auto-merge, `but pr set-draft`/`but pr set-ready` to toggle draft status
 
 ### Pre-Commit Analysis Workflow
 
@@ -147,9 +149,11 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 1. **Pull latest from remote**: `but pull` — MUST run before any `rub`, `commit`, or `absorb` to remove integrated branches
 2. **Create branches** if needed: `but branch new <name>` (or `--anchor <parent> <name>` for stacked/dependent)
    - If changes are locked to an existing branch, anchor new branches to it
-3. **Assign changes using CLI IDs** (NOT file paths): `but rub <cliId> <branch>` or `but rub zz <branch>` for all
+3. **Assign changes using CLI IDs** (NOT file paths): `but rub <cliId> <branch>` (or `but stage <cliId> <branch>`) or `but rub zz <branch>` for all
 4. **Run pre-commit** (if `.pre-commit-config.yaml` exists): `git add -A && pre-commit run --all-files`
 5. **Commit to branch**: `but commit --only -m "message" <branch>` (always use `--only`)
+   - Use `but commit -c <branch> -m "message"` to create a new branch and commit in one step
+   - Use `but commit -p <cliId1>,<cliId2> -m "message" <branch>` to commit only specific files/hunks
 6. Follow conventional commits format
 7. **Pull and resolve before pushing**: `but pull` then `but push <branch>`
    - If conflicts: `but resolve <commit>`, fix files, `but resolve finish`
