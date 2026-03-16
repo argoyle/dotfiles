@@ -152,7 +152,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 3. **Assign changes using CLI IDs** (NOT file paths): `but rub <cliId> <branch>` (or `but stage <cliId> <branch>`) or `but rub zz <branch>` for all
 4. **Run pre-commit** (if `.pre-commit-config.yaml` exists): `git add -A && pre-commit run --all-files`
 5. **Commit to branch**: `but commit --only -m "message" <branch>` (always use `--only`)
-   - Use `but commit -c <branch> -m "message"` to create a new branch and commit in one step
+   - Use `but commit -c <branch> -m "message"` to create a new branch and commit in one step (do NOT use with `--only` — the new branch has no staged changes yet)
    - Use `but commit -p <cliId1>,<cliId2> -m "message" <branch>` to commit only specific files/hunks
 6. Follow conventional commits format
 7. **Pull and resolve before pushing**: `but pull` then `but push <branch>`
