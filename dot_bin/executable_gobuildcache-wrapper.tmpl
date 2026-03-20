@@ -6,4 +6,5 @@ export AWS_SECRET_ACCESS_KEY={{ protonPass "pass://Unbound Infrastructure/gobuil
 export AWS_REGION=eu-west-1
 export GOBUILDCACHE_BACKEND_TYPE=s3
 export GOBUILDCACHE_S3_BUCKET=gobuildcache.unbound.se
+export GOBUILDCACHE_PRINT_STATS=false
 exec "${HOME}/go/bin/gobuildcache" "$@"
