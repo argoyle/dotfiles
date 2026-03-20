@@ -103,7 +103,7 @@ When the current branch is `gitbutler/workspace`, use the `but` CLI instead of g
 For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Essential Rules
-- **ALWAYS `but pull` before ANY branch operation** (`but rub`, `but stage`, `but commit`, `but absorb`, `but branch new`). Branches may have been merged upstream — pulling first removes integrated branches and prevents assigning changes to stale branches. This is non-negotiable.
+- **ALWAYS `but pull` before assigning changes to branches or creating commits** (`but rub`, `but stage`, `but commit`, `but absorb`, `but branch new`). Upstream branches may already be merged — pulling first removes integrated branches and prevents assigning changes to stale branches or committing to already-merged work. This is non-negotiable.
 - **Always pass `-C <repo-root>` BEFORE the subcommand** in every `but` command (e.g., `but -C /path status`, NOT `but status -C /path`)
 - **NEVER use `git push`** when on the `gitbutler/workspace` branch. Use `but push <branch>` instead.
 - **Staging changes**: Use `but rub <cliId> <branch>` or `but stage <cliId> <branch>` — both work. `but rub zz <branch>` stages all unassigned changes at once.
@@ -124,7 +124,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Pre-Commit Analysis Workflow
 
-1. **Pull latest from remote**: `but pull` — ensures merged branches are detected and removed before assigning changes
+1. **Pull latest from remote**: `but pull` — ensures already-merged upstream branches are detected and removed before assigning changes to existing branches
 2. **Gather workspace state** (run both in parallel):
    - `but status --json` - Get structured changes with CLI IDs (check for `locked` fields — locked changes are tied to an existing branch)
    - `but branch list --json` - Get existing branches
@@ -146,7 +146,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 
 ### Commit Workflow
 
-1. **Pull latest from remote**: `but pull` — MUST run before any `rub`, `commit`, or `absorb` to remove integrated branches
+1. **Pull latest from remote**: `but pull` — MUST run before assigning changes or committing to check if upstream branches are already merged and remove integrated branches
 2. **Create branches** if needed: `but branch new <name>` (or `--anchor <parent> <name>` for stacked/dependent)
    - If changes are locked to an existing branch, anchor new branches to it
 3. **Assign changes using CLI IDs** (NOT file paths): `but rub <cliId> <branch>` (or `but stage <cliId> <branch>`) or `but rub zz <branch>` for all
