@@ -20,7 +20,7 @@ esac
 
 origin_url=$(git -C "$repo_path" remote get-url origin 2>/dev/null || echo "")
 case "$origin_url" in
-  *git.unbound.se*|*git.nl.cloud*)
+  *git.unbound.se*|*git.sm.internal*)
     echo "Blocked: 'but pr' does not support Gitea ($origin_url). Use the Gitea REST API instead." >&2
     exit 2
     ;;

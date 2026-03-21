@@ -111,7 +111,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
 - **Create PRs using `but pr new <branch>`**:
   - **GitHub remotes**: Use `-m "title\n\nbody"` or `-F <file>`
   - **GitLab remotes**: Always use `-t` flag only
-  - **Gitea remotes** (git.unbound.se, git.nl.cloud): Use Gitea REST API directly:
+  - **Gitea remotes** (git.unbound.se, git.sm.internal): Use Gitea REST API directly:
     ```bash
     curl -sk -X POST \
       -H "Authorization: token $GITEA_TOKEN" \
@@ -119,7 +119,7 @@ For full command reference, see `~/.claude/gitbutler-reference.md`.
       -d '{"title":"PR title","head":"branch-name","base":"main"}' \
       "https://<host>/api/v1/repos/<owner>/<repo>/pulls"
     ```
-    API endpoint for `git.unbound.se` is `gitea.unbound.se`. For `git.nl.cloud` it's `https://git.nl.cloud:8443`.
+    API endpoint for `git.unbound.se` is `gitea.unbound.se`. For `git.sm.internal` it's `https://git.sm.internal:8443`.
 - **PR management**: `but pr auto-merge <branch>` to enable auto-merge, `but pr set-draft`/`but pr set-ready` to toggle draft status
 
 ### Pre-Commit Analysis Workflow
