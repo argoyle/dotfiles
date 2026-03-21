@@ -42,7 +42,7 @@ If the arguments are unclear, ask for clarification.
 
 ### Important Notes
 
-- **Frostmoln repos** are hosted on Gitea (`git.nl.cloud`). Use Gitea REST API for PRs, NOT `but pr`.
+- **Frostmoln repos** are hosted on Gitea (`git.sm.internal`). Use Gitea REST API for PRs, NOT `but pr`.
 - **Shiny/Unbound repos** are hosted on GitLab. Use `git push` and GitLab MR flow.
 - **Chezmoi-managed repos** use GitHub. Use `gh` or `but pr`.
 - Always read each file before editing — don't assume identical structure across repos.
