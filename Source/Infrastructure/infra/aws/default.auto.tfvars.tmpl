@@ -11,7 +11,6 @@ slack = {
 docker_config                  = <<EOT
 {{ $dockercfg }}
 EOT
-gitlab_provider_token          = {{ protonPass "pass://Personal/.auths/GitlabTerraformToken" | trim | quote }}
 grafana_cloud_api_key          = {{ protonPass "pass://Unbound Infrastructure/grafana-cloud/terraform" | trim | quote }}
 grafana_oncall_token           = {{ protonPass "pass://Unbound Infrastructure/grafana-cloud/terraformOnCall" | trim | quote }}
 grafana_oncall_username        = "argoyle"
