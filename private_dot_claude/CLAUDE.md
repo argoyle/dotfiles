@@ -91,7 +91,7 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
   - **GitLab**: `but pr new <branch> -t "title"`
   - **Gitea** (git.unbound.se, git.sm.internal): Gitea REST API via curl
     - `git.unbound.se` API: `gitea.unbound.se`
-    - `git.sm.internal` API: `https://git.sm.internal:8443`
+    - `git.sm.internal` API: `https://git.sm.internal`
 - **PR management**: `but pr auto-merge`, `but pr set-draft`, `but pr set-ready`
 
 ### Pre-Commit Analysis Workflow
