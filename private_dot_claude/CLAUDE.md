@@ -12,7 +12,12 @@
 - Always explicitly specify `--context <context>` when running kubectl commands. Check `.buildtools.yaml` or `.envrc` for the expected context. Never rely on the default — it may point to production.
 - Go: always return empty slices (`[]`), never nil slices — nil serializes to JSON `null`
 - Go: always handle errcheck
+- Go: always run `gofumpt -w .` on modified Go files before committing
+- Go: when modifying database migrations, always update MigrationExpectations in test mocks
 - Go: use `go mod tidy`, not manual `go.mod`/`go.sum` edits
+- Do ONLY what was asked — do not build, deploy, or run additional steps unless explicitly requested
+- Never fabricate Linear ticket references — always check if one exists first
+- Always verify you are in the correct repository directory before pushing or creating PRs
 
 ## Renovate
 
