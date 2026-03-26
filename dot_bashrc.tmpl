@@ -17,8 +17,10 @@ export PATH=/opt/homebrew/opt/helm@3/bin:$PATH
 
 eval "$(direnv hook bash)"
 
-# Lazy-load pyenv for better startup performance
-if command -v pyenv 1>/dev/null 2>&1; then
+# Lazy-load pyenv for better startup performance (interactive shells only —
+# non-interactive sourcing via BASH_ENV would cause infinite recursion with
+# pyenv-virtualenv-init which calls `pyenv hooks` internally)
+if [[ $- == *i* ]] && command -v pyenv 1>/dev/null 2>&1; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
 
