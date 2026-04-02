@@ -188,5 +188,6 @@
         ]
       }
     ]
-  }
+  },
+  "voiceEnabled": true
 }
