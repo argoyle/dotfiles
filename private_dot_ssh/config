@@ -21,6 +21,10 @@ Host granvagen
   User root
   Port 2222
 
+Host 192.168.100.*
+  ServerAliveInterval 15
+  ServerAliveCountMax 3
+
 Host *
   User ubuntu
   StrictHostKeyChecking no
