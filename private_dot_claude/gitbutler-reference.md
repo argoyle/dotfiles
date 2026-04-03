@@ -28,7 +28,7 @@
 | `but stage` | Interactive TUI for selecting files and hunks to stage |
 | `but stage <file-or-hunk> <branch>` | Stage a file or hunk to a branch (alternative to rub) |
 | `but commit --only -m "msg" <branch>` | Commit only assigned files to branch |
-| `but commit -c --only -m "msg"` | Create new branch and commit assigned files |
+| `but commit -c <name> -m "msg"` | Create new branch and commit (if name matches existing branch, uses that) |
 | `but commit -p <cliId> -m "msg" <branch>` | Commit specific files/hunks only |
 | `but commit -i -m "msg" <branch>` | AI-generated commit message (optional summary after `--ai=`) |
 | `but commit -n <branch>` | Bypass pre-commit hooks |
@@ -84,6 +84,7 @@
 | `but push -r <branch>` | Run pre-push hooks |
 | `but pull --check` | Check if branches can cleanly merge without updating |
 | `but pr new -m "title\n\nbody" <branch>` | Create PR with custom title and body (GitHub only) |
+| `but pr new -F <file> <branch>` | Read PR title/body from file (first line = title, rest = body) |
 | `but pr new -d <branch>` | Create PR as draft |
 | `but pr new -t <branch>` | Create PR using default content from commits (required for GitLab) |
 | `but pr auto-merge <branch>` | Enable/disable auto-merge on a PR |
@@ -107,6 +108,7 @@
 | `but setup` | Set up a GitButler project from a git repo |
 | `but setup --init` | Initialize a new git repo and set up GitButler |
 | `but teardown` | Exit GitButler mode, return to normal Git workflow |
+| `but stack <branch> <target>` | Move existing branch on top of another to stack them |
 | `but config` | View configuration overview (user, forge, target, metrics, ui) |
 | `but config ui set tui true` | Enable TUI mode for diff by default |
 | `but alias add <name> <command>` | Create command shortcut |
