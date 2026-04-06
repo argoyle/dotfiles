@@ -2,6 +2,6 @@ source_up .envrc
 use nvm
 layout pyenv 3.14.0
 export GITEA_TOKEN={{ protonPass "pass://Personal/git.sm.internal/Token" | trim | quote }}
-export GOPRIVATE="git.sm.internal/*"
-export GONOSUMCHECK="git.sm.internal/*"
-export GOINSECURE="git.sm.internal"
+export GOPRIVATE="git.sm.internal/*,go.frostmoln.internal/*"
+export GONOSUMCHECK="git.sm.internal/*,go.frostmoln.internal/*"
+export GOINSECURE="git.sm.internal,go.frostmoln.internal"
