@@ -89,6 +89,7 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
 - **ALWAYS `but pull` before assigning changes or committing**. This is non-negotiable.
 - **Always pass `-C <repo-root>` BEFORE the subcommand** (e.g., `but -C /path status`)
 - **NEVER use `git push`** on gitbutler/workspace — use `but push <branch>`
+- **NEVER assume a branch from a previous conversation still exists** — branches are short-lived and removed after merge. Always check `but status --json` for current branches.
 - `but rub zz <branch>` stages all unassigned changes
 - **NEVER use `but pr` for Gitea remotes** — use REST API instead
 - **PR creation by remote type**:
