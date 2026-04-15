@@ -263,10 +263,10 @@ k8s-rds-tunnel() {
         return 1
     fi
 
-    # Get a node instance ID from the cluster
+    # Get a node instance ID from the "nodes" instance group
     echo "Getting node from cluster $cluster..."
     local instance_id
-    instance_id=$(kubectl --context "$cluster" get nodes -o jsonpath='{.items[0].spec.providerID}' 2>&1)
+    instance_id=$(kubectl --context "$cluster" get nodes -l node-role.kubernetes.io/nodes -o jsonpath='{.items[0].spec.providerID}' 2>&1)
     if [[ $? -ne 0 ]]; then
         echo "\033[31mFailed to get node from cluster: $instance_id\033[0m"
         return 1
