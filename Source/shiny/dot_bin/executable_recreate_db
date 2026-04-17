@@ -26,7 +26,7 @@ if [ -z "${dumpdate}" ]; then
   tstamp=$(date +%Y%m%d%H%M%S)
   echo "Dumping prod to ${tstamp}"
 
-  for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
+  for database in accounting authz banking company consumer document employee invoice notification salary supplier supplier_invoice tax time; do
     printf "  %-20s " "${database}"
     start=$SECONDS
     PGPASSWORD=${PRODPASSWORD} pg_dump --host=localhost --port=15432 --username=postgres --dbname=${database} --file="${dumpdir}/${database}-${tstamp}-dump.sql" >"$logfile" 2>&1 \
@@ -36,7 +36,7 @@ if [ -z "${dumpdate}" ]; then
 
   dumpdate=${tstamp}
 else
-  for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
+  for database in accounting authz banking company consumer document employee invoice notification salary supplier supplier_invoice tax time; do
     if [ ! -r "${dumpdir}/${database}-${dumpdate}-dump.sql" ]; then
       fail "Dump for ${database} could not be found with date ${dumpdate}"
     fi
@@ -54,6 +54,7 @@ psql -h unbound-control-plane.orb.local -U postgres -d postgres -v ON_ERROR_STOP
       'banking',
       'company',
       'consumer',
+      'document',
       'employee',
       'invoice',
       'notification',
@@ -74,6 +75,8 @@ psql -h unbound-control-plane.orb.local -U postgres -d postgres -v ON_ERROR_STOP
   CREATE DATABASE company WITH OWNER postgres ENCODING utf8;
   DROP DATABASE consumer;
   CREATE DATABASE consumer WITH OWNER postgres ENCODING utf8;
+  DROP DATABASE document;
+  CREATE DATABASE document WITH OWNER postgres ENCODING utf8;
   DROP DATABASE employee;
   CREATE DATABASE employee WITH OWNER postgres ENCODING utf8;
   DROP DATABASE invoice;
@@ -94,7 +97,7 @@ EOSQL
 printf "done\n"
 
 echo "Importing databases"
-for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
+for database in accounting authz banking company consumer document employee invoice notification salary supplier supplier_invoice tax time; do
   printf "  %-20s " "${database}"
   start=$SECONDS
   psql --host=unbound-control-plane.orb.local --port=5432 --username=postgres --dbname=${database} -v ON_ERROR_STOP=1 -q >"$logfile" 2>&1 <"${dumpdir}/${database}-${dumpdate}-dump.sql" \
