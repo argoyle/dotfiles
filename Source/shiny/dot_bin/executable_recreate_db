@@ -5,29 +5,47 @@ export PGPASSWORD=postgres
 dumpdate=${1:-}
 dumpdir="/Users/argoyle/Source/shiny/.dbdumps/prod"
 
+logfile=$(mktemp)
+trap 'rm -f "$logfile"' EXIT
+
+fail() {
+  printf '\n%s\n' "$1" >&2
+  [ -s "$logfile" ] && cat "$logfile" >&2
+  exit 1
+}
+
+if [ "${dumpdate}" = "latest" ]; then
+  dumpdate=$(ls "${dumpdir}"/*-dump.sql 2>/dev/null \
+    | sed -E 's/.*-([0-9]{14})-dump\.sql$/\1/' \
+    | sort -u | tail -1)
+  [ -z "${dumpdate}" ] && fail "No dumps found in ${dumpdir}"
+fi
+
 if [ -z "${dumpdate}" ]; then
-  if [ -z "${PRODPASSWORD:-}" ]; then
-    echo "Set password to production database in PRODPASSWORD"
-    exit 1
-  fi
-  echo "Dumping prod databases and importing them to localhost"
+  [ -z "${PRODPASSWORD:-}" ] && fail "Set password to production database in PRODPASSWORD"
   tstamp=$(date +%Y%m%d%H%M%S)
+  echo "Dumping prod to ${tstamp}"
 
   for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
-    PGPASSWORD=${PRODPASSWORD} pg_dump --host=localhost --port=15432 --username=postgres --dbname=${database} --file="${dumpdir}/${database}-${tstamp}-dump.sql"
+    printf "  %-20s " "${database}"
+    start=$SECONDS
+    PGPASSWORD=${PRODPASSWORD} pg_dump --host=localhost --port=15432 --username=postgres --dbname=${database} --file="${dumpdir}/${database}-${tstamp}-dump.sql" >"$logfile" 2>&1 \
+      || fail "pg_dump failed for ${database}"
+    printf "done (%ds)\n" $((SECONDS - start))
   done
 
   dumpdate=${tstamp}
 else
   for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
     if [ ! -r "${dumpdir}/${database}-${dumpdate}-dump.sql" ]; then
-      echo "Dump for ${database} could not be found with date ${dumpdate}"
-      exit 1
+      fail "Dump for ${database} could not be found with date ${dumpdate}"
     fi
   done
+  echo "Using dump ${dumpdate}"
 fi
 
-psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
+printf "Recreating databases... "
+psql -h unbound-control-plane.orb.local -U postgres -d postgres -v ON_ERROR_STOP=1 -q >"$logfile" 2>&1 <<-EOSQL || fail "Failed to recreate databases"
   SELECT pg_terminate_backend(pid)
   FROM pg_stat_activity
   WHERE datname IN (
@@ -73,8 +91,13 @@ psql -h unbound-control-plane.orb.local -U postgres -d postgres <<-EOSQL
   DROP DATABASE time;
   CREATE DATABASE time WITH OWNER postgres ENCODING utf8;
 EOSQL
+printf "done\n"
 
+echo "Importing databases"
 for database in accounting authz banking company consumer employee invoice notification salary supplier supplier_invoice tax time; do
-  echo "Importing ${database}"
-  psql --host=unbound-control-plane.orb.local --port=5432 --username=postgres --dbname=${database} <"${dumpdir}/${database}-${dumpdate}-dump.sql"
+  printf "  %-20s " "${database}"
+  start=$SECONDS
+  psql --host=unbound-control-plane.orb.local --port=5432 --username=postgres --dbname=${database} -v ON_ERROR_STOP=1 -q >"$logfile" 2>&1 <"${dumpdir}/${database}-${dumpdate}-dump.sql" \
+    || fail "Failed importing ${database}"
+  printf "done (%ds)\n" $((SECONDS - start))
 done
