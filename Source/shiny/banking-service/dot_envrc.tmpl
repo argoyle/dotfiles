@@ -1,0 +1,12 @@
+source_up .envrc
+export PORT=4092
+export AUTH_URL=http://localhost:4080
+export SERVICE=$(basename "$PWD")
+export URL=http://localhost:${PORT}/query
+export POSTGRES_URL="postgres://postgres:postgres@unbound-control-plane.orb.local:5432/banking?sslmode=disable"
+export BANKING_MASTER_KEY={{ protonPass "pass://Personal/Shiny/BankingMasterKey" | trim }}
+export SWEDBANK_CLIENT_ID={{ protonPass "pass://Personal/Shiny/SwedbankClientId" | trim }}
+export SWEDBANK_CLIENT_SECRET={{ protonPass "pass://Personal/Shiny/SwedbankClientSecret" | trim }}
+export TINK_CLIENT_ID={{ protonPass "pass://Personal/Shiny/TinkClientId" | trim }}
+export TINK_CLIENT_SECRET={{ protonPass "pass://Personal/Shiny/TinkClientSecret" | trim }}
+

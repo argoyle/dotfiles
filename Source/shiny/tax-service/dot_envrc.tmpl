@@ -1,0 +1,12 @@
+source_up .envrc
+export PORT=4091
+export AUTH_URL=http://localhost:4080
+export SERVICE=$(basename "$PWD")
+export URL=http://localhost:${PORT}/query
+export POSTGRES_URL="postgres://postgres:postgres@unbound-control-plane.orb.local:5432/tax?sslmode=disable"
+export LOG_LEVEL=debug
+export SKV_OAUTH_CLIENT_ID={{ protonPass "pass://Personal/Shiny/SkvOauthClientId" | trim }}
+export SKV_OAUTH_CLIENT_SECRET={{ protonPass "pass://Personal/Shiny/SkvOauthClientSecret" | trim }}
+export SKV_API_CLIENT_ID={{ protonPass "pass://Personal/Shiny/SkvApiClientId" | trim }}
+export SKV_API_CLIENT_SECRET={{ protonPass "pass://Personal/Shiny/SkvApiClientSecret" | trim }}
+export SKV_MASTER_KEY={{ protonPass "pass://Personal/Shiny/SkvMasterKey" | trim }}
