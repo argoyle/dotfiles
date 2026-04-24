@@ -93,6 +93,8 @@
 | `but pr template` | Select PR description template from repo |
 | `but merge <branch>` | Merge a branch into local target branch |
 
+> **Note:** `but push` is silent on success — no stdout is produced when the push completes cleanly. Output only appears when there's an error (non-fast-forward, auth failure, network issue, etc.). To confirm a push landed, run `git ls-remote --heads origin <branch>` and compare the SHA to your local commit.
+
 ## Operation History
 
 | Command | Purpose |

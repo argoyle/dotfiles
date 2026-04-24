@@ -119,4 +119,5 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
    - `-c <branch>` to create+commit in one step (no `--only`)
    - `-p <cliId1>,<cliId2>` for partial commits
 6. `but pull` then `but push <branch>`
+   - `but push` is silent on success (no output) — only prints on errors. Verify with `git ls-remote --heads origin <branch>` if in doubt.
    - Conflicts: `but resolve <commit>`, fix, `but resolve finish`
