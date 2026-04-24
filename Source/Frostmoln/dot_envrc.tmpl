@@ -5,3 +5,4 @@ export GITEA_TOKEN={{ protonPass "pass://Personal/git.sm.internal/Token" | trim 
 export GOPRIVATE="git.sm.internal/*,go.frostmoln.internal/*"
 export GONOSUMCHECK="git.sm.internal/*,go.frostmoln.internal/*"
 export GOINSECURE="git.sm.internal,go.frostmoln.internal"
+export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
