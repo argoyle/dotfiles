@@ -1,3 +1,10 @@
+# zsh ties $FPATH<->$fpath. If FPATH gets exported, child shells inherit it and it
+# survives `brew upgrade zsh`, leaving a dead Cellar/zsh/<old>/functions dir on fpath
+# that breaks autoload (compinit, is-at-least, add-zsh-hook, ...). Keep it shell-local
+# and pin the live, unversioned core functions dir so a bump can never strand us.
+typeset +x FPATH 2>/dev/null
+fpath=($HOMEBREW_PREFIX/share/zsh/functions $fpath)
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
