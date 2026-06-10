@@ -50,6 +50,10 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
 eval "$(direnv hook zsh)"
+# zsh 5.9.1's _ssh_hosts cds inside completion subshells, which fires the
+# chpwd-registered direnv hook and spams "direnv: unloading". precmd alone
+# keeps the env current, so drop the chpwd registration.
+chpwd_functions=(${chpwd_functions:#_direnv_hook})
 
 autoload -Uz compinit && compinit -i
 
