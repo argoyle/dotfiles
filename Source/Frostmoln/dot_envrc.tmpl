@@ -8,3 +8,4 @@ export GOINSECURE="git.sm.internal,go.frostmoln.internal"
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
 export VAULT_ADDR=https://vault.frostmoln.internal:8200
 export VAULT_SKIP_VERIFY=true
+export ANSIBLE_LINT_CACHE_DIR=~/Source/Frostmoln/.cache/ansible-lint
