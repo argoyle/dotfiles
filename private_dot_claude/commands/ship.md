@@ -6,7 +6,7 @@ You are on a `gitbutler/workspace` branch. Follow the GitButler workflow from CL
 
 ### Steps
 
-1. **Check status**: Run `but -C <repo-root> status --json` to see unassigned and branch-assigned changes.
+1. **Check status**: Run `but -C <repo-root> status --format json` to see unassigned and branch-assigned changes.
 
 2. **Pre-commit** (if `.pre-commit-config.yaml` exists): Run `git add -A && pre-commit run --all-files`. Fix any issues.
 

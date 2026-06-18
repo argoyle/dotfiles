@@ -123,7 +123,6 @@
       "WebFetch(domain:blog.gitbutler.com)",
       "WebFetch(domain:gist.github.com)",
       "Bash(claude --version:*)",
-      "Bash(but status --json)",
       "Bash(but status:*)",
       "Bash(but pr new --help:*)",
       "Bash(but pr --help:*)",
@@ -200,9 +199,13 @@
       }
     ]
   },
-  "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
+  "enabledPlugins": {
+    "slack@claude-plugins-official": true
+  },
+  "effortLevel": "xhigh",
   "teammateMode": "auto",
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
 }
