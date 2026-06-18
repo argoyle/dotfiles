@@ -89,7 +89,7 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
 - **ALWAYS `but pull` before assigning changes or committing**. This is non-negotiable.
 - **Always pass `-C <repo-root>` BEFORE the subcommand** (e.g., `but -C /path status`)
 - **NEVER use `git push`** on gitbutler/workspace — use `but push <branch>`
-- **NEVER assume a branch from a previous conversation still exists** — branches are short-lived and removed after merge. Always check `but status --json` for current branches.
+- **NEVER assume a branch from a previous conversation still exists** — branches are short-lived and removed after merge. Always check `but status --format json` for current branches.
 - `but rub zz <branch>` stages all unassigned changes
 - **NEVER use `but pr` for Gitea remotes** — use REST API instead
 - **PR creation by remote type**:
@@ -103,7 +103,7 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
 ### Pre-Commit Analysis Workflow
 
 1. `but pull` — sync and remove integrated branches
-2. Gather state in parallel: `but status --json` + `but branch list --json`
+2. Gather state in parallel: `but status --format json` + `but branch list --format json`
 3. Sample diffs to understand change patterns
 4. Group changes by content pattern, not just location
 5. Present groups with suggested branch names — flag locked changes
