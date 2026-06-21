@@ -56,6 +56,11 @@ ldeploy() {
 
 bup() {
   local result file
+  # Homebrew >=6 tap-trust gate is buggy on current HEAD (loses ~/.homebrew/trust.json
+  # mid-run), so `brew trust` does not persist. Opt out for this function's brew calls only.
+  # `local -x` exports it to child processes (brew) but auto-unsets when bup returns, so it
+  # never leaks into the interactive shell.
+  local -x HOMEBREW_NO_REQUIRE_TAP_TRUST=1
   file="${HOME}/.local/share/Brewfile"
 
   echo "Checking Brewfile"

@@ -5,6 +5,16 @@
 
 type brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-brew bundle cleanup --force --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
-brew bundle --file={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
+BREWFILE={{ joinPath .chezmoi.homeDir ".local" "share" "Brewfile" | quote }}
+
+# Homebrew >=6 added a per-formula/cask "tap trust" gate that breaks non-interactive
+# `brew bundle` for third-party taps. On current Homebrew HEAD the gate is buggy: it loses
+# its own trust store (~/.homebrew/trust.json) during bundle runs, so explicit `brew trust`
+# does not persist. Opt out of the gate for this automated bundle of the curated Brewfile
+# only (scoped to this script's process; not exported into interactive shells via dot_exports).
+# Revisit once the trust feature stabilizes upstream.
+export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
+
+brew bundle cleanup --force --file="$BREWFILE"
+brew bundle --file="$BREWFILE"
 {{ end -}}
