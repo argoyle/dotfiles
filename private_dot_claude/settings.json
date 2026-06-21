@@ -187,20 +187,12 @@
           }
         ]
       }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"Invoke the caveman skill in full mode now for this session.\"}}'"
-          }
-        ]
-      }
     ]
   },
   "enabledPlugins": {
-    "slack@claude-plugins-official": true
+    "slack@claude-plugins-official": true,
+    "caveman@caveman": true,
+    "ponytail@ponytail": true
   },
   "effortLevel": "xhigh",
   "teammateMode": "auto",
