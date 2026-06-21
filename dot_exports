@@ -39,3 +39,8 @@ export GOINSECURE="git.sm.internal,go.frostmoln.internal,gitea.unbound.se"
 
 # Required for pinentry/GPG to work correctly in tmux
 export GPG_TTY=$(tty)
+
+# Claude Code plugin default modes (installed via run_once_install-claude-plugins.sh)
+# caveman = terse prose; ponytail = minimal-code YAGNI. Override per-session with /caveman|/ponytail.
+export CAVEMAN_DEFAULT_MODE=full
+export PONYTAIL_DEFAULT_MODE=full
