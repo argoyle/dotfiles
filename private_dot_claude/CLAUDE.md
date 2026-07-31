@@ -86,15 +86,16 @@ Key patterns (full reference: `~/.claude/linear-reference.md`):
 Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`.
 
 ### Essential Rules
-- **ALWAYS `but pull` before assigning changes or committing**. This is non-negotiable.
+- **ALWAYS `but pull` before committing**. This is non-negotiable.
 - **Always pass `-C <repo-root>` BEFORE the subcommand** (e.g., `but -C /path status`)
 - **NEVER use `git push`** on gitbutler/workspace — use `but push <branch>`
-- **NEVER assume a branch from a previous conversation still exists** — branches are short-lived and removed after merge. Always check `but status --format json` for current branches.
-- `but rub zz <branch>` stages all unassigned changes
+- **NEVER assume a branch from a previous conversation still exists** — branches are short-lived and removed after merge. Always check `but status --json` for current branches.
+- **There is no staging step** (as of `but` 0.22). `but rub`/`but stage`/`but mark` were removed — `but commit` takes the changes directly.
+- **NEVER use `but land`** unless explicitly asked — it pushes straight to the target branch, bypassing PR review.
 - **NEVER use `but pr` for Gitea remotes** — use REST API instead
 - **PR creation by remote type**:
-  - **GitHub**: `but pr new <branch> -m "title\n\nbody"`
-  - **GitLab**: `but pr new <branch> -t "title"`
+  - **GitHub**: `but pr new <branch> -m "title"` (single line only — `-m` is not repeatable and the shell won't expand `\n`; use `-F <file>` for a body)
+  - **GitLab**: `but pr new <branch> -t` (`-t`/`--default` is a boolean flag — it takes no value)
   - **Gitea** (git.unbound.se, git.sm.internal): Gitea REST API via curl
     - `git.unbound.se` API: `gitea.unbound.se`
     - `git.sm.internal` API: `https://git.sm.internal`
@@ -103,21 +104,22 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
 ### Pre-Commit Analysis Workflow
 
 1. `but pull` — sync and remove integrated branches
-2. Gather state in parallel: `but status --format json` + `but branch list --format json`
+2. Gather state in parallel: `but status --json` + `but branch list --json`
 3. Sample diffs to understand change patterns
 4. Group changes by content pattern, not just location
 5. Present groups with suggested branch names — flag locked changes
-6. Ask user for confirmation before assigning
+6. Ask user for confirmation before splitting into branches
 
 ### Commit Workflow
 
 1. `but pull`
-2. `but branch new <name>` (or `--anchor <parent> <name>` for stacked)
-3. `but rub <cliId> <branch>` or `but rub zz <branch>` for all
-4. `git add -A && pre-commit run --all-files`
-5. `but commit --only -m "message" <branch>`
-   - `-c <branch>` to create+commit in one step (no `--only`)
-   - `-p <cliId1>,<cliId2>` for partial commits
-6. `but pull` then `but push <branch>`
-   - `but push` is silent on success (no output) — only prints on errors. Verify with `git ls-remote --heads origin <branch>` if in doubt.
-   - Conflicts: `but resolve <commit>`, fix, `but resolve finish`
+2. `git add -A && pre-commit run --all-files`
+3. `but commit -m "message" -b <branch>`
+   - `-b <branch>` creates the branch if it doesn't exist
+   - All uncommitted changes are included by default; pass file/hunk CLI IDs positionally to narrow: `but commit -m "msg" -b <branch> <cliId>...`
+   - `-m` is repeatable — `-m "subject" -m "body"` joins with a blank line
+   - Stacked: `but branch new -a <parent> <name>` first, then commit with `-b <name>`
+   - Re-run `but status` between commits — CLI IDs shift after every mutation
+4. `but pull` then `but push <branch>`
+   - `but push` prints `✓ Push completed successfully` plus the pushed SHA (0.22+; older versions were silent). Verify with `git ls-remote --heads origin <branch>` if in doubt.
+   - Conflicts: `but resolve <commit>`, fix, `but resolve finish` (or `but resolve --ai`)
