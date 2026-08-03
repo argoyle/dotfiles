@@ -147,7 +147,9 @@ brew "pyenv"
 brew "pyenv-virtualenv"
 brew "python@3.11"
 brew "rbenv"
-brew "schpet/tap/linear"
+# link: true — token collides with cask "linear" (Linear.app); without this
+# brew bundle unlinks /opt/homebrew/bin/linear
+brew "schpet/tap/linear", link: true
 brew "shellcheck"
 brew "socat"
 brew "sops"
