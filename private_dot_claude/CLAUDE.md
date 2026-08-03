@@ -75,7 +75,8 @@
 Key patterns (full reference: `~/.claude/linear-reference.md`):
 
 - Issue IDs: `TEAM-123` format
-- Sort is required for `issue list`: always pass `--sort priority`
+- `issue list` is an alias of `issue mine` (your issues, `unstarted` by default). Use `issue query` for search, assignee filters, or `--json`
+- `--sort` defaults to `priority` — do not pass it. It is rejected with `query --search`
 - `linear issue start` creates a branch and sets state to "In Progress"
 - `linear issue id` infers issue from current branch name
 - Use `--no-interactive` on `create` for scripted usage
