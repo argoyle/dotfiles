@@ -1,3 +1,9 @@
+# A deleted cwd (git worktree churn) leaves a stale inode handle, so getcwd() fails
+# and zsh falls back to PWD=".". Everything downstream then errors or hangs (fnm
+# panics, direnv can't resolve .envrc). Absolute PWD == healthy; otherwise bail to
+# $HOME. -q skips chpwd hooks so direnv doesn't fire twice.
+[[ $PWD == /* ]] || builtin cd -q -- "$HOME"
+
 # zsh ties $FPATH<->$fpath. If FPATH gets exported, child shells inherit it and it
 # survives `brew upgrade zsh`, leaving a dead Cellar/zsh/<old>/functions dir on fpath
 # that breaks autoload (compinit, is-at-least, add-zsh-hook, ...). Keep it shell-local
