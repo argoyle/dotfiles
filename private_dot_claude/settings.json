@@ -191,7 +191,6 @@
   },
   "enabledPlugins": {
     "slack@claude-plugins-official": true,
-    "caveman@caveman": true,
     "ponytail@ponytail": true
   },
   "effortLevel": "xhigh",
