@@ -11,3 +11,5 @@ federationSchemaExtensions.js
 .buildtools.yaml
 .direnv
 .env
+
+**/.claude/settings.local.json
