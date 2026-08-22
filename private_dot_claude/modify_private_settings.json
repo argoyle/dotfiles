@@ -1,0 +1,48 @@
+#!/bin/sh
+# Merges the version-controlled settings in settings.base.json onto the settings
+# file already on disk, instead of replacing it.
+#
+# Claude Code writes to ~/.claude/settings.json itself: /config sets theme and
+# effortLevel, /statusline sets statusLine, and auto mode appends learned rules
+# to autoMode. A plain chezmoi apply would delete all of that on every run.
+#
+# autoMode in particular cannot be relocated. Claude Code only reads it from
+# user, flag, and managed settings; project and local settings are rejected at
+# runtime because a repository could otherwise grant itself auto-approval. So
+# the learned block has to stay in this file, and this file has two writers.
+#
+# The autoMode block also records internal hostnames and repository paths. This
+# repository is public, which is the second reason it is preserved in place
+# rather than captured into source.
+
+set -eu
+
+base="$CHEZMOI_SOURCE_DIR/private_dot_claude/settings.base.json"
+
+# Keys Claude Code owns at runtime. Kept from the deployed file when present;
+# values in settings.base.json apply only on a machine that has none yet.
+runtime_keys='["autoMode","statusLine","theme","effortLevel"]'
+
+current=$(cat)
+
+# No usable file on disk (first apply on a new machine, or hand-corrupted JSON).
+if [ -z "$current" ] || ! printf '%s' "$current" | jq -e 'type == "object"' >/dev/null 2>&1; then
+	cat "$base"
+	exit 0
+fi
+
+# ponytail: shallow merge. Only the top-level keys named above survive from disk,
+# plus any permissions.allow entries added out of band. If Claude Code starts
+# writing to some other nested key, add it to runtime_keys.
+printf '%s' "$current" | jq \
+	--slurpfile base "$base" \
+	--argjson runtime_keys "$runtime_keys" '
+	($base[0]) as $b
+	| ($b.permissions.allow // []) as $base_allow
+	| $b
+	+ { permissions: (
+		$b.permissions
+		+ { allow: ($base_allow + ((.permissions.allow // []) - $base_allow)) }
+	) }
+	+ (to_entries | map(select(.key as $k | $runtime_keys | index($k))) | from_entries)
+'

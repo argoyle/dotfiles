@@ -190,7 +190,7 @@
     ]
   },
   "enabledPlugins": {
-    "slack@claude-plugins-official": true,
+    "slack@claude-plugins-official": false,
     "ponytail@ponytail": true
   },
   "effortLevel": "xhigh",
@@ -198,5 +198,18 @@
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-command.sh"
+  },
+  "theme": "dark"
 }

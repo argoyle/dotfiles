@@ -12,3 +12,6 @@ Source/*
 {{- else }}
 Source/Jeppesen
 {{- end }}
+
+# Base content for the .claude/settings.json modify_ script; not deployed itself.
+.claude/settings.base.json
