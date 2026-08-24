@@ -187,6 +187,18 @@
           }
         ]
       }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/tmux-notify.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
