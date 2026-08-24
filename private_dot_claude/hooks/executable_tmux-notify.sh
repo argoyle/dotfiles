@@ -1,5 +1,5 @@
 #!/bin/sh
-# Claude Code hook: send tmux notifications on Stop and Notification events
+# Claude Code hook: send tmux notifications on Stop, StopFailure and Notification events
 # Sends bell to the Claude pane's tty so monitor-bell flags the window
 
 # Only notify if inside a tmux session
@@ -13,7 +13,7 @@ pane_tty=$(tmux display-message -p -t "$TMUX_PANE" '#{pane_tty}')
 event=$(cat | jq -r '.hook_event_name // empty')
 
 case "$event" in
-    Stop|Notification)
+    Stop|StopFailure|Notification)
         printf '\a' > "$pane_tty"
         ;;
 esac
