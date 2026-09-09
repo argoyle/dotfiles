@@ -140,3 +140,12 @@ __k8s_rds_tunnel_complete() {
 }
 
 compdef __k8s_rds_tunnel_complete k8s-rds-tunnel 2>/dev/null
+
+# Scaleway CLI completion
+if type scw > /dev/null 2>&1; then
+  scw() {
+    unfunction scw
+    eval "$(command scw autocomplete script shell=zsh)" 2>/dev/null
+    command scw "$@"
+  }
+fi

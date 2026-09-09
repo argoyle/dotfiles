@@ -19,3 +19,4 @@ prepend_path $HOME/go/bin
 prepend_path $HOME/.bin
 prepend_path /opt/homebrew/opt/helm@3/bin
 append_path $(gem env gemdir)/bin
+prepend_path $HOME/.opencode/bin
