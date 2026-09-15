@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>se.unbound.gobuildcache-trim</string>
+	<!-- gobuildcache (GOCACHEPROG) never evicts its local cache; S3 refills anything removed. -->
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/sh</string>
+		<string>-c</string>
+		<string>d="$(/usr/bin/getconf DARWIN_USER_TEMP_DIR)gobuildcache/cache"; [ -d "$d" ] || exit 0; exec /usr/bin/find "$d" -type f -atime +14 -delete</string>
+	</array>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>3</integer>
+		<key>Minute</key>
+		<integer>0</integer>
+	</dict>
+	<key>ProcessType</key>
+	<string>Background</string>
+</dict>
+</plist>
