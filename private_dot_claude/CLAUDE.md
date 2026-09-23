@@ -28,7 +28,8 @@
 ## Workflow Orchestration
 
 ### Autonomy & Stopping
-- When a step doesn't need my input, keep going. Put status notes in the same message as your next action. Stop and ask only when you can't continue without me, or before anything destructive.
+- When a step doesn't need my input, keep going. Put status notes in the same message as your next action. Stop and ask only when you can't continue without me, or before anything destructive: deleting data, force-pushing, rotating secrets, or changing anything in production or outside the repo(s) the task is about.
+- End every multi-step run with three headings, in this order: **Blocked on me**, **Changed**, **Found**. An empty heading means "none".
 
 ### Plan Mode
 - Enter plan mode for architectural decisions or ambiguous scope — not for mechanical multi-step work with a clear endpoint
