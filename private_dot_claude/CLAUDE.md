@@ -15,6 +15,7 @@
 - Go: always run `gofumpt -w .` on modified Go files before committing
 - Go: when modifying database migrations, always update MigrationExpectations in test mocks
 - Go: use `go mod tidy`, not manual `go.mod`/`go.sum` edits
+- Go: NEVER pipe `go test` output through `head`/`grep` and trust the visible part — FAIL lines print after package logs; capture to a file, check the exit code, grep the file
 - Do ONLY what was asked — do not build, deploy, or run additional steps unless explicitly requested
 - Never fabricate Linear ticket references — always check if one exists first
 - Always verify you are in the correct repository directory before pushing or creating PRs
@@ -26,8 +27,11 @@
 
 ## Workflow Orchestration
 
+### Autonomy & Stopping
+- When a step doesn't need my input, keep going. Put status notes in the same message as your next action. Stop and ask only when you can't continue without me, or before anything destructive.
+
 ### Plan Mode
-- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- Enter plan mode for architectural decisions or ambiguous scope — not for mechanical multi-step work with a clear endpoint
 - If something goes sideways, STOP and re-plan immediately
 - Pour energy into the plan so implementation can be done in one shot
 
@@ -35,6 +39,7 @@
 - Use subagents liberally to keep main context window clean
 - One task per subagent for focused execution
 - After sub-agents modify files, always re-read before making further edits
+- When a subagent reports back, check its evidence before accepting it
 
 ### Self-Improvement Loop
 - After ANY correction from the user: update auto-memory or CLAUDE.md with the pattern
@@ -43,6 +48,7 @@
 - Never mark a task complete without proving it works
 - Before creating PRs: run the full lint and test suite
 - Ask yourself: "Would a staff engineer approve this?"
+- Mark anything you couldn't confirm, and say where you looked
 
 ### Autonomous Bug Fixing
 - When given a bug report: just fix it — don't ask for hand-holding
