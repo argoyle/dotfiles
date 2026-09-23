@@ -27,9 +27,11 @@ Sensitive data is retrieved using chezmoi template functions:
 
 **ProtonPass** (personal secrets — SSH keys, tokens, GPG keys):
 ```
-{{ protonPass "pass://Vault/Item/Field" | trim }}
+{{ includeTemplate "protonPassField" (list "pass://Vault/Item" "Field") | trim }}
 {{ (protonPassJSON "pass://Vault/Item").item.content.note | b64dec }}
 ```
+
+Read fields through `.chezmoitemplates/protonPassField`, not `protonPass "pass://Vault/Item/Field"`. It fetches the item once via `protonPassJSON`, which chezmoi caches for the whole run, so the cost is one `pass-cli` call (~1.2 s) per item instead of one per field.
 
 **1Password** (work/team secrets — Terraform vars, API keys):
 ```

@@ -1,3 +1,3 @@
 {{- $cloudamqp := (protonPassJSON "pass://Unbound Infrastructure/cloudamqp_api_key").item.content.note -}}
 cloudamqp_customer_api_key = "{{ $cloudamqp -}}"
-slack_webhook              = {{ protonPass "pass://Unbound Infrastructure/slack/ops" | trim | quote }}
+slack_webhook              = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "ops") | trim | quote }}

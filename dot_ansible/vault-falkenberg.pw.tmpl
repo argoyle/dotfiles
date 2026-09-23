@@ -1,1 +1,1 @@
-{{ protonPass "pass://Frostmoln shared/Ansible/Falkenberg" | trim }}
+{{ includeTemplate "protonPassField" (list "pass://Frostmoln shared/Ansible" "Falkenberg") | trim }}

@@ -12,15 +12,15 @@
 {{- $dockercfg := (protonPassJSON "pass://PaidIT shared/dockercfg").item.content.note -}}
 {{- $gitlabToken := (protonPassJSON "pass://PaidIT shared/gitlab_token").item.content.note -}}
 cloudamqp_customer_api_key = "{{ $cloudamqp -}}"
-mongodbatlas_private_key   = {{ protonPass "pass://PaidIT shared/Mongo Atlas API Project/privateKey" | trim | quote }}
-mongodbatlas_public_key    = {{ protonPass "pass://PaidIT shared/Mongo Atlas API Project/publicKey" | trim | quote }}
-slack_ops_url              = {{ protonPass "pass://PaidIT shared/slack_webhook_url/ops" | trim | quote }}
+mongodbatlas_private_key   = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/Mongo Atlas API Project" "privateKey") | trim | quote }}
+mongodbatlas_public_key    = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/Mongo Atlas API Project" "publicKey") | trim | quote }}
+slack_ops_url              = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/slack_webhook_url" "ops") | trim | quote }}
 docker_config              = <<EOT
 {{ $dockercfg }}
 EOT
-grafana_cloud_api_key      = {{ protonPass "pass://PaidIT shared/grafana-cloud/grafanaApiKey" | trim | quote }}
-loki_api_key               = {{ protonPass "pass://PaidIT shared/grafana-cloud/lokiApiKey" | trim | quote }}
-prometheus_api_key         = {{ protonPass "pass://PaidIT shared/grafana-cloud/prometheusApiKey" | trim | quote }}
+grafana_cloud_api_key      = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/grafana-cloud" "grafanaApiKey") | trim | quote }}
+loki_api_key               = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/grafana-cloud" "lokiApiKey") | trim | quote }}
+prometheus_api_key         = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/grafana-cloud" "prometheusApiKey") | trim | quote }}
 harbour_secret_prod = {
   API_KEY = "{{ $harbourProd -}}"
 }
@@ -32,14 +32,14 @@ harbour_secret_stage = {
 }
 fortysixelks_password = {{ $elks.password | trim | quote }}
 stripe_prod = {
-  STRIPE_PUBLIC_KEY = {{ protonPass "pass://PaidIT shared/stripe_prod/clientId" | trim | quote }}
-  STRIPE_SECRET_KEY = {{ protonPass "pass://PaidIT shared/stripe_prod/secret" | trim | quote }}
-  WEBHOOK_SECRET    = {{ protonPass "pass://PaidIT shared/stripe_prod/webhookSecret" | trim | quote }}
+  STRIPE_PUBLIC_KEY = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stripe_prod" "clientId") | trim | quote }}
+  STRIPE_SECRET_KEY = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stripe_prod" "secret") | trim | quote }}
+  WEBHOOK_SECRET    = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stripe_prod" "webhookSecret") | trim | quote }}
 }
 stripe_dev = {
-  STRIPE_PUBLIC_KEY = {{ protonPass "pass://PaidIT shared/stripe_dev/clientId" | trim | quote }}
-  STRIPE_SECRET_KEY = {{ protonPass "pass://PaidIT shared/stripe_dev/secret" | trim | quote }}
-  WEBHOOK_SECRET    = {{ protonPass "pass://PaidIT shared/stripe_dev/webhookSecret" | trim | quote }}
+  STRIPE_PUBLIC_KEY = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stripe_dev" "clientId") | trim | quote }}
+  STRIPE_SECRET_KEY = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stripe_dev" "secret") | trim | quote }}
+  WEBHOOK_SECRET    = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stripe_dev" "webhookSecret") | trim | quote }}
 }
 firestore_prod  = <<EOT
 {{ $firestoreProd -}}
@@ -52,30 +52,30 @@ firestore_stage = <<EOT
 EOT
 swedbank_cert_prod = {
   pem   = <<EOT
-{{ protonPass "pass://PaidIT shared/prod-swedbank/publicKey" | trim | replace "^^" "\n" -}}
+{{ includeTemplate "protonPassField" (list "pass://PaidIT shared/prod-swedbank" "publicKey") | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ protonPass "pass://PaidIT shared/prod-swedbank/privateKey" | trim | replace "^^" "\n" -}}
+{{ includeTemplate "protonPassField" (list "pass://PaidIT shared/prod-swedbank" "privateKey") | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ protonPass "pass://PaidIT shared/prod-swedbank/hostname" | trim | quote }}
+  alias = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/prod-swedbank" "hostname") | trim | quote }}
 }
 swedbank_cert_demo = {
   pem   = <<EOT
-{{ protonPass "pass://PaidIT shared/demo-swedbank/publicKey" | trim | replace "^^" "\n" -}}
+{{ includeTemplate "protonPassField" (list "pass://PaidIT shared/demo-swedbank" "publicKey") | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ protonPass "pass://PaidIT shared/demo-swedbank/privateKey" | trim | replace "^^" "\n" -}}
+{{ includeTemplate "protonPassField" (list "pass://PaidIT shared/demo-swedbank" "privateKey") | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ protonPass "pass://PaidIT shared/demo-swedbank/hostname" | trim | quote }}
+  alias = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/demo-swedbank" "hostname") | trim | quote }}
 }
 swedbank_cert_stage = {
   pem   = <<EOT
-{{ protonPass "pass://PaidIT shared/stage-swedbank/publicKey" | trim | replace "^^" "\n" -}}
+{{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stage-swedbank" "publicKey") | trim | replace "^^" "\n" -}}
 EOT
   key   = <<EOT
-{{ protonPass "pass://PaidIT shared/stage-swedbank/privateKey" | trim | replace "^^" "\n" -}}
+{{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stage-swedbank" "privateKey") | trim | replace "^^" "\n" -}}
 EOT
-  alias = {{ protonPass "pass://PaidIT shared/stage-swedbank/hostname" | trim | quote }}
+  alias = {{ includeTemplate "protonPassField" (list "pass://PaidIT shared/stage-swedbank" "hostname") | trim | quote }}
 }
 infrasec_cert_prod = {
   ca         = <<EOT

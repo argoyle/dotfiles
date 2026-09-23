@@ -1,1 +1,1 @@
-gh_token = {{ protonPass "pass://Personal/Intersolia/InfraGithubToken" | trim | quote }}
+gh_token = {{ includeTemplate "protonPassField" (list "pass://Personal/Intersolia" "InfraGithubToken") | trim | quote }}
