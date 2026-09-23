@@ -2,5 +2,5 @@ source_up .envrc
 
 export PATH=${PWD}/.bin:${PATH}
 export KUBECONFIG=$( IFS=:; set -- ${PWD}/.kube/kind*.yaml ${PWD}/.kube/*.yaml; echo "$*" )
-export AZURE_TENANT_ID={{ protonPass "pass://Sensapp shared/azure-credentials/azureTenantId" | trim }}
-export AZURE_CLIENT_ID={{ protonPass "pass://Sensapp shared/azure-credentials/azureClientId" | trim -}}
+export AZURE_TENANT_ID={{ includeTemplate "protonPassField" (list "pass://Sensapp shared/azure-credentials" "azureTenantId") | trim }}
+export AZURE_CLIENT_ID={{ includeTemplate "protonPassField" (list "pass://Sensapp shared/azure-credentials" "azureClientId") | trim -}}

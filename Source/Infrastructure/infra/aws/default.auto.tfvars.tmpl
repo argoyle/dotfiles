@@ -1,45 +1,45 @@
 {{- $dockercfg := (protonPassJSON "pass://Unbound Infrastructure/dockercfg").item.content.note -}}
 slack = {
-  ops          = {{ protonPass "pass://Unbound Infrastructure/slack/ops" | trim | quote }}
-  gitlab_ci    = {{ protonPass "pass://Unbound Infrastructure/slack/gitlabCi" | trim | quote }}
-  dancefinder  = {{ protonPass "pass://Unbound Infrastructure/slack/dancefinder" | trim | quote }}
-  shiny        = {{ protonPass "pass://Unbound Infrastructure/slack/shiny" | trim | quote }}
-  hifi         = {{ protonPass "pass://Unbound Infrastructure/slack/hifi" | trim | quote }}
-  eventsourced = {{ protonPass "pass://Unbound Infrastructure/slack/eventsourced" | trim | quote }}
-  angus        = {{ protonPass "pass://Unbound Infrastructure/slack/angus" | trim | quote }}
+  ops          = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "ops") | trim | quote }}
+  gitlab_ci    = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "gitlabCi") | trim | quote }}
+  dancefinder  = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "dancefinder") | trim | quote }}
+  shiny        = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "shiny") | trim | quote }}
+  hifi         = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "hifi") | trim | quote }}
+  eventsourced = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "eventsourced") | trim | quote }}
+  angus        = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "angus") | trim | quote }}
 }
 docker_config                  = <<EOT
 {{ $dockercfg }}
 EOT
-grafana_cloud_api_key          = {{ protonPass "pass://Unbound Infrastructure/grafana-cloud/terraform" | trim | quote }}
-grafana_oncall_token           = {{ protonPass "pass://Unbound Infrastructure/grafana-cloud/terraformOnCall" | trim | quote }}
+grafana_cloud_api_key          = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/grafana-cloud" "terraform") | trim | quote }}
+grafana_oncall_token           = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/grafana-cloud" "terraformOnCall") | trim | quote }}
 grafana_oncall_username        = "argoyle"
-gitea_admin_password           = {{ protonPass "pass://Unbound Infrastructure/gitea/AdminPassword" | trim | quote }}
-gitea_db_password              = {{ protonPass "pass://Unbound Infrastructure/gitea/DbPassword" | trim | quote }}
-gitea_secret_key               = {{ protonPass "pass://Unbound Infrastructure/gitea/SecretKey" | trim | quote }}
-gitea_internal_token           = {{ protonPass "pass://Unbound Infrastructure/gitea/InternalToken" | trim | quote }}
-gitea_lfs_jwt_secret           = {{ protonPass "pass://Unbound Infrastructure/gitea/LfsJwtSecret" | trim | quote }}
-gitea_oauth2_jwt_secret        = {{ protonPass "pass://Unbound Infrastructure/gitea/OauthJwtSecret" | trim | quote }}
-gitea_runner_token             = {{ protonPass "pass://Unbound Infrastructure/gitea/RunnerToken" | trim | quote }}
-gitea_runner_registry_token    = {{ protonPass "pass://Unbound Infrastructure/gitea/BuildtoolsToken" | trim | quote }}
-renovate_gitea_token           = {{ protonPass "pass://Unbound Infrastructure/gitea/RenovateToken" | trim | quote }}
-gitea_admin_api_token          = {{ protonPass "pass://Unbound Infrastructure/gitea/AdminToken" | trim | quote }}
-gitea_release_token            = {{ protonPass "pass://Unbound Infrastructure/gitea/ReleaseToken" | trim | quote }}
+gitea_admin_password           = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "AdminPassword") | trim | quote }}
+gitea_db_password              = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "DbPassword") | trim | quote }}
+gitea_secret_key               = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SecretKey") | trim | quote }}
+gitea_internal_token           = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "InternalToken") | trim | quote }}
+gitea_lfs_jwt_secret           = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "LfsJwtSecret") | trim | quote }}
+gitea_oauth2_jwt_secret        = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "OauthJwtSecret") | trim | quote }}
+gitea_runner_token             = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "RunnerToken") | trim | quote }}
+gitea_runner_registry_token    = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "BuildtoolsToken") | trim | quote }}
+renovate_gitea_token           = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "RenovateToken") | trim | quote }}
+gitea_admin_api_token          = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "AdminToken") | trim | quote }}
+gitea_release_token            = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "ReleaseToken") | trim | quote }}
 docker_hub_username            = "joakim@unbound.se"
-docker_hub_token               = {{ protonPass "pass://Unbound Infrastructure/k8s/DockerHubToken" | trim | quote }}
+docker_hub_token               = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/k8s" "DockerHubToken") | trim | quote }}
 github_username                = "argoyle"
-github_token                   = {{ protonPass "pass://Unbound Infrastructure/k8s/GithubToken" | trim | quote }}
-gitea_registry_pull_token      = {{ protonPass "pass://Unbound Infrastructure/gitea/GiteaPullToken" | trim | quote }}
-renovate_github_token          = {{ protonPass "pass://Personal/.auths/RenovateGithubToken" | trim | quote }}
+github_token                   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/k8s" "GithubToken") | trim | quote }}
+gitea_registry_pull_token      = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "GiteaPullToken") | trim | quote }}
+renovate_github_token          = {{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "RenovateGithubToken") | trim | quote }}
 gitea_ssh_host_ed25519_key     = <<EOT
-{{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyEDDSA" | trim | b64dec -}}
+{{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyEDDSA") | trim | b64dec -}}
 EOT
-gitea_ssh_host_ed25519_key_pub = {{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyPubEDDSA" | trim | quote }}
+gitea_ssh_host_ed25519_key_pub = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyPubEDDSA") | trim | quote }}
 gitea_ssh_host_rsa_key         = <<EOT
-{{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyRSA" | trim | b64dec -}}
+{{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyRSA") | trim | b64dec -}}
 EOT
-gitea_ssh_host_rsa_key_pub     = {{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyPubRSA" | trim | quote }}
+gitea_ssh_host_rsa_key_pub     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyPubRSA") | trim | quote }}
 gitea_ssh_host_ecdsa_key       = <<EOT
-{{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyECDSA" | trim | b64dec -}}
+{{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyECDSA") | trim | b64dec -}}
 EOT
-gitea_ssh_host_ecdsa_key_pub   = {{ protonPass "pass://Unbound Infrastructure/gitea/SshHostKeyPubECDSA" | trim | quote }}
+gitea_ssh_host_ecdsa_key_pub   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyPubECDSA") | trim | quote }}

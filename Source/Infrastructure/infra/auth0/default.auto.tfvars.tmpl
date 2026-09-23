@@ -1,13 +1,13 @@
 auth0 = {
-  domain        = {{ protonPass "pass://Unbound Infrastructure/auth0/domain" | trim | quote }}
-  client_id     = {{ protonPass "pass://Unbound Infrastructure/auth0/clientId" | trim | quote }}
-  client_secret = {{ protonPass "pass://Unbound Infrastructure/auth0/clientSecret" | trim | quote }}
+  domain        = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/auth0" "domain") | trim | quote }}
+  client_id     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/auth0" "clientId") | trim | quote }}
+  client_secret = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/auth0" "clientSecret") | trim | quote }}
   google = {
-    client_id     = {{ protonPass "pass://Unbound Infrastructure/google/clientId" | trim | quote }}
-    client_secret = {{ protonPass "pass://Unbound Infrastructure/google/clientSecret" | trim | quote }}
+    client_id     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/google" "clientId") | trim | quote }}
+    client_secret = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/google" "clientSecret") | trim | quote }}
   }
   facebook = {
-    client_id     = {{ protonPass "pass://Unbound Infrastructure/facebook/clientId" | trim | quote }}
-    client_secret = {{ protonPass "pass://Unbound Infrastructure/facebook/clientSecret" | trim | quote }}
+    client_id     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/facebook" "clientId") | trim | quote }}
+    client_secret = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/facebook" "clientSecret") | trim | quote }}
   }
 }

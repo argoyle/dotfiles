@@ -4,6 +4,6 @@ export AUTH_URL=http://localhost:4080
 export SERVICE=$(basename "$PWD")
 export URL=http://localhost:${PORT}/query
 export POSTGRES_URL="postgres://postgres:postgres@unbound-control-plane.orb.local:5432/banking?sslmode=disable"
-export BANKING_MASTER_KEY={{ protonPass "pass://Personal/Shiny/BankingMasterKey" | trim }}
-export OPENPAYMENTS_CLIENT_ID={{ protonPass "pass://Personal/Shiny/OpenPaymentsClientId" | trim }}
-export OPENPAYMENTS_CLIENT_SECRET={{ protonPass "pass://Personal/Shiny/OpenPaymentsClientSecret" | trim }}
+export BANKING_MASTER_KEY={{ includeTemplate "protonPassField" (list "pass://Personal/Shiny" "BankingMasterKey") | trim }}
+export OPENPAYMENTS_CLIENT_ID={{ includeTemplate "protonPassField" (list "pass://Personal/Shiny" "OpenPaymentsClientId") | trim }}
+export OPENPAYMENTS_CLIENT_SECRET={{ includeTemplate "protonPassField" (list "pass://Personal/Shiny" "OpenPaymentsClientSecret") | trim }}

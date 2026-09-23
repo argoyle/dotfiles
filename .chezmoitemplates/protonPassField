@@ -1,0 +1,20 @@
+{{- /*
+  protonPassField (list "pass://Vault/Item" "Field") — like protonPass "pass://Vault/Item/Field",
+  but reads the item via protonPassJSON, which chezmoi caches per item for the whole run:
+  one pass-cli call per ITEM instead of one per field (~1.2 s each).
+  Lookup order: extra fields, then section fields (exact name, then case-insensitive),
+  then the item type's own fields ("Private key" -> private_key).
+*/ -}}
+{{- $item := index . 0 -}}{{- $field := index . 1 -}}
+{{- $c := (protonPassJSON $item).item.content -}}
+{{- $fields := default (list) (get $c "extra_fields") -}}
+{{- range $type, $body := $c.content -}}{{- if kindIs "map" $body -}}{{- range (default (list) (get $body "sections")) -}}{{- $fields = concat $fields (default (list) (get . "section_fields")) -}}{{- end -}}{{- end -}}{{- end -}}
+{{- $found := false -}}{{- $val := "" -}}
+{{- range $fields -}}{{- if and (not $found) (eq .name $field) -}}{{- range $k, $v := .content -}}{{- $val = $v -}}{{- end -}}{{- $found = true -}}{{- end -}}{{- end -}}
+{{- range $fields -}}{{- if and (not $found) (eq (lower .name) (lower $field)) -}}{{- range $k, $v := .content -}}{{- $val = $v -}}{{- end -}}{{- $found = true -}}{{- end -}}{{- end -}}
+{{- if not $found -}}
+{{-   $key := $field | lower | replace " " "_" -}}
+{{-   range $type, $body := $c.content -}}{{- if and (not $found) (kindIs "map" $body) (hasKey $body $key) -}}{{- $val = index $body $key -}}{{- $found = true -}}{{- end -}}{{- end -}}
+{{- end -}}
+{{- if not $found -}}{{- fail (printf "protonPassField: no field %q in %s" $field $item) -}}{{- end -}}
+{{- $val -}}

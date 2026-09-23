@@ -1,1 +1,1 @@
-gitlab_token = {{ protonPass "pass://Personal/.auths/GitlabTerraformToken" | trim | quote }}
+gitlab_token = {{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GitlabTerraformToken") | trim | quote }}

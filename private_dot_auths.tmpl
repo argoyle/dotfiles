@@ -1,4 +1,4 @@
-export GITHUB_TOKEN={{ protonPass "pass://Personal/.auths/GithubToken" | trim }}
-export HOMEBREW_GITHUB_API_TOKEN={{ protonPass "pass://Personal/.auths/GithubToken" | trim }}
-export GITLAB_TOKEN={{ protonPass "pass://Personal/.auths/GitlabToken" | trim }}
-export GITEA_TOKEN={{ protonPass "pass://Personal/.auths/GiteaToken" | trim }}
+export GITHUB_TOKEN={{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GithubToken") | trim }}
+export HOMEBREW_GITHUB_API_TOKEN={{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GithubToken") | trim }}
+export GITLAB_TOKEN={{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GitlabToken") | trim }}
+export GITEA_TOKEN={{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GiteaToken") | trim }}

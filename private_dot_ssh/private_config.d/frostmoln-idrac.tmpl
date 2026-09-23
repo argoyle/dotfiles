@@ -1,1 +1,1 @@
-{{ protonPass "pass://Frostmoln shared/iDRAC SSH config/config" | trim }}
+{{ includeTemplate "protonPassField" (list "pass://Frostmoln shared/iDRAC SSH config" "config") | trim }}

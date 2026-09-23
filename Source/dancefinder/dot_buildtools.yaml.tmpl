@@ -2,5 +2,5 @@ registry:
   gitea:
     registry: oci.unbound.se
     username: argoyle
-    token: {{ protonPass "pass://Personal/.auths/GiteaToken" | trim -}}
+    token: {{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GiteaToken") | trim -}}
 

@@ -1,4 +1,4 @@
 machine gitlab.com
 login argoyle
-password {{ protonPass "pass://Personal/.auths/GitlabToken" | trim -}}
+password {{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "GitlabToken") | trim -}}
 

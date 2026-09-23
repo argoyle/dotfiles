@@ -1,4 +1,4 @@
-authtoken: {{ protonPass "pass://Personal/ngrok/token" | trim }}
+authtoken: {{ includeTemplate "protonPassField" (list "pass://Personal/ngrok" "token") | trim }}
 region: eu
 tunnels:
     paidit:
