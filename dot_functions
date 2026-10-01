@@ -290,3 +290,17 @@ k8s-rds-tunnel() {
         --document-name AWS-StartPortForwardingSessionToRemoteHost \
         --parameters "host=$rds_host,portNumber=$remote_port,localPortNumber=$local_port"
 }
+
+# Delete local branches whose upstream is gone, in all Git repositories found in sub-directories.
+# Branches checked out in any worktree (including the current one) are skipped.
+prune() {
+  local repo
+  local -a gone
+  gfind . -type d -name .git ! -path '*/.terraform/*' ! -path '*/.direnv/*' ! -path '*/.external_modules/*' ! -path '*/Old/*' -prune -print0 |
+    while IFS= read -r -d '' repo; do
+      echo "Pruning repository $repo"
+      gone=(${(f)"$(git -C "${repo:h}" for-each-ref refs/heads \
+        --format='%(if)%(worktreepath)%(then)%(else)%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)%(end)')"})
+      (( $#gone )) && git -C "${repo:h}" branch -D -- "${gone[@]}"
+    done
+}

@@ -35,7 +35,6 @@ alias allbranches="gfind . -type d -name .git ! -path '*/.terraform/*' ! -path '
 alias stashes="gfind . -type d -name .git ! -path '*/.terraform/*' ! -path '*/.direnv/*' ! -path '*/Old/*' -printf 'Repository %h: ' -execdir sh -c \"git stash list | paste -d, -s\" \;"
 # Checkout default branch in all Git repositories found in sub-directories
 alias cdb="gfind . -type d -name .git ! -path '*/.terraform/*' ! -path '*/.direnv/*' ! -path '*/Old/*' -printf 'Repository %h:\n' -execdir sh -c \"git checkout \$((git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null || echo 'main') | sed 's@^refs/remotes/origin/@@') > /dev/null 2>&1 || git checkout main > /dev/null 2>&1 || git checkout master > /dev/null 2>&1\" \;"
-alias prune="gfind . -type d -name .git ! -path '*/.terraform/*' ! -path '*/.direnv/*' ! -path '*/Old/*' | xargs -I {} zsh -ic \"echo 'Pruning repository {}' && cd {} && gbl | grep '\[gone\]' | grep -vE '^\*' | sed 's/^\s\+\([^ ]*\).*$/\1/' | xargs -r git branch -d --force \" \;"
 alias format-scala="find src -type d -name scala | xargs scalariform -r -p=.scalariform.conf"
 alias gup="git up"
 alias gcpa="git cherry-pick --abort"
