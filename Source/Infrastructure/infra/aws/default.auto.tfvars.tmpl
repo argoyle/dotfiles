@@ -1,4 +1,3 @@
-{{- $dockercfg := (protonPassJSON "pass://Unbound Infrastructure/dockercfg").item.content.note -}}
 slack = {
   ops          = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "ops") | trim | quote }}
   gitlab_ci    = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "gitlabCi") | trim | quote }}
@@ -8,9 +7,6 @@ slack = {
   eventsourced = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "eventsourced") | trim | quote }}
   angus        = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "angus") | trim | quote }}
 }
-docker_config                  = <<EOT
-{{ $dockercfg }}
-EOT
 grafana_cloud_api_key          = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/grafana-cloud" "terraform") | trim | quote }}
 grafana_oncall_token           = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/grafana-cloud" "terraformOnCall") | trim | quote }}
 grafana_oncall_username        = "argoyle"
@@ -27,8 +23,6 @@ gitea_admin_api_token          = {{ includeTemplate "protonPassField" (list "pas
 gitea_release_token            = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "ReleaseToken") | trim | quote }}
 docker_hub_username            = "joakim@unbound.se"
 docker_hub_token               = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/k8s" "DockerHubToken") | trim | quote }}
-github_username                = "argoyle"
-github_token                   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/k8s" "GithubToken") | trim | quote }}
 gitea_registry_pull_token      = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "GiteaPullToken") | trim | quote }}
 renovate_github_token          = {{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "RenovateGithubToken") | trim | quote }}
 gitea_ssh_host_ed25519_key     = <<EOT
