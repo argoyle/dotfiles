@@ -1,0 +1,2 @@
+access_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "accessKeyId") | trim | quote }}
+secret_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "secretAccessKey") | trim | quote }}

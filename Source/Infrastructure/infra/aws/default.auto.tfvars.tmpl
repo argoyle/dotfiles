@@ -37,3 +37,5 @@ gitea_ssh_host_ecdsa_key       = <<EOT
 {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyECDSA") | trim | b64dec -}}
 EOT
 gitea_ssh_host_ecdsa_key_pub   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyPubECDSA") | trim | quote }}
+frostmoln_state_access_key     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "accessKeyId") | trim | quote }}
+frostmoln_state_secret_key     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "secretAccessKey") | trim | quote }}
