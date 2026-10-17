@@ -105,7 +105,7 @@ Use `but` CLI instead of git. Full reference: `~/.claude/gitbutler-reference.md`
   - **GitHub**: `but pr new <branch> -m "title"` (single line only — `-m` is not repeatable and the shell won't expand `\n`; use `-F <file>` for a body)
   - **GitLab**: `but pr new <branch> -t` (`-t`/`--default` is a boolean flag — it takes no value)
   - **Gitea** (git.unbound.se, git.sm.internal): Gitea REST API via curl
-    - `git.unbound.se` API: `gitea.unbound.se`
+    - `git.unbound.se` API: `https://git.unbound.se/api/v1` (not the `gitea.unbound.se` alias: Gitea builds PR/webhook links from the request host)
     - `git.sm.internal` API: `https://git.sm.internal`
 - **PR management**: `but pr auto-merge`, `but pr set-draft`, `but pr set-ready`
 
