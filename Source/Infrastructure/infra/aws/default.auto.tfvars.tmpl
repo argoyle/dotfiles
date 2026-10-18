@@ -23,7 +23,6 @@ gitea_admin_api_token          = {{ includeTemplate "protonPassField" (list "pas
 gitea_release_token            = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "ReleaseToken") | trim | quote }}
 docker_hub_username            = "joakim@unbound.se"
 docker_hub_token               = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/k8s" "DockerHubToken") | trim | quote }}
-gitea_registry_pull_token      = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "GiteaPullToken") | trim | quote }}
 renovate_github_token          = {{ includeTemplate "protonPassField" (list "pass://Personal/.auths" "RenovateGithubToken") | trim | quote }}
 gitea_ssh_host_ed25519_key     = <<EOT
 {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyEDDSA") | trim | b64dec -}}
@@ -37,5 +36,3 @@ gitea_ssh_host_ecdsa_key       = <<EOT
 {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyECDSA") | trim | b64dec -}}
 EOT
 gitea_ssh_host_ecdsa_key_pub   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SshHostKeyPubECDSA") | trim | quote }}
-frostmoln_state_access_key     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "accessKeyId") | trim | quote }}
-frostmoln_state_secret_key     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "secretAccessKey") | trim | quote }}
