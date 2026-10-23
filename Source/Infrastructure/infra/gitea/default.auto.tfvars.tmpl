@@ -3,6 +3,7 @@ gitlab_token          = {{ includeTemplate "protonPassField" (list "pass://Perso
 anthropic_api_key     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "AnthropicApiKey") | trim | quote }}
 gitea_actions_token   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "GiteaActionsToken") | trim | quote }}
 slack_url             = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "gitea") | trim | quote }}
+zulip_url             = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/Zulip Unbound" "gitea") | trim | quote }}
 aws_access_key_id     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "TerraformKey") | trim | quote }}
 aws_secret_access_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "TerraformSecret") | trim | quote }}
 schemas_api_key       = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SchemasApiKey") | trim | quote }}
@@ -83,3 +84,6 @@ cache:
     url: 724902258495.dkr.ecr.eu-west-1.amazonaws.com/buildcache
 EOF
 }
+
+frostmoln_state_access_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "accessKeyId") | trim | quote }}
+frostmoln_state_secret_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "secretAccessKey") | trim | quote }}
