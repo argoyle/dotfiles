@@ -1,0 +1,24 @@
+#!/bin/sh
+# Rex keeps its UI settings in defaults, not in init.lua.
+# Re-runs when this script or the theme changes. Settings changed in Rex later
+# stay local until copied here.
+# theme hash: {{ include "dot_config/rex/custom-themes.json" | sha256sum }}
+
+domain="${REX_DEFAULTS_DOMAIN:-com.superlogical.rex}"
+
+defaults write "$domain" Workspace.customThemes -data "$(xxd -p "$HOME/.config/rex/custom-themes.json" | tr -d '\n')"
+# Must match the id inside custom-themes.json.
+defaults write "$domain" Workspace.darkThemeID -string "custom-6B04B6E0-8965-45EE-AD16-A313B4389606"
+defaults write "$domain" Workspace.lightThemeID -string "merino-light"
+defaults write "$domain" Workspace.interfaceStyle -string "useTheme"
+defaults write "$domain" Workspace.terminalFontName -string "JetBrains Mono NL"
+defaults write "$domain" Workspace.terminalFontPointSize -float 15
+defaults write "$domain" Workspace.focusFollowsMouse -bool true
+defaults write "$domain" Workspace.terminalCopyOnSelect -bool true
+defaults write "$domain" Workspace.inactivePaneFadeMode -string "both"
+defaults write "$domain" Workspace.tabStyle -string "vertical"
+defaults write "$domain" Workspace.tabIconTintMode -string "off"
+defaults write "$domain" Workspace.sidebarPosition -string "left"
+defaults write "$domain" Workspace.showsActivePaneBorder -bool true
+defaults write "$domain" Workspace.usesStandardInactiveWindowPaneStyles -bool true
+defaults write "$domain" rex.agents.names-sessions -bool true
