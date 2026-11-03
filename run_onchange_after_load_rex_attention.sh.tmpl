@@ -1,0 +1,8 @@
+#!/bin/sh
+# Reload the agent whenever the plist or the script it runs changes.
+# plist hash: {{ include "private_Library/LaunchAgents/se.unbound.rex-attention.plist" | sha256sum }}
+# script hash: {{ include "dot_config/rex/attention.lua" | sha256sum }}
+
+plist="$HOME/Library/LaunchAgents/se.unbound.rex-attention.plist"
+launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null
+launchctl bootstrap "gui/$(id -u)" "$plist"
