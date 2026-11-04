@@ -4,8 +4,6 @@ anthropic_api_key     = {{ includeTemplate "protonPassField" (list "pass://Unbou
 gitea_actions_token   = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "GiteaActionsToken") | trim | quote }}
 slack_url             = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/slack" "gitea") | trim | quote }}
 zulip_url             = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/Zulip Unbound" "gitea") | trim | quote }}
-aws_access_key_id     = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "TerraformKey") | trim | quote }}
-aws_secret_access_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "TerraformSecret") | trim | quote }}
 schemas_api_key       = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "SchemasApiKey") | trim | quote }}
 acctest_token         = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/gitea" "AcctestToken") | trim | quote }}
 # BUILDTOOLS_CONTENT per organization for K8s deployments
