@@ -1,0 +1,4 @@
+# Frostmoln state bucket keys (same as frostmoln/backend.hcl), for reading the
+# aws/ outputs in grafana.tf.
+frostmoln_state_access_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "accessKeyId") | trim | quote }}
+frostmoln_state_secret_key = {{ includeTemplate "protonPassField" (list "pass://Unbound Infrastructure/frostmoln-state" "secretAccessKey") | trim | quote }}
