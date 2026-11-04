@@ -29,9 +29,6 @@ export RABBITMQ_PASSWORD=password
 
 export BASH_ENV=${HOME}/.bashrc
 
-# Go remote build cache (shared with CI) — wrapper handles AWS credentials
-export GOCACHEPROG=$HOME/.bin/gobuildcache-wrapper
-
 # Go private modules (git.sm.internal = Frostmoln, gitea.unbound.se = Unbound)
 export GOPRIVATE="git.sm.internal/*,go.frostmoln.internal/*,gitea.unbound.se/*"
 export GONOSUMCHECK="git.sm.internal/*,go.frostmoln.internal/*,gitea.unbound.se/*"
