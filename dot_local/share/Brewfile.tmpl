@@ -207,7 +207,6 @@ cask "zulip"
 
 {{- if eq .chezmoi.hostname "gwaihir" }}
 brew "angband"
-brew "azure-cli"
 brew "bun"
 brew "geckodriver"
 brew "hugo"
@@ -233,6 +232,7 @@ cask "alacritty"
 cask "android-studio"
 cask "arc"
 cask "audacity"
+cask "azure-cli"
 # Disabled 2026-10-15: running the beta installer (macOS 27 fixes) outside brew;
 # re-enable once a stable release ships them. `brew uninstall --cask` without
 # --zap leaves /Library/Backblaze.bzpkg/bzdata behind.
