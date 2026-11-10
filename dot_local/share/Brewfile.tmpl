@@ -8,6 +8,7 @@ tap "protonpass/tap", trusted: true
 tap "reactiveops/tap", trusted: true
 tap "remind101/formulae", trusted: true
 tap "schpet/tap", trusted: true
+tap "terraform-linters/tap", trusted: true
 tap "tinygo-org/tools", trusted: true
 tap "unboundsoftware/taps", "https://git.unbound.se/unboundsoftware/homebrew-taps", trusted: true
 tap "updatecli/updatecli", trusted: true
@@ -214,7 +215,7 @@ brew "kops"
 brew "mysql-client@8.4", link: true
 brew "opentofu"
 brew "pulumi"
-brew "tflint"
+cask "terraform-linters/tap/tflint"
 brew "robot-framework"
 brew "svtplay-dl"
 brew "buildtool/taps/build-tools"
