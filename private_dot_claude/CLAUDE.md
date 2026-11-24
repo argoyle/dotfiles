@@ -9,6 +9,7 @@
 - Always use the latest versions of dependencies and docker images
 - We don't use docker buildx but build-tools
 - Always create a new branch for new work; never reuse merged branches
+- Push to a feature branch and open PRs autonomously — do NOT ask for permission (correction 2026-10-17); the merge stays with the operator ("PRs are not merges")
 - Always explicitly specify `--context <context>` when running kubectl commands. Check `.buildtools.yaml` or `.envrc` for the expected context. Never rely on the default — it may point to production.
 - Go: always return empty slices (`[]`), never nil slices — nil serializes to JSON `null`
 - Go: always handle errcheck
